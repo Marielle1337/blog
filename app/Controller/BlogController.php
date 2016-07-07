@@ -13,9 +13,9 @@ class BlogController extends Controller
 	public function home()
 	{
 		$manager = new \Manager\BlogManager();
-		$articles = $manager->findAll();
+		$articles = $manager->findAllArticles();
 
-		$this->show('default/home');
+		$this->show('blog/home', ['articles'=>$articles]);
 	}
 
 }
