@@ -1,0 +1,19 @@
+Projet blog (benjamincerbai.com)
+
+L'idée est de refaire entièrement l'interface d'un blog déjà existant (benjamincerbai.com) et recréer une gestion de contenu en interface graphique pour que son auteur puisse l'utiliser facilement.
+Comme son blog est dédié à la création en général, on pourrait y ajouter une galerie de photos présentant ses différents projets. Une galerie de vidéos pourrait être intéressante, et intégrer des API de son instagram et snapchat (je ne sais pas si c'est possible sur ce dernier) pourrait être intéressant, autant à développer que pour les utilisateurs.
+
+L'auteur lui-même aimerait avoir une interface de gestion des mails qui enverrait à tous ses inscrits à la newsletter des nouvelles régulières. Donc création d'un formulaire d'inscription et de désinscription.
+Prévoir une gestion des commentaires, et pourquoi pas un forum.
+
+Il pourrait être agréable aussi de lui faire une section triant toutes ses références et recommandations par type, genre, nom, date, etc. au choix de l'utilisateur.
+De même qu'on pourrait adopter un menu de tri de ses articles se basant sur la même idée. Je l'ai rarement vu sur des blogs et je trouve que ce serait plus agréable d'utilisation de pouvoir retrouver un ancien article selon différents type de critères. Un champ de recherche avancée pourrait être intéressant à intégrer en supplément.
+
+Pour chaque ajout de texte, même en commentaire, prévoir une interface embarquant un module de présentation, du genre Markdown.
+Deux thèmes devraient être disponibles pour chaque utilisateur, connecté ou non, et changer au clic : un mode économie d'énergie avec un fond sombre, et le mode normal avec le fond clair habituel. 
+
+La gestion des différents ajouts se fera en base de données. J'aimerais utiliser un framework du genre de Symfony, mais je pense que le W sera déjà bien pour mes coéquipiers. 
+Et bien sûr, sécuriser tout cela au maximum pour limiter les risques d'injections et autres.
+
+Comme j'ai lu les recommandations pour le projet après avoir écrit tout ceci : il me semble que l'architecture MVC utilise déjà la POO, non ? 
+L'idée globale est là, tout sera à préciser un peu plus avant par la suite. 
