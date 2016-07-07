@@ -12,8 +12,9 @@ class BlogController extends Controller
 	 */
 	public function home()
 	{
-		$manager = new \Manager\BlogManager();
-		$articles = $manager->findAllArticles();
+		$managerArticles = new \Manager\BlogManager();
+		$managerArticles->setTable('articles');
+		$articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit=5);
 
 		$this->show('blog/home', ['articles'=>$articles]);
 	}
