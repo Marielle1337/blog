@@ -20,4 +20,4 @@ $this->layout('layout', ['title' => 'ajouter un article']) ?>
 	<button type="submit" name="add-stay">ajouter un article et rester ici</button>
 
 </form>
-<?php $this->stop('main_content') ?
+<?php $this->stop('main_content') ?>
