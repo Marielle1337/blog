@@ -130,6 +130,8 @@ class BlogController extends Controller
         
         $this->show('blog/add');
 
+    }
+
 
 
     public function delete($id)
@@ -139,7 +141,7 @@ class BlogController extends Controller
         $this->redirectToRoute('list');
     }
 
-    public function category()
+    public function search()
     {
     	
     }
