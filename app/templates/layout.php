@@ -16,11 +16,9 @@
 			<?= $this->section('main_content') ?>
 		</main>
 
-		<?php if($this->section('bottom_links')) : ?>
-            <footer>
-                <?= $this->section('bottom_links') ?>
-            </footer>
-        <?php endif ?>
+        <footer>
+            <?= $this->section('footer') ?>
+        </footer>
 	</div>
 </body>
 </html>

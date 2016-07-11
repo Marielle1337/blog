@@ -1,7 +1,9 @@
 <?php
 	
 	$w_routes = array(
-		['GET',         '/blog',                    'blog#home',        'home'],
-		['GET|POST',    '/blog/add',                'blog#add',         'add'],
-		['GET|POST',    '/blog/delete/[:id]',       'blog#delete',      'delete'],
+		['GET',         '/blog',                    'Blog#home',        'home'],
+                //['GET',         '/blog/',               'Blog#',        ''],
+		['GET|POST',    '/blog/add',                'Blog#add',         'add'],
+		['GET|POST',    '/blog/delete/[:id]',       'Blog#delete',      'delete'],
+		['GET|POST',    '/blog/login',              'User#login',       'login'],
 	);

@@ -19,6 +19,7 @@ class BlogController extends Controller
 		$this->show('blog/home', ['articles'=>$articles]);
 	}
 
+
         //ajouter un article
         
 
@@ -26,7 +27,11 @@ class BlogController extends Controller
         {
             var_dump($_FILES); //etat des lieux mettre en com a la fin ou supprimer la ligne
         // Autorisation
-       
+            if(!empty($_POST)) {
+            foreach($_POST as $key => $value){
+                $_POST[$key] = strip_tags(trim($value));
+            }
+        }
         
         
             // Je verifie si j'ai une soumission de formulaire
@@ -44,7 +49,7 @@ class BlogController extends Controller
                     $errors['content']['empty'] = true;
                 }
                 if(empty($_FILES['picture'])) {
-                    $errors['content']['empty'] = true;
+                    $errors['picture']['empty'] = true;
                 }
 
                 // Ajout en DB
@@ -53,15 +58,16 @@ class BlogController extends Controller
                     $name = $_POST['title'];
                     $dateCreated = $_POST['dateCreated'];
                     $content = $_POST['content'];
-                    $picture = $_FILES['picture']
+                    $picture = $_FILES['picture'];
 
-                    $manager = new \Manager\TaskManager();
-                    $manager->insert([
-                        'title' => $title,
-                        'dateCreated' => $dateCreated,
-                        'content' => $content,
-                        'picture' => $picture,
-                    ]);
+                    $manager = new \Manager\BlogManager();
+                    $data = [
+                        'title' => $_POST['title'],
+                        'dateCreated' => $_POST['dateCreated'],
+                        'content' => $_POST['content'],
+                        'picture'=> $_FILES['picture'],
+                    ];
+                    $manager->insert($data);
 
                     if(isset($_POST['addArticle'])) {
                         // Ajout et redirection
@@ -87,18 +93,13 @@ class BlogController extends Controller
                                 'jpg' => 'image/jpeg',
                                 'png' => 'image/png',
                                 'gif' => 'image/gif',
+                                'mpeg'=> 'video/mpeg',
+                                'mp4' => 'video/mp4',
                             )
                         );
                         if ($extFoundInArray === false) {
                             echo 'Le fichier n\'est pas une image';
                         } else {
-                            // Si on a bien recu l'image, mais qu'elle fait moins de 50x50 px
-                            $size = getimagesize($_FILES['picture']['tmp_name']);
-                            // $size[0] contient la largeur
-                            // $size[1] contient la hauteur
-                            if ($size[0] < 50 || $size[1] < 50) {
-                                $errors['imageTooSmall'] = true;
-                            } else {
 
                                 // Renommer nom du fichier
                                 $fileName = sha1_file($_FILES['picture']['tmp_name']) . time() . '.' . $extFoundInArray;
@@ -106,11 +107,15 @@ class BlogController extends Controller
                                 $moved = move_uploaded_file($_FILES['picture']['tmp_name'], $path);
                                 if (!$moved) {
                                     echo 'Erreur lors de l\'enregistrement';
-                                } else {
+                                } else { 
+                                    //on redimensionne le medias
+                                    
+                                
+                                
                                     // On a bien uploadé le fichier
-                                    addPic($pdo, $_POST['name'], $fileName, $_POST['legend']);
+                                    addPic($pdo, $fileName);
                                 }
-                            } // End Move File
+                            
                         } // End File Is Image
                     } // End Upload Success
                 }
@@ -120,5 +125,13 @@ class BlogController extends Controller
             }
         
         $this->show('blog/add');
-        }
+
+
+
+    public function delete($id)
+    {
+        $manager = new \Manager\TaskManager();
+        $manager->delete($id);
+        $this->redirectToRoute('list');
+    }
 }
