@@ -17,7 +17,21 @@ class BlogController extends Controller
         $articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit = 5);
 
         $this->show('blog/home', ['articles' => $articles]);
+    
+
+        $caterogyManager = new \Manager\BlogManager();
+    	$caterogyManager->setTable('categories');
+    	$categories = $caterogyManager->findAll();
+
+		$this->show('blog/home', ['articles'=>$articles, 'categories'=>$categories]);
+
+		if(isset($_POST['search'])){
+			$searchManager = new\Manager\BlogManager();
+                        $find = $searchManager->searchByKeyWord($keyword = $_POST['toSearch']);
+                        $this->show('blog/search', ['find'=>$find]);
+                }   
     }
+
 
     //ajouter un article
 
@@ -127,12 +141,9 @@ class BlogController extends Controller
                     } // End File Is Image
                 } // End Upload Success
             }
-            // Si j'ai une erreur
-            // J'affiche le template, avec un tableau d'erreurs
-            $this->show('blog/add', ['errors' => $errors]);
-        }
 
         $this->show('blog/add');
+
     }
 
     public function delete($id)
@@ -167,6 +178,7 @@ class BlogController extends Controller
         $articles = $managerArticles -> findAll($orderBy = "dateCreated", $orderDir = "DESC", $limit = 5);
         $this->show('blog/grid', ['articles'=>$articles]);
     }
+
     
     private function resize($file, $string = null, $width = 0, $height = 0, $output = 'file')
     {
@@ -369,3 +381,29 @@ class BlogController extends Controller
     }
 
 }
+
+
+    public function search()
+    {
+    	$searchManager = new\Manager\BlogManager();
+
+    	// if(isset($_POST['advanced_search'])){
+
+    	// 	$find = $searchManager->seach(
+    	// 		if(isset($_POST['name'])){
+    	// 			$name = $_POST['name'];
+    	// 		},
+    	// 		if(isset($_POST['date'])) {
+    	// 			$date = $_POST['date'];
+    	// 		},
+    	// 		if(isset($_POST['content'])){
+    	// 			$content = $_POST['content'];
+    	// 		});
+    	// 	$this->show('blog/search', ['find'=>$find]);
+    	// }
+
+    }
+
+
+}
+
