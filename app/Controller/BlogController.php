@@ -120,7 +120,8 @@ class BlogController extends Controller
                              //resize
                              $resize = $this ->resize($path, null, 80, 80, $path);
                             }
-                            // On a bien uploadé le fichier
+                            
+                            // On upload le fichier
 
                             $data = [
                                 'title' => $title,
@@ -140,10 +141,17 @@ class BlogController extends Controller
                         }
                     } // End File Is Image
                 } // End Upload Success
+            } else {
+
+            // Si j'ai une erreur
+            // J'affiche le template, avec un tableau d'erreurs
+            $this->show('blog/add', ['errors' => $errors]);
             }
 
-        $this->show('blog/add');
-
+        }else{
+            // premier acces a la page
+            $this->show('blog/add');
+        }
     }
 
     public function delete($id)
@@ -383,27 +391,4 @@ class BlogController extends Controller
 }
 
 
-    public function search()
-    {
-    	$searchManager = new\Manager\BlogManager();
-
-    	// if(isset($_POST['advanced_search'])){
-
-    	// 	$find = $searchManager->seach(
-    	// 		if(isset($_POST['name'])){
-    	// 			$name = $_POST['name'];
-    	// 		},
-    	// 		if(isset($_POST['date'])) {
-    	// 			$date = $_POST['date'];
-    	// 		},
-    	// 		if(isset($_POST['content'])){
-    	// 			$content = $_POST['content'];
-    	// 		});
-    	// 	$this->show('blog/search', ['find'=>$find]);
-    	// }
-
-    }
-
-
-}
 
