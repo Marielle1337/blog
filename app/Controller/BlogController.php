@@ -16,7 +16,11 @@ class BlogController extends Controller
 		$managerArticles->setTable('articles');
 		$articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit=5);
 
-		$this->show('blog/home', ['articles'=>$articles]);
+		$caterogyManager = new \Manager\BlogManager();
+    	$caterogyManager->setTable('categories');
+    	$categories = $caterogyManager->findAll();
+
+		$this->show('blog/home', ['articles'=>$articles, 'categories'=>$categories]);
 	}
 
     //ajouter un article  
@@ -83,4 +87,11 @@ class BlogController extends Controller
     {
 
     }
+
+    public function category()
+    {
+    	
+    }
+
+
 }
