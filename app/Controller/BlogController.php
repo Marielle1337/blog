@@ -21,6 +21,12 @@ class BlogController extends Controller
     	$categories = $caterogyManager->findAll();
 
 		$this->show('blog/home', ['articles'=>$articles, 'categories'=>$categories]);
+
+		if(isset($_POST['search'])){
+			$searchManager = new\Manager\BlogManager();
+    		$find = $searchManager->searchByKeyWord($keyword = $_POST['toSearch']);
+    		$this->show('blog/search', ['find'=>$find]);
+    	}
 	}
 
 
@@ -132,8 +138,6 @@ class BlogController extends Controller
 
     }
 
-
-
     public function delete($id)
     {
         $manager = new \Manager\TaskManager();
@@ -143,7 +147,23 @@ class BlogController extends Controller
 
     public function search()
     {
-    	
+    	$searchManager = new\Manager\BlogManager();
+
+    	// if(isset($_POST['advanced_search'])){
+
+    	// 	$find = $searchManager->seach(
+    	// 		if(isset($_POST['name'])){
+    	// 			$name = $_POST['name'];
+    	// 		},
+    	// 		if(isset($_POST['date'])) {
+    	// 			$date = $_POST['date'];
+    	// 		},
+    	// 		if(isset($_POST['content'])){
+    	// 			$content = $_POST['content'];
+    	// 		});
+    	// 	$this->show('blog/search', ['find'=>$find]);
+    	// }
+
     }
 
 

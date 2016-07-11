@@ -7,4 +7,5 @@
 		['GET|POST', '/blog/delete/[:id]', 'Blog#delete', 'delete'],
 		['GET|POST', '/blog/category/[:id]', 'Blog#category', 'category'],
 		['GET|POST',    '/blog/login', 'User#login', 'login'],
+		['GET', '/blog/search', 'Blog#search', 'search'],
 	);

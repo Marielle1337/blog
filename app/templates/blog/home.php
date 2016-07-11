@@ -25,6 +25,7 @@
 	    <input type="text" class="form-control" name="toSearch" placeholder="Recherche">
 	  </div>
 	  <button type="submit" class="btn btn-default" name="search">Chercher</button>
+	  <button type="submit" class="btn btn-default" name="advanced_search">Recherche avancée</button>
 	</form>
 
 <?php $this->stop('nav') ?>
