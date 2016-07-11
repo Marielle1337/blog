@@ -5,18 +5,21 @@ $this->layout('layout', ['title' => 'ajouter un article']) ?>
 <?php $this->start('main_content') ?>
 <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 	<label>
-		<input type="text" name="title" value=" " placeholder="le titre de votre article">
+		<input type="text" name="title"  placeholder="le titre de votre article">
                 <?php if (isset($errors['title']['empty'])): ?>
 		"remplis le titre"
 		<?php endif; ?>
 	</label>
     
 	<label>
-            <input type="file" name="picture" placeholder="l'image de votre article">
+            <input type="file" name="picture" placeholder="le media de votre article">
+                <?php if (isset($errors['title']['empty'])): ?>
+		"choisir un media"
+		<?php endif; ?>
 	</label>
     
          <label>
-                <input type="date" name="dateCreated" value=" " placeholder="">
+                <input type="text" name="dateCreated"  placeholder="yyyy-mm-dd">
                 <?php if (isset($errors['dateCreated']['empty'])): ?>
 		"remplis la date de création"
 		<?php endif; ?>
