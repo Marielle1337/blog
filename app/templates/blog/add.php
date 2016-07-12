@@ -37,5 +37,10 @@ $this->layout('layout', ['title' => 'ajouter un article']) ?>
 
 </form>
 
+<a href="<?= $this->url('liste') ?>" >retour a la liste</a>
+<a href="<?= $this->url('grid') ?>" >retour a la grille</a>
+<a href="<?= $this->url('home') ?>" >retour a la page d'accueil</a>
+<!--<a href="<?= $this->url('user_deconnected') ?>" >deconnexion</a>-->
+
 <?php $this->stop('main_content') ?>
 

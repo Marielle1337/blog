@@ -26,4 +26,10 @@
     </ul>
 </section>
 
+
+<a href="<?= $this->url('add') ?>" >retour a la page d'ajout</a>
+<a href="<?= $this->url('grid') ?>" >retour a la grille</a>
+<a href="<?= $this->url('home') ?>" >retour a la page d'accueil</a>
+<!--<a href="<?= $this->url('user_deconnected') ?>" >deconnexion</a>-->
+
 <?php $this->stop('main_content') ?>

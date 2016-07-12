@@ -30,10 +30,10 @@ class BlogController extends Controller
     }
 
 
-    //ajouter un article
+   
 
 
-    public function add()
+    public function add()// ajouter un article
     {
         //si tu es admin 
         //$this->allowTo('admin');
@@ -152,7 +152,7 @@ class BlogController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete($id)// effacer un article
     {
         //si tu es admin 
         //$this->allowTo('admin');
@@ -163,7 +163,7 @@ class BlogController extends Controller
         $this->redirectToRoute('liste');
     }
     
-    public function liste()
+    public function liste()// liste de tous les articles
     {
         //si tu es admin 
         //$this->allowTo('admin');
@@ -174,7 +174,7 @@ class BlogController extends Controller
         $this->show('blog/liste', ['articles'=>$articles]);
     }
 
-    public function grid()
+    public function grid()//grille des X derniers articles
     {
         //si tu es admin 
         //$this->allowTo('admin');
@@ -185,6 +185,7 @@ class BlogController extends Controller
         $this->show('blog/grid', ['articles'=>$articles]);
     }
 
+    //redimensioner un media
     private function resize($file, $string = null, $width = 0, $height = 0, $proportional = false, $output = 'file', $delete_original = true, $use_linux_commands = false, $quality = 100)
     {
         if ($height <= 0 && $width <= 0)
@@ -385,6 +386,15 @@ class BlogController extends Controller
         return true;
     }
 
+    public function article($id)// page d'affichage de l'article
+    {
+        $managerArticles = new \Manager\BlogManager();
+        $managerArticles->setTable('articles');
+        $articles = $managerArticles -> find($id);
+        $this->show('blog/article', ['articles'=>$articles]);
+    }
+    
+    
 }
 
 
