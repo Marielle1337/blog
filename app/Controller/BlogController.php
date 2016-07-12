@@ -15,18 +15,19 @@ class BlogController extends Controller
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
         $articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit = 5);
-        $this->show('blog/home', ['articles' => $articles]);
+        
         $caterogyManager = new \Manager\BlogManager();
     	$caterogyManager->setTable('categories');
     	$categories = $caterogyManager->findAll();
-
-		$this->show('blog/home', ['articles'=>$articles, 'categories'=>$categories]);
-
-		if(isset($_POST['search'])){
+		
+        if(isset($_GET['search'])){
 			$searchManager = new\Manager\BlogManager();
-                        $find = $searchManager->searchByKeyWord($keyword = $_POST['toSearch']);
-                        $this->show('blog/search', ['find'=>$find]);
-                }   
+            $find = $searchManager->searchByKeyWord($keyword = $_GET['toSearch']);
+            $this->show('blog/search', ['find'=>$find]);
+        }   
+
+        $this->show('blog/home', ['articles'=>$articles, 'categories'=>$categories]);
+
     }
 
 
@@ -383,6 +384,17 @@ class BlogController extends Controller
         }
 
         return true;
+    }
+
+    public function search()
+    {
+        if(isset($_POST['advanced_search'])){
+            $searchManager = new\Manager\BlogManager();
+            $find = $searchManager->search($title = $_POST['title'], $content=$_POST['content'], $dateCreated=$_POST['date']);
+            $this->show('blog/search', ['find'=>$find]);
+        }   
+
+        $this->show('blog/advanced_search');
     }
 
 }
