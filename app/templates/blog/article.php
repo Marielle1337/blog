@@ -3,10 +3,12 @@
 <?php $this->start('main_content') ?>
 
 	<article>
+
 	    <div>
 	        <span><?php echo $articles['dateCreated'] ?></span>
 	    </div>	
 	    <p><?php echo $articles['content'] ?></p>
+
 	</article>
 
 
