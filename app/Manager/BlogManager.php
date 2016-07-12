@@ -17,13 +17,13 @@ class BlogManager extends Manager
 
 		$options = [];
 		if(!empty($title)) {
-			$options[]='title';
+			$options['title']= $title;
 		}
 		if(!empty($content)) {
-			$options[]='content';
+			$options['content']= $content;
 		}
 		if(!empty($dateCreated)) {
-			$options[]='dateCreated';
+			$options['dateCreated']= $dateCreated;
 		}
 
 		$nbOptions = count($options);
@@ -31,8 +31,8 @@ class BlogManager extends Manager
 		if($nbOptions) {
 		    $sql = 'SELECT * FROM articles WHERE ';
 		    $i = 0;
-		    foreach($options as $optionName) {
-		        $sql .= $optionName . ' LIKE "%' . $optionName.'%"';
+		    foreach($options as $optionName => $value) {
+		        $sql .= $optionName . ' LIKE "%' . $value.'%"';
 		        if ($nbOptions > $i + 1) {
 		            $sql .= ' AND ';
 		        }
@@ -41,7 +41,7 @@ class BlogManager extends Manager
 		
 			$stmt = $this->dbh->prepare($sql);
 
-			if(!empty($options['title'])){
+			if(!empty($title)){
 				$stmt->bindParam(':title', $title);
 			}
 			if(!empty($dateCreated)){
@@ -51,6 +51,7 @@ class BlogManager extends Manager
 				$stmt->bindParam(':content', $content);
 			}
 
+			echo $sql;
 			$stmt->execute();
 
 			return $stmt->fetchAll();

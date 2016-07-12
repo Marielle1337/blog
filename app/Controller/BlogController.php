@@ -30,10 +30,6 @@ class BlogController extends Controller
 
     }
 
-
-   
-
-
     public function add()// ajouter un article
     {
         //si tu es admin 
@@ -390,9 +386,9 @@ class BlogController extends Controller
 
     public function search()
     {
-        if(isset($_POST['advanced_search'])){
+        if(isset($_GET['advanced_search'])){
             $searchManager = new\Manager\BlogManager();
-            $find = $searchManager->search($title = $_POST['title'], $content=$_POST['content'], $dateCreated=$_POST['date']);
+            $find = $searchManager->search($title = $_GET['title'], $content=$_GET['content'], $dateCreated=$_GET['date']);
             $this->show('blog/search', ['find'=>$find]);
         }   
 
