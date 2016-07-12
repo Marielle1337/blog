@@ -10,8 +10,10 @@
 	        <span><?php echo $articles['dateCreated'] ?></span>
 	    </div>	
 	    <p><?php echo $articles['content'] ?></p>
-
-                
+            <figure>
+                <img src="/uploads/<?php echo $articles['picture'] ?>" alt="" />
+            </figure>
+            <a href="<?= $this->url('addComment') ?>" >retour a la page d'ajout</a>   
             
 			
 	</article>
