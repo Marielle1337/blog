@@ -12,14 +12,17 @@ class BlogController extends Controller
      */
     public function home()
     {
+        // Liste les articles
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
         $articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit = 5);
         
+        // Liste les catégories
         $caterogyManager = new \Manager\BlogManager();
     	$caterogyManager->setTable('categories');
     	$categories = $caterogyManager->findAll();
 		
+        // Recherche par mot clé
         if(isset($_GET['search'])){
 			$searchManager = new\Manager\BlogManager();
             $find = $searchManager->searchByKeyWord($keyword = $_GET['toSearch']);
@@ -384,7 +387,7 @@ class BlogController extends Controller
     }
 
 
-    public function search()
+    public function search() // Recherche avancée
     {
         if(isset($_GET['advanced_search'])){
             $searchManager = new\Manager\BlogManager();
@@ -401,6 +404,14 @@ class BlogController extends Controller
         $managerArticles->setTable('articles');
         $articles = $managerArticles -> find($id);
         $this->show('blog/article', ['articles'=>$articles]);
+    }
+
+    public function category($id)
+    {
+        $managerArticles = new \Manager\BlogManager();
+        $managerArticles->setTable('articles');
+        $articles = $managerArticles -> category($id);
+        $this->show('blog/category', ['articles'=>$articles]);
     }
     
     
