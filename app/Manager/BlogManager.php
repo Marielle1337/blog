@@ -51,7 +51,6 @@ class BlogManager extends Manager
 				$stmt->bindParam(':content', $content);
 			}
 
-			echo $sql;
 			$stmt->execute();
 
 			return $stmt->fetchAll();

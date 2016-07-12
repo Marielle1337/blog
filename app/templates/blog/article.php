@@ -1,16 +1,16 @@
-<?php $this->layout('layout', ['title' => 'article']) ?>
+<?php $this->layout('layout', ['title' => $articles['title']]) ?>
 
 <?php $this->start('main_content') ?>
 
 
 
 	<article>
-            
-		<h2><?php echo $articles['title'] ?></h2>
-                <div>
-                    <span><?php echo $articles['dateCreated'] ?></span>
-                </div>	
-                <p><?php echo $articles['content'] ?></p>
+
+	    <div>
+	        <span><?php echo $articles['dateCreated'] ?></span>
+	    </div>	
+	    <p><?php echo $articles['content'] ?></p>
+
                 
             
 			
