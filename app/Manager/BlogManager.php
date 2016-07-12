@@ -6,6 +6,12 @@ use \W\Manager\Manager;
 
 class BlogManager extends Manager
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setTable('articles');
+    }
+    
 	public function search($title='', $content='', $dateCreated='')
 	{
 		$options = [
@@ -14,7 +20,6 @@ class BlogManager extends Manager
 		    'dateCreated',
 		];
 		$nbOptions = count($options);
-		​
 		// Si j'ai au moins un champ
 		if($nbOptions) {
 		    $sql = 'SELECT * FROM articles WHERE ';

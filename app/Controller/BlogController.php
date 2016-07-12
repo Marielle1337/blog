@@ -15,10 +15,7 @@ class BlogController extends Controller
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
         $articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit = 5);
-
         $this->show('blog/home', ['articles' => $articles]);
-    
-
         $caterogyManager = new \Manager\BlogManager();
     	$caterogyManager->setTable('categories');
     	$categories = $caterogyManager->findAll();
@@ -127,8 +124,9 @@ class BlogController extends Controller
                                 'title' => $title,
                                 'dateCreated' => $dateCreated,
                                 'content' => $content,
-                                'picture' => $picture,
+                                'picture' => $fileName,
                             ];
+                            
                             $managerArticles->insert($data);
                             
                             if (isset($_POST['addArticle'])) {
@@ -187,8 +185,7 @@ class BlogController extends Controller
         $this->show('blog/grid', ['articles'=>$articles]);
     }
 
-    
-    private function resize($file, $string = null, $width = 0, $height = 0, $output = 'file')
+    private function resize($file, $string = null, $width = 0, $height = 0, $proportional = false, $output = 'file', $delete_original = true, $use_linux_commands = false, $quality = 100)
     {
         if ($height <= 0 && $width <= 0)
             return false;
