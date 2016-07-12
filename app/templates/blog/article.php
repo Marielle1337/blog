@@ -6,11 +6,11 @@
 
 	<article>
             
-		<h2><? echo $articles['title'] ?></h2>
+		<h2><? echo $articles['id']['title'] ?></h2>
                 <div>
-                    <span><? echo $articles['dateCreated'] ?></span>
+                    <span><? echo $articles[$_GET['id']]['dateCreated'] ?></span>
                 </div>	
-                <p><? echo $articles['content'] ?></p>
+                <p><? echo $articles[$_GET['id']]['content'] ?></p>
                 
             
 			

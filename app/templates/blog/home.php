@@ -60,7 +60,7 @@
 			<?php if($i < 2){ ?>
 				<p><?= $articles[$i]['content'] ?></p>
 			<?php } else { ?>
-				<p><?= substr($articles[$i]['content'], 0, 255) ?>... <a href="<?= $this->url('article', array('id' => $articles['id'])) ?>"> Lire la suite </a></p>
+				<p><?= substr($articles[$i]['content'], 0, 255) ?>... <a href="<?= $this->url('article', array('id' => $articles[$i]['id'])) ?>"> Lire la suite </a></p>
 			<?php } ?>
 	</article>
 	<?php } ?>
