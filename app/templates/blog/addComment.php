@@ -1,6 +1,6 @@
 <?php
 
-$this->layout('layout', ['title' => 'ajouter un commentaire']) ?>
+$this->layout('layout', ['title' => $article['title']]) ?>
 
 <?php $this->start('main_content') ?>
 <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">

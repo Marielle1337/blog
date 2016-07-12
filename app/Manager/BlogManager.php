@@ -58,13 +58,23 @@ class BlogManager extends Manager
 
 	}
 
-
 	public function searchByKeyWord($keyword='')
 	{
 		$sql = 'SELECT * FROM articles WHERE title OR content LIKE "%'.$keyword.'%"';
 
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->bindParam(':keyword', $keyword);
+		$stmt->execute();
+
+		return $stmt->fetchAll();
+	}
+
+	public function category($id)
+	{
+		$sql = 'SELECT * FROM articles WHERE idCategory = :id';
+
+		$stmt = $this->dbh->prepare($sql);
+		$stmt->bindParam(':id', $id);
 		$stmt->execute();
 
 		return $stmt->fetchAll();
