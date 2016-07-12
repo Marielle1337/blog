@@ -1,13 +1,13 @@
-<?php $this->layout('layout', ['title' => $articles['title']]) ?>
+<?php $this->layout('layout', ['title' => $article['title']]) ?>
 
 <?php $this->start('main_content') ?>
 
 	<article>
 
 	    <div>
-	        <span><?php echo $articles['dateCreated'] ?></span>
+	        <span><?php echo $article['dateCreated'] ?></span>
 	    </div>	
-	    <p><?php echo $articles['content'] ?></p>
+	    <p><?php echo $article['content'] ?></p>
 
 	</article>
 
@@ -15,6 +15,5 @@
 <!--<a href="<?= $this->url('liste') ?>" >retour a la liste</a>-->
 <!--<a href="<?= $this->url('add') ?>" >retour a la page d'ajout</a>-->
 <a href="<?= $this->url('home') ?>" >retour a la page d'accueil</a>
-<!--<a href="<?= $this->url('user_deconnected') ?>" >deconnexion</a>-->
 
 <?php $this->stop('main_content') ?>

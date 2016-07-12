@@ -402,8 +402,8 @@ class BlogController extends Controller
     {
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
-        $articles = $managerArticles -> find($id);
-        $this->show('blog/article', ['articles'=>$articles]);
+        $article = $managerArticles -> find($id);
+        $this->show('blog/article', ['article'=>$article]);
     }
 
     public function category($id)
