@@ -512,69 +512,6 @@ class BlogController extends Controller
         $this->show('blog/category', ['articles'=>$articles]);
     }
     
-
-//    private function addComment()
-//	{
-//            // Autorisation
-//            if (!empty($_POST)) {
-//                foreach ($_POST as $key => $value) {
-//                $_POST[$key] = strip_tags(trim($value));
-//                }
-//            }
-//            //echo print_r($_SESSION);
-//            //$this->allowTo('admin');
-//
-//            if(isset($_POST['addComment'])) {
-//
-//        	$errors = [];
-//
-//                if(empty($_POST['content'])){
-//            	$errors['content']['empty']=true;
-//                }
-//                if(empty($_POST['author']) || empty($_POST['idUser'])){
-//            	$errors['author']['empty']=true;
-//                }
-//                if (empty($_POST['dateCreated'])) {
-//            	$errors['dateCreated']['empty']=true;
-//                }
-//            
-//                // Si aucune erreur
-//                if(count($errors) == 0) {
-//
-//                    $dateCreated = $_POST['dateCreated'];
-//                    $author = $_POST['author'];
-//                    $content = $_POST['content'];
-//                    $idArticle = $_POST['idArticle'];
-//                    $idUser = $_POST['idUser'];
-//                
-//                    $managerComments = new \Manager\BlogManager();
-//                    $data =[
-//                        'author'=>$author,
-//                        'content'=>$content,
-//                        'dateCreated'=>$dateCreated,
-//                        'idArticle'=>$idArticle,
-//                        'idUser'=>$idUser,
-//                    ];
-//                    $managerComments -> insert($data);
-//           
-//                
-//                } else {
-//                    // Si j'ai des erreurs
-//
-//                    $this->show('blog/article', ['errors' => $errors]);
-//                }
-//            
-//            } else {
-//                // Premier acces a la page
-//                $this->show('blog/article');
-//            }
-//	}
-        
-
-    
-    
-    
-
 }
 
 
