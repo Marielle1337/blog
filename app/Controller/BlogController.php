@@ -486,8 +486,6 @@ class BlogController extends Controller
         $managerArticles->setTable('articles');
         $article = $managerArticles -> find($id);
         
-
-
         $authorManager = new \Manager\BlogManager();
         $authorManager->setTable('users');
         $author = $authorManager->find($article['author']);
@@ -499,7 +497,6 @@ class BlogController extends Controller
         $comments = $this->showComment($article['id']);
         
         $this->show('blog/article', ['article'=>$article, 'author'=>$author, 'comments'=>$comments]);
-
 
     }
 
