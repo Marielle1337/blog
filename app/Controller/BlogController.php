@@ -10,6 +10,27 @@ class BlogController extends Controller
     /**
      * Page d'accueil par défaut
      */
+
+    // public function __construct()
+    // {
+    //     parent::__construct();
+    //     $this->searchBar();
+    // }
+
+    private function searchBar()
+    {
+        if(isset($_GET['search'])){
+            $searchManager = new\Manager\BlogManager();
+            $find = $searchManager->searchByKeyWord($keyword = $_GET['toSearch']);
+            $this->show('blog/search', ['find'=>$find]);
+        }
+    }
+
+    private function categoriesMenu()
+    {
+
+    }
+
     public function home()
     {
         // Liste les articles
@@ -23,11 +44,7 @@ class BlogController extends Controller
     	$categories = $caterogyManager->findAll();
 		
         // Recherche par mot clé
-        if(isset($_GET['search'])){
-			$searchManager = new\Manager\BlogManager();
-            $find = $searchManager->searchByKeyWord($keyword = $_GET['toSearch']);
-            $this->show('blog/search', ['find'=>$find]);
-        }   
+        $this->searchBar(); 
 
         $this->show('blog/home', ['articles'=>$articles, 'categories'=>$categories]);
 
@@ -171,6 +188,7 @@ class BlogController extends Controller
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
         $articles = $managerArticles -> findAll();
+        $this->searchBar();
         $this->show('blog/liste', ['articles'=>$articles]);
     }
 
@@ -182,6 +200,7 @@ class BlogController extends Controller
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
         $articles = $managerArticles -> findAll($orderBy = "dateCreated", $orderDir = "DESC", $limit = 5);
+        $this->searchBar();
         $this->show('blog/grid', ['articles'=>$articles]);
     }
 
@@ -392,9 +411,10 @@ class BlogController extends Controller
         if(isset($_GET['advanced_search'])){
             $searchManager = new\Manager\BlogManager();
             $find = $searchManager->search($title = $_GET['title'], $content=$_GET['content'], $dateCreated=$_GET['date']);
+
             $this->show('blog/search', ['find'=>$find]);
         }   
-
+        $this->searchBar();
         $this->show('blog/advanced_search');
     }
 
@@ -403,7 +423,14 @@ class BlogController extends Controller
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
         $article = $managerArticles -> find($id);
-        $this->show('blog/article', ['article'=>$article]);
+        
+        $authorManager = new \Manager\BlogManager();
+        $authorManager->setTable('users');
+        $author = $authorManager->find($article['author']);
+
+        $this->searchBar();
+        
+        $this->show('blog/article', ['article'=>$article, 'author'=>$author]);
     }
 
     public function category($id)
@@ -411,6 +438,7 @@ class BlogController extends Controller
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
         $articles = $managerArticles -> category($id);
+        $this->searchBar();
         $this->show('blog/category', ['articles'=>$articles]);
     }
     

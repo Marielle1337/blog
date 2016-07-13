@@ -3,6 +3,7 @@
 	$w_routes = array(
 
 		['GET', '/blog', 'Blog#home', 'home'],
+		['GET', '/qui-suis-je', 'User#aboutMe', 'aboutMe'],
 
 		// Affichage en liste ou en grille
         ['GET', '/blog/liste', 'Blog#liste', 'liste'],
@@ -19,5 +20,6 @@
 
 		// Connexion
 		['GET|POST', '/blog/login', 'User#login', 'login'],
+		['GET|POST', '/blog/contact', 'User#contact', 'contact'],
 
 	);
