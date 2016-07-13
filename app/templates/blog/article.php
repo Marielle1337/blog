@@ -53,7 +53,7 @@
 
     <!--        affichage des comm'-->
     <section>
-        <?php print_r($comment) ?>
+        
             <?php foreach($comments as $comment) : ?>
                 <article>
 
