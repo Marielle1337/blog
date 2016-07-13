@@ -4,7 +4,7 @@
 
 	<article>
 	       
-	    <div>Posté le <?php echo $article['dateCreated'] ?>, par <?= $author['login'] ?></div>
+	    <div>Posté le <?php echo date('d/m/Y', strtotime($article['dateCreated'])) ?>, par <?= $author['login'] ?></div>
 	    <p><?php echo $article['content'] ?></p>
 
         <figure>
@@ -15,28 +15,29 @@
 
     <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
     <fieldset> <legend>Ajouter un commentaire</legend>
+
         <input type="hidden" value="<?= $article['id']?>" name="idArticle">
         <input type="hidden" value="<?= $user['login']?>" name="loginUser">
         
         <label>
-                <input type="text" name="author"  placeholder="votre nom">
-                <?php if (isset($errors['author']['empty'])): ?>
-                "remplis le nom"
-                <?php endif; ?>
+            <input type="text" name="author"  placeholder="votre nom">
+            <?php if (isset($errors['author']['empty'])): ?>
+            "remplis le nom"
+            <?php endif; ?>
         </label>
 
         <label>
-                <input type="text" name="dateCreated"  placeholder="yyyy-mm-dd">
-                <?php if (isset($errors['dateCreated']['empty'])): ?>
-                "remplis la date de création"
-                <?php endif; ?>
+            <input type="text" name="dateCreated"  placeholder="yyyy-mm-dd">
+            <?php if (isset($errors['dateCreated']['empty'])): ?>
+            "remplis la date de création"
+            <?php endif; ?>
         </label>
     
         <label>
-                <textarea name="content" >Saisir un texte ici.</textarea>
-                <?php if (isset($errors['content']['empty'])): ?>
-                "remplis le commentaire"
-                <?php endif; ?>
+            <textarea name="content" >Saisir un texte ici.</textarea>
+            <?php if (isset($errors['content']['empty'])): ?>
+            "remplis le commentaire"
+            <?php endif; ?>
         </label>
         </br>
         <button type="submit" name="addComment">ajouter un commentaire</button>

@@ -80,16 +80,19 @@ class BlogController extends Controller
             } 
     }
         
-    private function showComment()// page d'affichage de l'article
+    private function showComment($id)// page d'affichage de l'article
     {
         $managerComments = new \Manager\BlogManager();
         $managerComments->setTable('comments');
-        return $managerComments -> findAll();
+    
+        return $managerComments->comments($id);
     }
 
     private function categoriesMenu()
     {
-
+        $caterogyManager = new \Manager\BlogManager();
+        $caterogyManager->setTable('categories');
+        return $caterogyManager->findAll();
     }
 
     public function home()
@@ -100,9 +103,7 @@ class BlogController extends Controller
         $articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit = 5);
         
         // Liste les catégories
-        $caterogyManager = new \Manager\BlogManager();
-    	$caterogyManager->setTable('categories');
-    	$categories = $caterogyManager->findAll();
+        $categories = $this->categoriesMenu();
 		
         // Recherche par mot clé
         $this->searchBar(); 
@@ -493,7 +494,7 @@ class BlogController extends Controller
 
         $this->addComment();
 
-        $comments = $this->showComment();
+        $comments = $this->showComment($article['id']);
         
         $this->show('blog/article', ['article'=>$article, 'author'=>$author, 'comments'=>$comments]);
 

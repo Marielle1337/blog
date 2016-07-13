@@ -79,4 +79,15 @@ class BlogManager extends Manager
 
 		return $stmt->fetchAll();
 	}
+
+	public function comments($id)
+	{
+		$sql = 'SELECT * FROM comments WHERE idArticle = :id';
+
+		$stmt = $this->dbh->prepare($sql);
+		$stmt->bindParam(':id', $id);
+		$stmt->execute();
+
+		return $stmt->fetchAll();
+	}
 }
