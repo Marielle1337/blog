@@ -26,6 +26,67 @@ class BlogController extends Controller
         }
     }
 
+    private function addComment()
+    {
+            // Autorisation
+            if (!empty($_POST)) {
+                foreach ($_POST as $key => $value) {
+                $_POST[$key] = strip_tags(trim($value));
+                }
+            }
+            //echo print_r($_SESSION);
+            //$this->allowTo('admin');
+
+            if(isset($_POST['addComment'])) {
+
+            $errors = [];
+
+                if(empty($_POST['content'])){
+                $errors['content']['empty']=true;
+                }
+                if(empty($_POST['author']) || empty($_POST['idUser'])){
+                $errors['author']['empty']=true;
+                }
+                if (empty($_POST['dateCreated'])) {
+                $errors['dateCreated']['empty']=true;
+                }
+            
+                // Si aucune erreur
+                if(count($errors) == 0) {
+
+                    $dateCreated = $_POST['dateCreated'];
+                    $author = $_POST['author'];
+                    $content = $_POST['content'];
+                    $idArticle = $_POST['idArticle'];
+                    $idUser = $_POST['idUser'];
+                
+                    $managerArticles = new \Manager\BlogManager();
+                    $data =[
+                        'author'=>$author,
+                        'content'=>$content,
+                        'dateCreated'=>$dateCreated,
+                        'idArticle'=>$idArticle,
+                        'idUser'=>$idUser,
+                    ];
+                    $managerArticles -> insert($data);
+           
+                
+                } else {
+                    // Si j'ai des erreurs
+
+                    $this->show('blog/article', ['errors' => $errors]);
+                }
+            
+            } 
+    }
+        
+    private function showComment()// page d'affichage de l'article
+    {
+        $managerComments = new \Manager\BlogManager();
+        $managerComments->setTable('comments');
+        return $managerComments -> findAll();
+    }
+
     private function categoriesMenu()
     {
 
@@ -429,8 +490,12 @@ class BlogController extends Controller
         $author = $authorManager->find($article['author']);
 
         $this->searchBar();
+
+        $this->addComment();
+
+        $comments = $this->showComment();
         
-        $this->show('blog/article', ['article'=>$article, 'author'=>$author]);
+        $this->show('blog/article', ['article'=>$article, 'author'=>$author, 'comments'=>$comments]);
 
     }
 
@@ -442,74 +507,6 @@ class BlogController extends Controller
         $this->searchBar();
         $this->show('blog/category', ['articles'=>$articles]);
     }
-    
-    public function addComment()
-	{
-            // Autorisation
-            if (!empty($_POST)) {
-                foreach ($_POST as $key => $value) {
-                $_POST[$key] = strip_tags(trim($value));
-                }
-            }
-            //echo print_r($_SESSION);
-            //$this->allowTo('admin');
-
-            if(isset($_POST['addComment'])) {
-
-        	$errors = [];
-
-                if(empty($_POST['content'])){
-            	$errors['content']['empty']=true;
-                }
-                if(empty($_POST['author']) || empty($_POST['idUser'])){
-            	$errors['author']['empty']=true;
-                }
-                if (empty($_POST['dateCreated'])) {
-            	$errors['dateCreated']['empty']=true;
-                }
-            
-                // Si aucune erreur
-                if(count($errors) == 0) {
-
-                    $dateCreated = $_POST['dateCreated'];
-                    $author = $_POST['author'];
-                    $content = $_POST['content'];
-                    $idArticle = $_POST['idArticle'];
-                    $idUser = $_POST['idUser'];
-                
-                    $managerArticles = new \Manager\BlogManager();
-                    $data =[
-                        'author'=>$author,
-                        'content'=>$content,
-                        'dateCreated'=>$dateCreated,
-                        'idArticle'=>$idArticle,
-                        'idUser'=>$idUser,
-                    ];
-                    $managerArticles -> insert($data);
-           
-                
-                } else {
-                    // Si j'ai des erreurs
-
-                    $this->show('blog/article', ['errors' => $errors]);
-                }
-            
-            } else {
-                // Premier acces a la page
-                $this->show('blog/article');
-            }
-	}
-        
-    public function showComment()// page d'affichage de l'article
-    {
-        $managerArticles = new \Manager\BlogManager();
-        $managerArticles->setTable('comments');
-        $article = $managerArticles -> findAll();
-  
-        $this->show('blog/article', ['comment'=>$comment]);
-    }
-    
-    
     
 }
 
