@@ -403,6 +403,7 @@ class BlogController extends Controller
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
         $article = $managerArticles -> find($id);
+  
         $this->show('blog/article', ['article'=>$article]);
     }
 
@@ -414,60 +415,74 @@ class BlogController extends Controller
         $this->show('blog/category', ['articles'=>$articles]);
     }
     
-    
-    
-    
-    // a voir avec le nouveau manager
-    public function addComment()//Page pour les commentaires.
-    {
-        //echo print_r($_SESSION);
-        //$this->allowTo('admin');
+    public function addComment()
+	{
+            // Autorisation
+            if (!empty($_POST)) {
+                foreach ($_POST as $key => $value) {
+                $_POST[$key] = strip_tags(trim($value));
+                }
+            }
+            //echo print_r($_SESSION);
+            //$this->allowTo('admin');
 
-        if(isset($_POST['addComment'])) {
+            if(isset($_POST['addComment'])) {
 
         	$errors = [];
 
-            if(empty($_POST['author'])){
-            	$errors['author']=true;
-            }
-            if(empty($_POST['dateCreated'])){
-            	$errors['dateCreated']=true;
-            }
-            if (empty($_POST['content'])) {
-            	$errors['content']=true;
-            }
-            
-            // Si aucune erreur
-            if(count($errors) == 0) {
-                $dateCreated = $_POST['dateCreated'];
-                $author = $_POST['author'];
-                $content = $_POST['content'];
-                
-                $managerComments = new \Manager\CommentManager();
-                $data =[
-                    'author'=>$author,
-                    'dateCreated'=>$dateCreated,
-                    'content'=>$content,
-                ];
-                $managerComments -> insert($data);
-                //vers page task
-                if (isset($_POST['addComment'])){
-                    $this->redirectToRoute('home');
+                if(empty($_POST['content'])){
+            	$errors['content']['empty']=true;
                 }
-                
-            } else {
-                // Si j'ai des erreurs
-
-                 $this->show('blog/home', ['errors' => $errors]);
-            }
+                if(empty($_POST['author']) || empty($_POST['idUser'])){
+            	$errors['author']['empty']=true;
+                }
+                if (empty($_POST['dateCreated'])) {
+            	$errors['dateCreated']['empty']=true;
+                }
             
-        }
-        else {
-            // Premier acces a la page
+                // Si aucune erreur
+                if(count($errors) == 0) {
 
-            $this->show('blog/home');
-        }
-    } 
+                    $dateCreated = $_POST['dateCreated'];
+                    $author = $_POST['author'];
+                    $content = $_POST['content'];
+                    $idArticle = $_POST['idArticle'];
+                    $idUser = $_POST['idUser'];
+                
+                    $managerArticles = new \Manager\BlogManager();
+                    $data =[
+                        'author'=>$author,
+                        'content'=>$content,
+                        'dateCreated'=>$dateCreated,
+                        'idArticle'=>$idArticle,
+                        'idUser'=>$idUser,
+                    ];
+                    $managerArticles -> insert($data);
+           
+                
+                } else {
+                    // Si j'ai des erreurs
+
+                    $this->show('blog/article', ['errors' => $errors]);
+                }
+            
+            } else {
+                // Premier acces a la page
+                $this->show('blog/article');
+            }
+	}
+        
+    public function showComment()// page d'affichage de l'article
+    {
+        $managerArticles = new \Manager\BlogManager();
+        $managerArticles->setTable('comments');
+        $article = $managerArticles -> findAll();
+  
+        $this->show('blog/article', ['comment'=>$comment]);
+    }
+    
+    
+    
 }
 
 
