@@ -95,4 +95,17 @@ class UserController extends Controller
         $this->show('blog/connection');
     }
 
+    public function contact()
+    {
+        $this->show('blog/contact');
+    }
+
+    public function aboutMe()
+    {
+        $manager = new \Manager\BlogManager();
+        $manager->setTable('whoIAm');
+        $pres = $manager-> findAll();
+        $this->show('blog/aboutMe', ['pres'=>$pres]);
+    }
+
 }
