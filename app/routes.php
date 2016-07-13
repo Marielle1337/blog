@@ -10,10 +10,13 @@
         ['GET', '/blog/grid', 'Blog#grid', 'grid'],
 
         // Gestion des articles
-        ['GET', '/blog/article/[:id]', 'Blog#article', 'article'],
+        ['GET|POST', '/blog/article/[:id]', 'Blog#article', 'article'],
         ['GET|POST', '/blog/add', 'Blog#add', 'add'],
 		['GET|POST', '/blog/delete/[:id]', 'Blog#delete', 'delete'],
 
+        // Gestion des commentaires
+        //['GET|POST', '/blog/addComment', 'Blog#addComment', 'addComment'],
+            
 		// Recherches spécifiques
 		['GET|POST', '/blog/category/[:id]', 'Blog#category', 'category'],
 		['GET', '/blog/search', 'Blog#search', 'search'],
