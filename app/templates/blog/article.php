@@ -15,6 +15,12 @@
 
     <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
     <fieldset> <legend>Ajouter un commentaire</legend>
+<<<<<<< HEAD
+=======
+
+        <input type="hidden" value="<?= $article['id']?>" name="idArticle">
+<!--        <input type="hidden" value="<?= $user['login']?>" name="loginUser">-->
+>>>>>>> 4fc25878315eb87feaea54a066cb33badfb47055
         
         <label>
             <input type="text" name="author"  placeholder="Votre nom">
@@ -24,7 +30,14 @@
         </label>
 
         <label>
+<<<<<<< HEAD
             <input type="mail" name="email"  placeholder="Votre email (facultatif)">
+=======
+            <input type="email" name="email"  placeholder="votre email">
+            <?php if (isset($errors['email']['empty'])): ?>
+            "remplis l'email"
+            <?php endif; ?>
+>>>>>>> 4fc25878315eb87feaea54a066cb33badfb47055
         </label>
     
         <label>
@@ -44,6 +57,15 @@
             <?php foreach($comments as $comment) : ?>
                 <article>
 
+<<<<<<< HEAD
+=======
+                    <div>
+                        <?php echo $comment['email'] ?>
+                    </div>
+                    <div>
+                        <?php echo $comment['author'] ?>
+                    </div>	
+>>>>>>> 4fc25878315eb87feaea54a066cb33badfb47055
                     <p>
                         <div>
                             <?php if (isset($_POST['author'])){

@@ -50,7 +50,6 @@ class BlogController extends Controller
             
                 // Si aucune erreur
                 if(count($errors) == 0) {
-
                     $email = $_POST['email'];
                     $author = $_POST['author'];
                     $content = $_POST['content'];
@@ -64,7 +63,7 @@ class BlogController extends Controller
                         'idArticle'=>$idArticle,
                         //'email'=>$email,
                     ];
-                    $managerArticles -> insert($data);
+                    $managerComments -> insert($data);
            
                 
                 } else {
@@ -76,11 +75,10 @@ class BlogController extends Controller
             } 
     }
         
-    private function showComment($id)// page d'affichage de l'article
+    private function showComment($id)// affichage du commentaire
     {
         $managerComments = new \Manager\BlogManager();
         $managerComments->setTable('comments');
-    
         return $managerComments->comments($id);
     }
 
@@ -89,6 +87,7 @@ class BlogController extends Controller
         $caterogyManager = new \Manager\BlogManager();
         $caterogyManager->setTable('categories');
         return $caterogyManager->findAll();
+
     }
 
     public function home()
@@ -103,7 +102,7 @@ class BlogController extends Controller
 		
         // Recherche par mot clé
         $this->searchBar(); 
-
+        
         $this->show('blog/home', ['articles'=>$articles, 'categories'=>$categories]);
 
     }
@@ -505,6 +504,14 @@ class BlogController extends Controller
         $this->show('blog/category', ['articles'=>$articles]);
     }
     
+
+
+        
+
+    
+    
+    
+
 }
 
 
