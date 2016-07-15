@@ -54,7 +54,7 @@ class BlogController extends Controller
                 // Si aucune erreur
                 if(count($errors) == 0) {
 
-                    $dateCreated = $_POST['email'];
+                    $email = $_POST['email'];
                     $author = $_POST['author'];
                     $content = $_POST['content'];
                     $idArticle = $_POST['idArticle'];
