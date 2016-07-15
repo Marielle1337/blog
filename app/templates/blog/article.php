@@ -15,28 +15,22 @@
 
     <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
     <fieldset> <legend>Ajouter un commentaire</legend>
-
-        <input type="hidden" value="<?= $article['id']?>" name="idArticle">
-        <input type="hidden" value="<?= $user['login']?>" name="loginUser">
         
         <label>
-            <input type="text" name="author"  placeholder="votre nom">
+            <input type="text" name="author"  placeholder="Votre nom">
             <?php if (isset($errors['author']['empty'])): ?>
-            "remplis le nom"
+            Votre nom ou pseudo n'est pas renseigné
             <?php endif; ?>
         </label>
 
         <label>
-            <input type="text" name="dateCreated"  placeholder="yyyy-mm-dd">
-            <?php if (isset($errors['dateCreated']['empty'])): ?>
-            "remplis la date de création"
-            <?php endif; ?>
+            <input type="mail" name="email"  placeholder="Votre email (facultatif)">
         </label>
     
         <label>
-            <textarea name="content" >Saisir un texte ici.</textarea>
+            <textarea name="content" placeholder="Saisir un texte ici."></textarea>
             <?php if (isset($errors['content']['empty'])): ?>
-            "remplis le commentaire"
+            Le commentaire est vide
             <?php endif; ?>
         </label>
         </br>
@@ -50,17 +44,13 @@
             <?php foreach($comments as $comment) : ?>
                 <article>
 
-                    <div>
-                        <?php echo $comment['dateCreated'] ?>
-                    </div>
-                    <div>
-                        <?php if (isset($_POST['author'])){
-                            echo $comment['author'];
-                        }else{
-                            echo $comment['loginUser'];
-                        } ?>
-                    </div>	
                     <p>
+                        <div>
+                            <?php if (isset($_POST['author'])){
+                                echo 'Par '.$comment['author'];
+                            }
+                            echo ', le '. date('d/m/Y', strtotime($comment['dateCreated'])) ?>
+                        </div>  
                         <?php echo $comment['content'] ?>
                     </p>
 

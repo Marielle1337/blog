@@ -26,7 +26,7 @@ class BlogController extends Controller
         }
     }
 
-    private function addComment()
+    private function addComment($id)
     {
             // Autorisation
             if (!empty($_POST)) {
@@ -44,29 +44,25 @@ class BlogController extends Controller
                 if(empty($_POST['content'])){
                 $errors['content']['empty']=true;
                 }
-                if(empty($_POST['author']) || empty($_POST['idUser'])){
+                if(empty($_POST['author'])){
                 $errors['author']['empty']=true;
-                }
-                if (empty($_POST['dateCreated'])) {
-                $errors['dateCreated']['empty']=true;
                 }
             
                 // Si aucune erreur
                 if(count($errors) == 0) {
 
-                    $dateCreated = $_POST['dateCreated'];
+                    $email = $_POST['email'];
                     $author = $_POST['author'];
                     $content = $_POST['content'];
-                    $idArticle = $_POST['idArticle'];
-                    $idUser = $_POST['idUser'];
+                    $idArticle = $id;
                 
                     $managerArticles = new \Manager\BlogManager();
+                    $managerArticles->setTable('comments');
                     $data =[
                         'author'=>$author,
                         'content'=>$content,
-                        'dateCreated'=>$dateCreated,
                         'idArticle'=>$idArticle,
-                        'idUser'=>$idUser,
+                        //'email'=>$email,
                     ];
                     $managerArticles -> insert($data);
            
@@ -74,7 +70,7 @@ class BlogController extends Controller
                 } else {
                     // Si j'ai des erreurs
 
-                    $this->show('blog/article', ['errors' => $errors]);
+                    $this->show('blog/article', ['errors' => $errors, 'article'=>$article, 'author'=>$author, 'comments'=>$comments]);
                 }
             
             } 
@@ -492,7 +488,7 @@ class BlogController extends Controller
 
         $this->searchBar();
 
-        $this->addComment();
+        $this->addComment($article['id']);
 
         $comments = $this->showComment($article['id']);
         
