@@ -48,10 +48,7 @@
 
                     <p>
                         <div>
-                            <?php if (isset($_POST['author'])){
-                                echo 'Par '.$comment['author'];
-                            }
-                            echo ', le '. date('d/m/Y', strtotime($comment['dateCreated'])) ?>
+                            <?= 'Par '.$comment['author'].', le '. date('d/m/Y', strtotime($comment['dateCreated'])) ?>
                         </div>  
                         <?php echo $comment['content'] ?>
                     </p>

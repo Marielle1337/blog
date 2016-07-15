@@ -20,7 +20,8 @@ $this->layout('layout', ['title' => 'Connexion']) ?>
 		</br>
 		<button type="submit" name="connect">Connexion</button>
 	</fieldset>
-
+</form>
+<form action="#" method="POST" accept-charset="utf-8">
 	<fieldset>
 		<legend> Inscription </legend>
 		

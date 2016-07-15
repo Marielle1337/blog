@@ -12,7 +12,7 @@ class UserController extends Controller
 
         $userManager = new \Manager\BlogManager();
         $userManager->setTable('users');
-
+//print_r($_POST);die();
         if(isset($_POST['connect'])) {
             if(empty($_POST['login']) || empty($_POST['password'])) {
                 // Redirection vers le login
@@ -24,11 +24,8 @@ class UserController extends Controller
             $id = $authentificationManager->isValidLoginInfo($_POST['login'], $_POST['password']);
 
             // Erreurs de connexion
-            if(!$foundUser){
+            if(!$id){
                 $errors['user'] = 'Le login ou l\'email n\'existe pas';
-            }
-            if (!password_verify($plainPassword, $foundUser[$app->getConfig('security_password_property')])){
-                $errors['passwordExist'] = 'Le password est incorrect !';
             }
             
             // Si la connexion a reussi
@@ -114,6 +111,39 @@ class UserController extends Controller
         $authentificationManager->logUserOut();
 
         $this->redirectToRoute('home');
+    }
+
+    public function sendMail($destMail, $destName, $title, $content)
+    {
+        $mail = new \PHPMailer();
+
+        $mail->isSMTP();                                        // On va se servir de SMTP
+        $mail->Host = 'smtp.gmail.com';                 // Serveur SMTP
+        $mail->SMTPAuth = true;                                 // Active l'autentification SMTP
+        $mail->Username = 'mail.wf3@gmail.com';                 // SMTP username
+        $mail->Password = 'mailwf3741';                         // SMTP password
+        $mail->SMTPSecure = 'tls';                              // TLS Mode
+        $mail->Port = 587;                                      // Port TCP à utiliser
+
+        $mail->Sender='mailer@monsite.fr';
+        $mail->setFrom('mailer@monsite.fr', 'Benjamin Cerbai', false);
+        $mail->addAddress($destMail, $destName);          // Ajouter un destinataire
+        $mail->addReplyTo('contact@monsite.fr', 'Information');
+        $mail->addCC('cc@example.com');
+        $mail->addBCC('bcc@example.com');
+
+        $mail->isHTML(true);                                     // Set email format to HTML
+
+        $mail->Subject = $title;
+        $mail->Body    = $content;
+        $mail->AltBody = strip_tags($content);
+
+        if(!$mail->send()) {
+            echo 'Le message n\'a pas pu être envoyé';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        } else {
+            echo 'Le message a été envoyé';
+        }
     }
 
 }
