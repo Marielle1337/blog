@@ -108,4 +108,12 @@ class UserController extends Controller
         $this->show('blog/aboutMe', ['pres'=>$pres]);
     }
 
+    public function logout()
+    {
+        $authentificationManager = new \W\Security\AuthentificationManager();
+        $authentificationManager->logUserOut();
+
+        $this->redirectToRoute('home');
+    }
+
 }

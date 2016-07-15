@@ -26,7 +26,7 @@ class BlogController extends Controller
         }
     }
 
-    private function addComment()
+    private function addComment($id)
     {
             // Autorisation
             if (!empty($_POST)) {
@@ -47,26 +47,25 @@ class BlogController extends Controller
                 if(empty($_POST['author'])){
                 $errors['author']['empty']=true;
                 }
-                if (empty($_POST['email'])) {
-                $errors['email']['empty']=true;
-                }
             
                 // Si aucune erreur
                 if(count($errors) == 0) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/templates
                     $email = $_POST['email'];
                     $author = $_POST['author'];
                     $content = $_POST['content'];
-                    $idArticle = $_POST['idArticle'];
-                    
+                    $idArticle = $id;
                 
-                    $managerComments = new \Manager\BlogManager();
+                    $managerArticles = new \Manager\BlogManager();
+                    $managerArticles->setTable('comments');
                     $data =[
                         'author'=>$author,
                         'content'=>$content,
-                        'email'=>$email,
                         'idArticle'=>$idArticle,
-                        
+                        //'email'=>$email,
                     ];
                     $managerComments -> insert($data);
            
@@ -74,7 +73,7 @@ class BlogController extends Controller
                 } else {
                     // Si j'ai des erreurs
 
-                    $this->show('blog/article', ['errors' => $errors]);
+                    $this->show('blog/article', ['errors' => $errors, 'article'=>$article, 'author'=>$author, 'comments'=>$comments]);
                 }
             
             } 
@@ -492,7 +491,7 @@ class BlogController extends Controller
 
         $this->searchBar();
 
-        $this->addComment();
+        $this->addComment($article['id']);
 
         $comments = $this->showComment($article['id']);
         
