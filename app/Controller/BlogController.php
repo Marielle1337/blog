@@ -44,31 +44,31 @@ class BlogController extends Controller
                 if(empty($_POST['content'])){
                 $errors['content']['empty']=true;
                 }
-                if(empty($_POST['author']) || empty($_POST['idUser'])){
+                if(empty($_POST['author'])){
                 $errors['author']['empty']=true;
                 }
-                if (empty($_POST['dateCreated'])) {
-                $errors['dateCreated']['empty']=true;
+                if (empty($_POST['email'])) {
+                $errors['email']['empty']=true;
                 }
             
                 // Si aucune erreur
                 if(count($errors) == 0) {
 
-                    $dateCreated = $_POST['dateCreated'];
+                    $dateCreated = $_POST['email'];
                     $author = $_POST['author'];
                     $content = $_POST['content'];
                     $idArticle = $_POST['idArticle'];
-                    $idUser = $_POST['idUser'];
+                    
                 
-                    $managerArticles = new \Manager\BlogManager();
+                    $managerComments = new \Manager\BlogManager();
                     $data =[
                         'author'=>$author,
                         'content'=>$content,
-                        'dateCreated'=>$dateCreated,
+                        'email'=>$email,
                         'idArticle'=>$idArticle,
-                        'idUser'=>$idUser,
+                        
                     ];
-                    $managerArticles -> insert($data);
+                    $managerComments -> insert($data);
            
                 
                 } else {
@@ -80,11 +80,10 @@ class BlogController extends Controller
             } 
     }
         
-    private function showComment($id)// page d'affichage de l'article
+    private function showComment($id)// affichage du commentaire
     {
         $managerComments = new \Manager\BlogManager();
         $managerComments->setTable('comments');
-    
         return $managerComments->comments($id);
     }
 
@@ -93,6 +92,7 @@ class BlogController extends Controller
         $caterogyManager = new \Manager\BlogManager();
         $caterogyManager->setTable('categories');
         return $caterogyManager->findAll();
+
     }
 
     public function home()
@@ -107,7 +107,7 @@ class BlogController extends Controller
 		
         // Recherche par mot clé
         $this->searchBar(); 
-
+        
         $this->show('blog/home', ['articles'=>$articles, 'categories'=>$categories]);
 
     }
@@ -509,6 +509,14 @@ class BlogController extends Controller
         $this->show('blog/category', ['articles'=>$articles]);
     }
     
+
+
+        
+
+    
+    
+    
+
 }
 
 

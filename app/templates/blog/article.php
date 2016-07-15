@@ -17,7 +17,7 @@
     <fieldset> <legend>Ajouter un commentaire</legend>
 
         <input type="hidden" value="<?= $article['id']?>" name="idArticle">
-        <input type="hidden" value="<?= $user['login']?>" name="loginUser">
+<!--        <input type="hidden" value="<?= $user['login']?>" name="loginUser">-->
         
         <label>
             <input type="text" name="author"  placeholder="votre nom">
@@ -27,9 +27,9 @@
         </label>
 
         <label>
-            <input type="text" name="dateCreated"  placeholder="yyyy-mm-dd">
-            <?php if (isset($errors['dateCreated']['empty'])): ?>
-            "remplis la date de création"
+            <input type="email" name="email"  placeholder="votre email">
+            <?php if (isset($errors['email']['empty'])): ?>
+            "remplis l'email"
             <?php endif; ?>
         </label>
     
@@ -51,14 +51,10 @@
                 <article>
 
                     <div>
-                        <?php echo $comment['dateCreated'] ?>
+                        <?php echo $comment['email'] ?>
                     </div>
                     <div>
-                        <?php if (isset($_POST['author'])){
-                            echo $comment['author'];
-                        }else{
-                            echo $comment['loginUser'];
-                        } ?>
+                        <?php echo $comment['author'] ?>
                     </div>	
                     <p>
                         <?php echo $comment['content'] ?>
