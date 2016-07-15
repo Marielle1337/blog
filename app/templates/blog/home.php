@@ -33,4 +33,10 @@
 			<?php } ?>
 	</article>
 	<?php } ?>
+
+
+<a href="<?= $this->url('archive') ?>" >retour a la page d'archive</a>
 <?php $this->stop('main_content') ?>
+
+
+
