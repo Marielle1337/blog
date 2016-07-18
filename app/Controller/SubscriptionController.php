@@ -23,9 +23,6 @@ class SubscriptionController extends Controller
             if(empty($_POST['email'])){
             	$errors['email']['empty']=true;
             }
-            if(empty($_POST['newsletter'])){
-            	$errors['newsletter']['empty']=true;
-            }
             
             
             // Si aucune erreur
@@ -35,13 +32,9 @@ class SubscriptionController extends Controller
                 
                 
                 $managerSubscription = new \Manager\SubscriptionManager();
-                //$managerSubscription->setTable('subscriptions');
-                $data =[
-                    'email'=>$email,
-                    'newsletter'=>$newsletter,
-                    
-                ];
-                $managerSubscription -> insert($data);
+
+                $managerSubscription -> insert(['email'=>$email]);
+
                 //vers page 
                 if (isset($_POST['subscription'])){
                     //$this->redirectToRoute('subscription');

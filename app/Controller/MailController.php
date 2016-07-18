@@ -39,9 +39,7 @@ class MailController extends Controller
             if(empty($_POST['title'])){
             $errors['title']['empty']=true;
             }
-            if(empty($_POST['sendDate'])){
-            $errors['sendDate']['empty']=true;
-            }
+
 
             // Si aucune erreur
             if(count($errors) == 0) {
@@ -51,27 +49,71 @@ class MailController extends Controller
 
                 $managerNewsletters = new \Manager\MailManager();
                 $managerNewsletters->setTable('newsletters');
-                $data =[
+                $data = [
                     'title'=>$title,
                     'content'=>$content,
-                    'sendDate'=>$sendDate,
-
                 ];
+
+                if(!empty($sendDate)){
+                    $data['sendDate']=$sendDate;
+                }
+
                 $managerNewsletters -> insert($data);
+
+                $newsManager = new \Manager\SubscriptionManager();
+                $news = $newsManager->findAll();
+
+                if($news > 1){
+
+                    foreach ($news as $new) {
+                        $this->sendMail($new['email'], $title, $content);
+                    }
+                }
+
                 $this->redirectToRoute('newsletter');
             } else {
                 // Si j'ai des erreurs
-
-                $this->show('mail/newsletter', ['errors' => $errors, 'title'=>$title, 'sendDate'=>$sendDate, 'content'=>$content]);
+                $this->show('mail/newsletter', ['errors' => $errors, 'title'=>$title, 'sendDate'=>$sendDate, 'content'=>$content, 'news'=>$news]);
             } 
 
         }else{
-        // premier acces a la page
+            // premier acces a la page
             $this->show('mail/newsletter');
         }
         //$this->show('mail/newsletter.php');
     }
-    
-    
+
+    private function sendMail($destMail, $title, $content)
+    {
+        $mail = new \PHPMailer();
+
+        $mail->isSMTP();                                        // On va se servir de SMTP
+        $mail->Host = 'smtp.gmail.com';                 // Serveur SMTP
+        $mail->SMTPAuth = true;                                 // Active l'autentification SMTP
+        $mail->Username = 'mail.wf3@gmail.com';                 // SMTP username
+        $mail->Password = 'mailwf3741';                         // SMTP password
+        $mail->SMTPSecure = 'tls';                              // TLS Mode
+        $mail->Port = 587;                                      // Port TCP à utiliser
+
+        $mail->Sender='mailer@monsite.fr';
+        $mail->setFrom('mailer@monsite.fr', 'Benjamin Cerbai', false);
+        $mail->addAddress($destMail);          // Ajouter un destinataire
+        $mail->addReplyTo('contact@monsite.fr', 'Information');
+        $mail->addCC('cc@example.com');
+        $mail->addBCC('bcc@example.com');
+
+        $mail->isHTML(true);                                     // Set email format to HTML
+
+        $mail->Subject = $title;
+        $mail->Body    = $content;
+        $mail->AltBody = strip_tags($content);
+
+        if(!$mail->send()) {
+            echo 'Le message n\'a pas pu être envoyé';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        } else {
+            echo 'Le message a été envoyé';
+        }
+    }
     
 }

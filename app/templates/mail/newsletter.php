@@ -6,34 +6,28 @@
         <fieldset> <legend>Ajouter une newsletter</legend>
 
             <label>
-                <input type="text" name="title"  placeholder="le titre de votre newsletter">
+                <input type="text" name="title"  placeholder="Titre">
                 <?php if (isset($errors['title']['empty'])): ?>
-                le titre de votre newsletter n'est pas renseigné
+                Titre non renseigné
                 <?php endif; ?>
-            </label>
+            </label> <br/>
 
             <label>
-
-                <input type="text" name="sendDate"  placeholder="la date d'envoie de votre newsletter">
-                <?php if (isset($errors['sendDate']['empty'])): ?>
-                la date d'envoie de votre newsletter n'est pas renseigné
-                <?php endif; ?>
-
-            </label>
+                Si la date d'envoi n'est pas renseignée, la newsletter sera envoyée immédiatement.<br/>
+                <input type="text" name="sendDate"  placeholder="Date d'envoi">
+            </label> <br/>
 
             <label>
-                <textarea name="content" placeholder="Saisir un texte ici."></textarea>
+                <textarea name="content" placeholder="Contenu"></textarea>
                 <?php if (isset($errors['content']['empty'])): ?>
-                Le commentaire est vide
+                Aucun contenu
                 <?php endif; ?>
             </label>
             </br>
-            <button type="submit" name="addNewsletter">envoyer votre newsletter</button>
+            <button type="submit" name="addNewsletter">Envoyer votre newsletter</button>
 
         </fieldset>    
     </form>
-    <a href="<?= $this->url('archive') ?>" >archive</a>
-    <a href="<?= $this->url('home') ?>" >retour a la page d'accueil</a>
  
 
 <?php $this->stop('main_content') ?>

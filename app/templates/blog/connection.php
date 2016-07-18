@@ -49,6 +49,14 @@ $this->layout('layout', ['title' => 'Connexion']) ?>
 	        <?php if(isset($errors['confirm_password'])){ echo $errors['confirm_password']; } ?>
 		</label>
 
+		<label>
+            <input type="checkbox" name="newsletter" value="1">
+            <?php if (isset($errors['newsletter'])): ?>
+            L'abonnement est mal renseigné
+            <?php endif; ?>
+            Je souhaite m'abonner à la newsletter
+        </label>
+
 		</br>
 		<button type="submit" name="signup">S'incrire</button>
 	</fieldset>
