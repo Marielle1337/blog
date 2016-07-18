@@ -557,7 +557,7 @@ class BlogController extends Controller
                 $author = $_POST['newAuthor'];
 
                 $managerArticles = new \Manager\BlogManager();
-                $managerArticles->doEdition($title, $dateCreated, $content, $author, $picture, $id);
+                $article = $managerArticles -> find($id);
                 
 
                 
