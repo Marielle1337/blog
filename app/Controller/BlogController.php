@@ -615,7 +615,7 @@ class BlogController extends Controller
                                 'newAuthor' => $author,
                             ];
                             
-                            $managerArticles->insert($data);
+                            $managerArticles->update($data, $id);
                             
                             if (isset($_POST['editArticle'])) {
                                 // Ajout et redirection
