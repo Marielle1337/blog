@@ -35,6 +35,7 @@ class SubscriptionController extends Controller
                 
                 
                 $managerSubscription = new \Manager\SubscriptionManager();
+                //$managerSubscription->setTable('subscriptions');
                 $data =[
                     'email'=>$email,
                     'newsletter'=>$newsletter,
@@ -43,22 +44,21 @@ class SubscriptionController extends Controller
                 $managerSubscription -> insert($data);
                 //vers page 
                 if (isset($_POST['subscription'])){
-                    $this->redirectToRoute('subscription');
+                    //$this->redirectToRoute('subscription');
                 }
 
                 
             } else {
                 // Si j'ai des erreurs
 
-                 $this->show('subscription/subscription', ['errors' => $errors]);
+                 $this->show('mail/subscription', ['errors' => $errors]);
             }
             
         }
         else {
             // Premier acces a la page
 
-
-            $this->show('subscription/subscription');
+            $this->show('mail/subscription');
         }
     }
     

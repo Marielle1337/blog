@@ -14,7 +14,7 @@
 
             <label>
 
-                <input type="radio" name="newsletter"  placeholder="abonne toi">
+                <input type="radio" name="newsletter"  placeholder="">
                 <?php if (isset($errors['newsletter']['empty'])): ?>
                 l'abonnement n'est pas renseigné
                 <?php endif; ?>

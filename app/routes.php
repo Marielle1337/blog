@@ -29,7 +29,7 @@
 
         // NewsLetter
 		['GET|POST', '/mail/newsletter', 'Mail#newsletters', 'newsletter'],
-        ['GET|POST', '/subscription/subscription', 'Subscription#subscriptions', 'subscription'],
+        ['POST', 'mail/subscription', 'Subscription#subscriptions', 'subscription'],
         ['GET', '/mail/archive', 'Mail#archive', 'archive'],
 
 	);
