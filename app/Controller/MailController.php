@@ -18,7 +18,7 @@ class MailController extends Controller
         $this->show('mail/archive', ['newsletters'=>$newsletters]);
     }
     
-    public function newsletters()// 
+    public function newsletters()// ajout d'une newsletter
     {
         // Autorisation
         if (!empty($_POST)) {
@@ -71,5 +71,7 @@ class MailController extends Controller
         }
         //$this->show('mail/newsletter.php');
     }
+    
+    
     
 }
