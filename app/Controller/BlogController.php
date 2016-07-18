@@ -504,7 +504,17 @@ class BlogController extends Controller
         $this->show('blog/category', ['articles'=>$articles]);
     }
     
-
+    public function archive()//liste de toute les newsletters 
+    {
+        //si tu es admin 
+        //$this->allowTo('admin');
+        
+        $managerNewsletters = new \Manager\BlogManager();
+        $managerNewsletters->setTable('newsletters');
+        $newsletters = $managerNewsletters -> findAll($orderBy = "sendDate", $orderDir = "DESC");
+        $this->searchBar();// je te garde quand meme ta searchbar ???
+        $this->show('mail/archive', ['newsletters'=>$newsletters]);
+    }
 
         
 

@@ -26,7 +26,10 @@
 		['GET|POST', '/blog/logout', 'User#logout', 'logout'],
 		['GET|POST', '/blog/contact', 'User#contact', 'contact'],
 
-		// Newsletter
-		
+
+        // NewsLetter
+		['GET|POST', '/mail/newsletter', 'Mail#newsletters', 'newsletter'],
+        ['GET|POST', '/subscription/subscription', 'Subscription#subscriptions', 'subscription'],
+        ['GET', '/mail/archive', 'Mail#archive', 'archive'],
 
 	);
