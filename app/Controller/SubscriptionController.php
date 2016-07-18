@@ -29,11 +29,12 @@ class SubscriptionController extends Controller
                 $email = $_POST['email'];
                 
                 $managerSubscription = new \Manager\SubscriptionManager();
+
                 $managerSubscription -> insert(['email'=>$email]);
-                
+
                 //vers page 
                 if (isset($_POST['subscription'])){
-                    $this->redirectToRoute('subscription');
+                    //$this->redirectToRoute('subscription');
                 }
 
                 
@@ -45,7 +46,6 @@ class SubscriptionController extends Controller
         }
         else {
             // Premier acces a la page
-
 
             $this->show('mail/subscription');
         }
