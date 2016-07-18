@@ -41,19 +41,16 @@ class SubscriptionController extends Controller
                     
                 ];
                 $managerSubscription -> insert($data);
-                //vers page task
-                if (isset($_POST['add'])){
-                    $this->redirectToRoute('liste');
+                //vers page 
+                if (isset($_POST['subscription'])){
+                    $this->redirectToRoute('subscription');
                 }
-                // rester sur la page 
-                if (isset($_POST['add-stay'])){
-                    $this->redirectToRoute('add');
-                }
+
                 
             } else {
                 // Si j'ai des erreurs
 
-                 $this->show('task/add.php', ['errors' => $errors]);
+                 $this->show('subscription/subscription', ['errors' => $errors]);
             }
             
         }
@@ -61,7 +58,7 @@ class SubscriptionController extends Controller
             // Premier acces a la page
 
 
-            $this->show('task/add.php');
+            $this->show('subscription/subscription');
         }
     }
     
