@@ -1,0 +1,29 @@
+header nav .navbar .navbar-inverse .navbar-static-top {
+	position: fixed;
+	width: 100%;
+}
+
+aside {
+	float: right;
+	width: 20%;
+	height: 100%
+}
+
+aside form, aside nav {
+	/*position: fixed;*/
+	padding: 40px;
+}
+
+aside form::after, aside nav::after, aside::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+main {
+	width: 80%;
+}
+
+p {
+	text-align: justify;
+}
