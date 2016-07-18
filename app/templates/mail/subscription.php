@@ -1,24 +1,21 @@
-<?php $this->layout('layout', ['title' => 'Abonnement a la newsletter']) ?>
+<?php $this->layout('layout', ['title' => 'S\'inscrire à la newsletter']) ?>
 
 <?php $this->start('main_content') ?>
 
     <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
-        <fieldset> <legend>Abonnement à la newsletter</legend>
+        <fieldset>
 
             <label>
-                <input type="email" name="email"  placeholder="email">
+                <input type="email" name="email"  placeholder="Votre adresse mail">
                 <?php if (isset($errors['email']['empty'])): ?>
-                l'email n'est pas renseigné
+                Aucun email n'est renseigné
                 <?php endif; ?>
             </label>
 
             </br>
-            <button type="submit" name="subscription">envoyer votre inscription à la newsletter</button>
+            <button type="submit" name="subscription">Je m'inscris à la newsletter</button>
 
         </fieldset>    
-    </form>
-    
-    <a href="<?= $this->url('home') ?>" >retour a la page d'accueil</a>
- 
+    </form> 
 
 <?php $this->stop('main_content') ?>

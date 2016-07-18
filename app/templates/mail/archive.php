@@ -12,26 +12,17 @@
     <ul>
         <?php foreach($newsletters as $newsletter) : ?>
         <li class="task">
-            <a href="#">
-                <div class="name">
-                    <?= $newsletter['title'] ?>
-                </div>
-                <div class="date">
-                    <?= date('d/m', strtotime($newsletter['sendDate'])) ?>
-                </div>
-                <div class="name">
-                    <?= $newsletter['content'] ?>
-                </div>
-            </a>
+            <?= $newsletter['title'] ?>,
+            <?= date('d/m/Y', strtotime($newsletter['sendDate'])) ?> : 
+            
+            <?= $newsletter['content'] ?>
+
+            <a href="<?= $this->url('editNewsletter', ['id'=>$newsletter['id']])?>"> Modifier la newsletter </a>
             
         </li>
         <?php endforeach; ?>
     </ul>
 </section>
-
-
-
-<a href="<?= $this->url('home') ?>" >retour a la page d'accueil</a>
 
 
 <?php $this->stop('main_content') ?>

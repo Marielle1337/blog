@@ -115,5 +115,28 @@ class MailController extends Controller
             echo 'Le message a été envoyé';
         }
     }
+
+    public function edit($id)
+    {
+        $manager = new \Manager\MailManager();
+        $newsletter = $manager->find($id);
+
+        if(isset($_POST['addNewsletter'])){
+            
+            $data = [
+                'title'=>$_POST['title'],
+                'content'=>$_POST['content']
+            ];
+
+            if(!empty($_POST['sendDate'])){
+                $data['sendDate']=date('Y-m-d', strtotime($_POST['sendDate']));
+            }
+
+            $manager->update($data, $id);
+        }
+
+
+        $this->show('mail/editNewsletter', ['newsletter'=>$newsletter]);
+    }
     
 }

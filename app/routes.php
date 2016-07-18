@@ -31,5 +31,6 @@
 		['GET|POST', '/mail/newsletter', 'Mail#newsletters', 'newsletter'],
         ['GET|POST', '/subscription', 'Subscription#subscriptions', 'subscription'],
         ['GET', '/mail/archive', 'Mail#archive', 'archive'],
+        ['GET|POST', '/mail/editNewsletter/[:id]', 'Mail#edit', 'editNewsletter'],
 
 	);
