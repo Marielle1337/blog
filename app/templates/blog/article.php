@@ -13,6 +13,7 @@
 
 	</article>
 
+<!--  Ajouter des commentaires -->
     <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
     <fieldset> <legend>Ajouter un commentaire</legend>
         

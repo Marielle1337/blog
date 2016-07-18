@@ -13,7 +13,7 @@ $this->layout('layout', ['title' => 'ajouter un article']) ?>
     
 	<label>
             <input type="file" name="picture" placeholder="le media de votre article">
-                <?php if (isset($errors['title']['empty'])): ?>
+                <?php if (isset($errors['picture']['empty'])): ?>
 		"choisir un media"
 		<?php endif; ?>
 	</label>
@@ -29,6 +29,13 @@ $this->layout('layout', ['title' => 'ajouter un article']) ?>
                 <textarea name="content" >Saisir un texte ici.</textarea>
                 <?php if (isset($errors['content']['empty'])): ?>
 		"remplis le commentaire"
+		<?php endif; ?>
+	</label>
+    
+    	<label>
+		<input type="text" name="author"  placeholder="l'auteur de votre article">
+                <?php if (isset($errors['author']['empty'])): ?>
+		"remplis l'auteur"
 		<?php endif; ?>
 	</label>
 	</br>
