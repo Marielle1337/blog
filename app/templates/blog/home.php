@@ -4,7 +4,6 @@
 
 	<form action="#" method="POST" accept-charset="utf-8">			
 
-		<button type="submit" name="connexion">Connexion</button>
 		<button type="submit" name="theme1">Thème principal</button>
 		<button type="submit" name="theme2">Thème éco</button>
 		<button type="submit" name="newsletter">Newsletter</button>

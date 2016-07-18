@@ -26,4 +26,7 @@
 		['GET|POST', '/blog/logout', 'User#logout', 'logout'],
 		['GET|POST', '/blog/contact', 'User#contact', 'contact'],
 
+		// Newsletter
+		
+
 	);
