@@ -22,6 +22,7 @@
             <a href="<?= $this->url('delete', ['id' => $article['id']]) ?>" class="delete">
                 <div>Supprimer</div>
             </a>
+            <a href="<?= $this->url('editArticle', ['id'=>$article['id']]) ?>" >modifier l'article</a>
         </li>
         <?php endforeach; ?>
     </ul>

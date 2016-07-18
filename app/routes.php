@@ -13,6 +13,7 @@
         ['GET|POST', '/blog/article/[:id]', 'Blog#article', 'article'],
         ['GET|POST', '/blog/add', 'Blog#add', 'add'],
 		['GET|POST', '/blog/delete/[:id]', 'Blog#delete', 'delete'],
+        ['GET|POST', '/blog/editArticle/[:id]', 'Blog#editArticle', 'editArticle'],
 
         // Gestion des commentaires
         //['GET|POST', '/blog/addComment', 'Blog#addComment', 'addComment'],

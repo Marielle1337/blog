@@ -90,4 +90,12 @@ class BlogManager extends Manager
 
 		return $stmt->fetchAll();
 	}
+        
+        public function doEdition($title, $author, $dateCreated, $content, $picture, $id){
+        $pdo = $this->dbh;
+        $sql = "UPDATE articles 
+                SET title='$newTitle',picture='$newPicture',content='$newContent',dateCreated='$newDateCreated',author='$newAthor'
+                WHERE id = '$id'";
+        $pdo->exec($sql);
+        }
 }
