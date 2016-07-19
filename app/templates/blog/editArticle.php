@@ -18,7 +18,7 @@
 		<?php endif; ?>
 	</label>
     
-    <label>
+        <label>
 		<input type="text" name="dateCreated" value="<?= date('d/m/Y', strtotime($article['dateCreated'])) ?>">
 		<?php if (isset($errors['dateCreated']['empty'])): ?>
 		remplis la nouvelle date
@@ -26,20 +26,20 @@
 	</label>
     
 	<label>
-        <textarea name="content" class="admin" ><?= $article['content'] ?></textarea>
-        <?php if (isset($errors['content']['empty'])): ?>
-		Contenu inexistant
+                <textarea name="content" class="admin" ><?= $article['content'] ?></textarea>
+                <?php if (isset($errors['content']['empty'])): ?>
+                    Contenu inexistant
 		<?php endif; ?>
 	</label>
     
         <label>
-            <figure>
-                <img src="/uploads/<?php echo $article['picture'] ?>" alt="" />
-            </figure>
-            <input type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
-            <?php if (isset($errors['picture']['empty'])): ?>
-		Bannière inexistante
-            <?php endif; ?>
+                <figure>
+                    <img src="/uploads/<?php echo $article['picture'] ?>" alt="" />
+                </figure>
+                <input type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
+                <?php if (isset($errors['picture']['empty'])): ?>
+                    Bannière inexistante
+                <?php endif; ?>
 	</label>
             
     <button type="submit" name="editArticle">validé votre modification</button>

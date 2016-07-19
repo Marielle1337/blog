@@ -528,7 +528,7 @@ class BlogController extends Controller
             $data = [
                 'title'=>$_POST['title'],
                 'content'=>$_POST['content'],
-                'author'=>$_POST['author'],
+                //'author'=>$_POST['author'],
                 'dateCreated'=>date("Y-m-d"),
             ];
 
