@@ -55,8 +55,8 @@ class BlogController extends Controller
                     $content = $_POST['content'];
                     $idArticle = $id;
                 
-                    $managerArticles = new \Manager\BlogManager();
-                    $managerArticles->setTable('comments');
+                    $managerComments = new \Manager\BlogManager();
+                    $managerComments->setTable('comments');
                     $data =[
                         'author'=>$author,
                         'content'=>$content,

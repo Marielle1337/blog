@@ -11,13 +11,6 @@
 		<?php endif; ?>
 	</label>
     
-    	<label>
-		<input type="text" name="author" value="<?= $article['author'] ?>">
-		<?php if (isset($errors['author']['empty'])): ?>
-		Auteur non renseigné
-		<?php endif; ?>
-	</label>
-    
         <label>
 		<input type="text" name="dateCreated" value="<?= date('d/m/Y', strtotime($article['dateCreated'])) ?>">
 		<?php if (isset($errors['dateCreated']['empty'])): ?>
