@@ -529,18 +529,16 @@ class BlogController extends Controller
                 'title'=>$_POST['title'],
                 'content'=>$_POST['content'],
                 'author'=>$_POST['author'],
-                'picture'=>$_POST['picture'],
             ];
 
             if(!empty($_POST['dateCreated'])){
                 $data['dateCreated']=date('Y-m-d', strtotime($_POST['dateCreated']));
             }
             
-            
             // traitement du medias
             // Vérifier si le téléchargement du fichier n'a pas été interrompu
             if ($_FILES['picture']['error'] != UPLOAD_ERR_OK) {
-                echo 'Erreur lors du téléchargement.';
+                echo 'Erreur lors du téléchargement.' . $_FILES['picture']['error'];
             } else {
                 // Objet FileInfo
                 $finfo = new \finfo(FILEINFO_MIME_TYPE);
@@ -576,11 +574,18 @@ class BlogController extends Controller
                             //resize
                             $resize = $this ->resize($path, null, 80, 80, $path);
                         }
+                        
+                        // suppression ancienne
+                        unlink(__DIR__ . '/../../uploads/' . $article['picture']);
+                        
+                        // maj db
+                        $data['picture']=$fileName;
                     }               
                 }
             }
 
             $manager->update($data, $id);
+            $this->redirectToRoute('editArticle',['id'=>$id]);
         }
 
 

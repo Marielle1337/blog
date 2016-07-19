@@ -2,7 +2,7 @@
 
 <?php $this->start('main_content') ?>
 <?php //print_r($articles); ?>
-<form action="#" method="POST" accept-charset="utf-8">
+<form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 
 	<label>
 		<input type="text" name="newTitle" value="<?= $articles['title'] ?>">
@@ -38,7 +38,6 @@
 		Bannière inexistante
 		<?php endif; ?>
 	</label>
-
             
     <button type="submit" name="editArticle">validé votre modification</button>
         
