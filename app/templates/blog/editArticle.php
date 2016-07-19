@@ -1,8 +1,9 @@
 <?php $this->layout('layout', ['title' => 'modification de votre article']) ?>
 
 <?php $this->start('main_content') ?>
-<?php //print_r($errors); ?>
+<?php //print_r($articles); ?>
 <form action="#" method="POST" accept-charset="utf-8">
+
 	<label>
 		<input type="text" name="newTitle" value="<?= $articles['title'] ?>">
 		<?php if (isset($errors['newTitle']['empty'])): ?>
@@ -38,7 +39,9 @@
 		<?php endif; ?>
 	</label>
 
-	<button type="submit" name="newSubmit">validé votre modification</button>
+            
+    <button type="submit" name="editArticle">validé votre modification</button>
+        
 
 </form>
 <a href="<?= $this->url('liste') ?>" >retour a la liste des articles</a>

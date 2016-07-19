@@ -518,123 +518,73 @@ class BlogController extends Controller
         $this->show('mail/archive', ['newsletters'=>$newsletters]);
     }
 
-    public function editArticle($id)// ajouter un article
+    public function editArticle($id)
     {
-        //si tu es admin 
-        //$this->allowTo('admin');
+        $manager = new \Manager\BlogManager();
+        $article = $manager->find($id);
 
-        //var_dump($_FILES); etat des lieux mettre en com a la fin ou supprimer la ligne
-        // Autorisation
-        if (!empty($_POST)) {
-            foreach ($_POST as $key => $value) {
-                $_POST[$key] = strip_tags(trim($value));
+        if(isset($_POST['editArticle'])){
+            
+            $data = [
+                'title'=>$_POST['title'],
+                'content'=>$_POST['content'],
+                'author'=>$_POST['author'],
+                'picture'=>$_POST['picture'],
+            ];
+
+            if(!empty($_POST['dateCreated'])){
+                $data['dateCreated']=date('Y-m-d', strtotime($_POST['dateCreated']));
             }
-        }
+            
+            
+            // traitement du medias
+            // Vérifier si le téléchargement du fichier n'a pas été interrompu
+            if ($_FILES['picture']['error'] != UPLOAD_ERR_OK) {
+                echo 'Erreur lors du téléchargement.';
+            } else {
+                // Objet FileInfo
+                $finfo = new \finfo(FILEINFO_MIME_TYPE);
 
+                // Récupération du Mime
+                $mimeType = $finfo->file($_FILES['picture']['tmp_name']);
 
-        // Je verifie si j'ai une soumission de formulaire
-        if (isset($_POST['editArticle'])) {
-            $errors = [];
-
-            // Verifications
-            if (empty($_POST['newTitle'])) {
-                $errors['newTitle']['empty'] = true;
-            }
-            if (empty($_POST['newDateCreated'])) {
-                $errors['newDateCreated']['empty'] = true;
-            }
-            if (empty($_FILES['newPicture'])) {
-                $errors['newPicture']['empty'] = true;
-            }
-
-            // Ajout en DB
-            if (count($errors) === 0) {
-                // Si j'ai pas d'erreur
-                $title = $_POST['newTitle'];
-                $dateCreated = $_POST['newDateCreated'];
-                $content = $_POST['newContent'];
-                $picture = $_FILES['newPicture'];
-                $author = $_POST['newAuthor'];
-
-                $managerArticles = new \Manager\BlogManager();
-                $managerArticles->doEdition($title, $dateCreated, $content, $author, $picture, $id);
-                
-
-                
-
-                // traitement du medias
-                // Vérifier si le téléchargement du fichier n'a pas été interrompu
-                if ($_FILES['newPicture']['error'] != UPLOAD_ERR_OK) {
-                    echo 'Erreur lors du téléchargement.';
-                } else {
-                    // Objet FileInfo
-                    $finfo = new \finfo(FILEINFO_MIME_TYPE);
-
-                    // Récupération du Mime
-                    $mimeType = $finfo->file($_FILES['newPicture']['tmp_name']);
-
-                    $extFoundInArray = array_search(
-                        $mimeType, array(
+                $extFoundInArray = array_search(
+                    $mimeType, array(
                             'jpg' => 'image/jpeg',
                             'png' => 'image/png',
                             'gif' => 'image/gif',
                             //'mpeg' => 'video/mpeg',
                             //'mp4' => 'video/mp4',
-                        )
-                    );
-                    if ($extFoundInArray === false) {
-                        echo 'Le fichier n\'est pas une image';
-                        
-                        
+                    )
+                );
+                
+                if ($extFoundInArray === false) {
+                    echo 'Le fichier n\'est pas une image';    
+                } else {
+                    // Renommer nom du fichier
+                    $fileName = sha1_file($_FILES['picture']['tmp_name']) . time() . '.' . $extFoundInArray;
+                    $path = __DIR__ . '/../../uploads/' . $fileName;
+                    $moved = move_uploaded_file($_FILES['picture']['tmp_name'], $path);
+                    
+                    if (!$moved) {
+                        echo 'Erreur lors de l\'enregistrement';           
                     } else {
+                        //on redimensionne le medias
 
-                        // Renommer nom du fichier
-                        $fileName = sha1_file($_FILES['newPicture']['tmp_name']) . time() . '.' . $extFoundInArray;
-                        $path = __DIR__ . '/../../uploads/' . $fileName;
-                        $moved = move_uploaded_file($_FILES['newPicture']['tmp_name'], $path);
-                        if (!$moved) {
-                            echo 'Erreur lors de l\'enregistrement';
-                            
-                        } else {
-                            //on redimensionne le medias
-
-                            //si je suis jpg ou png ou gif
-                            if($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg' )
-                            {
-                             //resize
-                             $resize = $this ->resize($path, null, 80, 80, $path);
-                            }
-                            
-                            // On upload le fichier
-
-                            $data = [
-                                'newTitle' => $title,
-                                'newDateCreated' => $dateCreated,
-                                'newContent' => $content,
-                                'newPicture' => $fileName,
-                                'newAuthor' => $author,
-                            ];
-                            
-                            $managerArticles->update($data, $id);
-                            
-                            if (isset($_POST['editArticle'])) {
-                                // Ajout et redirection
-                                $this->redirectToRoute('liste');
-                            } 
+                        //si je suis jpg ou png ou gif
+                        if($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg' ){
+                            //resize
+                            $resize = $this ->resize($path, null, 80, 80, $path);
                         }
-                    } // End File Is Image
-                } // End Upload Success
-            } else {
-
-            // Si j'ai une erreur
-            // J'affiche le template, avec un tableau d'erreurs
-            $this->show('blog/editArticle', ['errors' => $errors]);
+                    }               
+                }
             }
 
-        }else{
-            // premier acces a la page
-            $this->show('blog/editArticle');
+            $manager->update($data, $id);
         }
+
+
+        $this->show('blog/editArticle', ['article'=>$article]);
     }
         
 
