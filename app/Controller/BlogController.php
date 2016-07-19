@@ -30,22 +30,26 @@ class BlogController extends Controller
     {
             // Autorisation
             if (!empty($_POST)) {
-                foreach ($_POST as $key => $value) {
-                $_POST[$key] = strip_tags(trim($value));
+                if($_POST['content']){
+                    foreach ($_POST as $key => $value) {
+                        $_POST[$key] = trim($value);
+                    }
+                } else {
+                    foreach ($_POST as $key => $value) {
+                        $_POST[$key] = strip_tags(trim($value));
+                    }
                 }
             }
-            //echo print_r($_SESSION);
-            //$this->allowTo('admin');
 
             if(isset($_POST['addComment'])) {
 
-            $errors = [];
+                $errors = [];
 
-                if(empty($_POST['content'])){
-                $errors['content']['empty']=true;
+                if (strlen($_POST['author']) < 3) {
+                    $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
                 }
-                if(empty($_POST['author'])){
-                $errors['author']['empty']=true;
+                if (strlen($_POST['content']) < 3) {
+                    $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
                 }
             
                 // Si aucune erreur
@@ -115,8 +119,14 @@ class BlogController extends Controller
         //var_dump($_FILES); etat des lieux mettre en com a la fin ou supprimer la ligne
         // Autorisation
         if (!empty($_POST)) {
-            foreach ($_POST as $key => $value) {
-                $_POST[$key] = strip_tags(trim($value));
+            if($_POST['content']){
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = trim($value);
+                }
+            } else {
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = strip_tags(trim($value));
+                }
             }
         }
 
@@ -126,21 +136,20 @@ class BlogController extends Controller
             $errors = [];
 
             // Verifications
-            if (empty($_POST['title'])) {
-                $errors['title']['empty'] = true;
+            if (strlen($_POST['title']) < 3) {
+                $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
             }
-            if (empty($_POST['dateCreated'])) {
-                $errors['dateCreated']['empty'] = true;
+            if (strlen($_POST['author']) < 3) {
+                $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
             }
-            if (empty($_FILES['picture'])) {
-                $errors['picture']['empty'] = true;
+            if (strlen($_POST['content']) < 3) {
+                $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
             }
 
             // Ajout en DB
             if (count($errors) === 0) {
                 // Si j'ai pas d'erreur
                 $title = $_POST['title'];
-                $dateCreated = $_POST['dateCreated'];
                 $content = $_POST['content'];
                 $picture = $_FILES['picture'];
                 $author = $_POST['author'];
@@ -197,7 +206,6 @@ class BlogController extends Controller
 
                             $data = [
                                 'title' => $title,
-                                'dateCreated' => $dateCreated,
                                 'content' => $content,
                                 'picture' => $fileName,
                                 'author' => $author,
@@ -523,71 +531,97 @@ class BlogController extends Controller
         $manager = new \Manager\BlogManager();
         $article = $manager->find($id);
 
-        if(isset($_POST['editArticle'])){
-            
-            $data = [
-                'title'=>$_POST['title'],
-                'content'=>$_POST['content'],
-                'dateCreated'=>date("Y-m-d"),
-            ];
-
-//            if(!empty($_POST['dateCreated'])){
-//                $data['dateCreated']= date('Y-m-d', strtotime($_POST['dateCreated']));
-//            }
-            
-            // traitement du medias
-            // Vérifier si le téléchargement du fichier n'a pas été interrompu
-            if ($_FILES['picture']['error'] != UPLOAD_ERR_OK) {
-                echo 'Erreur lors du téléchargement.' . $_FILES['picture']['error'];
+        if (!empty($_POST)) {
+            if($_POST['content']){
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = trim($value);
+                }
             } else {
-                // Objet FileInfo
-                $finfo = new \finfo(FILEINFO_MIME_TYPE);
-
-                // Récupération du Mime
-                $mimeType = $finfo->file($_FILES['picture']['tmp_name']);
-
-                $extFoundInArray = array_search(
-                    $mimeType, array(
-                            'jpg' => 'image/jpeg',
-                            'png' => 'image/png',
-                            'gif' => 'image/gif',
-                            //'mpeg' => 'video/mpeg',
-                            //'mp4' => 'video/mp4',
-                    )
-                );
-                
-                if ($extFoundInArray === false) {
-                    echo 'Le fichier n\'est pas une image';    
-                } else {
-                    // Renommer nom du fichier
-                    $fileName = sha1_file($_FILES['picture']['tmp_name']) . time() . '.' . $extFoundInArray;
-                    $path = __DIR__ . '/../../uploads/' . $fileName;
-                    $moved = move_uploaded_file($_FILES['picture']['tmp_name'], $path);
-                    
-                    if (!$moved) {
-                        echo 'Erreur lors de l\'enregistrement';           
-                    } else {
-                        //on redimensionne le medias
-
-                        //si je suis jpg ou png ou gif
-                        if($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg' ){
-                            //resize
-                            $resize = $this ->resize($path, null, 80, 80, $path);
-                        }
-                        
-                        // suppression ancienne
-                        unlink(__DIR__ . '/../../uploads/' . $article['picture']);
-                        
-                        // maj db
-                        $data['picture']=$fileName;
-                    }               
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = strip_tags(trim($value));
                 }
             }
-
-            $manager->update($data, $id);
-            $this->redirectToRoute('editArticle',['id'=>$id]);
         }
 
+        if(isset($_POST['editArticle'])){
+
+            $errors = [];
+
+            // Verifications
+            if (strlen($_POST['title']) < 3) {
+                $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
+            }
+            if (strlen($_POST['author']) < 3) {
+                $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
+            }
+            if (strlen($_POST['content']) < 3) {
+                $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
+            }
+
+            if(count($errors) === 0){
+            
+                $data = [
+                    'title'=>$_POST['title'],
+                    'content'=>$_POST['content'],
+                    'dateCreated'=>date("Y-m-d"),
+                ];
+                
+                // traitement du medias
+                // Vérifier si le téléchargement du fichier n'a pas été interrompu
+                if ($_FILES['picture']['error'] != UPLOAD_ERR_OK) {
+                    echo 'Erreur lors du téléchargement.' . $_FILES['picture']['error'];
+                } else {
+                    // Objet FileInfo
+                    $finfo = new \finfo(FILEINFO_MIME_TYPE);
+
+                    // Récupération du Mime
+                    $mimeType = $finfo->file($_FILES['picture']['tmp_name']);
+
+                    $extFoundInArray = array_search(
+                        $mimeType, array(
+                                'jpg' => 'image/jpeg',
+                                'png' => 'image/png',
+                                'gif' => 'image/gif',
+                                //'mpeg' => 'video/mpeg',
+                                //'mp4' => 'video/mp4',
+                        )
+                    );
+                    
+                    if ($extFoundInArray === false) {
+                        echo 'Le fichier n\'est pas une image';    
+                    } else {
+                        // Renommer nom du fichier
+                        $fileName = sha1_file($_FILES['picture']['tmp_name']) . time() . '.' . $extFoundInArray;
+                        $path = __DIR__ . '/../../uploads/' . $fileName;
+                        $moved = move_uploaded_file($_FILES['picture']['tmp_name'], $path);
+                        
+                        if (!$moved) {
+                            echo 'Erreur lors de l\'enregistrement';           
+                        } else {
+                            //on redimensionne le medias
+
+                            //si je suis jpg ou png ou gif
+                            if($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg' ){
+                                //resize
+                                $resize = $this ->resize($path, null, 80, 80, $path);
+                            }
+                            
+                            // suppression ancienne
+                            unlink(__DIR__ . '/../../uploads/' . $article['picture']);
+                            
+                            // maj db
+                            $data['picture']=$fileName;
+                        }               
+                    }
+                }
+            
+                $manager->update($data, $id);
+                $this->redirectToRoute('editArticle',['id'=>$id]);
+            } else {
+                $this->show('blog/editArticle', ['article'=>$article, 'errors'=>$errors]);
+            }
+
+        }
 
         $this->show('blog/editArticle', ['article'=>$article]);
     }

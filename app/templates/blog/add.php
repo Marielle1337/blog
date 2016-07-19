@@ -3,43 +3,28 @@
 <?php $this->start('main_content') ?>
 <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 	<label>
+        <?php if (isset($errors['title'])) { echo $errors['title']; } ?>
 		<input type="text" name="title"  placeholder="Titre">
-        <?php if (isset($errors['title']['empty'])): ?>
-		"remplis le titre"
-		<?php endif; ?>
+	</label>
+   	
+   	<label>
+        <?php if (isset($errors['author'])) { echo $errors['author']; } ?>
+		<input type="text" name="author"  placeholder="Qui êtes-vous ?">
 	</label>
     
-    Bannière : 
+    Bannière de votre article : 
 	<label>
         <input type="file" name="picture">
-        <?php if (isset($errors['picture']['empty'])): ?>
-		"choisir un media"
-		<?php endif; ?>
-	</label>
-    
-    <label>
-        <input type="text" name="dateCreated"  placeholder="yyyy-mm-dd">
-        <?php if (isset($errors['dateCreated']['empty'])): ?>
-		"remplis la date de création"
-		<?php endif; ?>
 	</label>
 
 	<label>
+        <?php if (isset($errors['content'])) { echo $errors['content']; } ?>
         <textarea name="content" class="admin">Saisir un texte ici.</textarea>
-        <?php if (isset($errors['content']['empty'])): ?>
-		"remplis le commentaire"
-		<?php endif; ?>
 	</label>
     
-   	<label>
-		<input type="text" name="author"  placeholder="l'auteur de votre article">
-        <?php if (isset($errors['author']['empty'])): ?>
-		"remplis l'auteur"
-		<?php endif; ?>
-	</label>
 	</br>
-	<button type="submit" name="addArticle">ajouter un article</button>
-	<button type="submit" name="addArticleAndStay">ajouter un article et rester ici</button>
+	<button type="submit" name="addArticle">Ajouter l'article</button>
+	<button type="submit" name="addArticleAndStay">Ajouter et rester</button>
 
 </form>
 

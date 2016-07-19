@@ -22,8 +22,14 @@ class MailController extends Controller
     {
         // Autorisation
         if (!empty($_POST)) {
-            foreach ($_POST as $key => $value) {
-            $_POST[$key] = strip_tags(trim($value));
+            if($_POST['content']){
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = trim($value);
+                }
+            } else {
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = strip_tags(trim($value));
+                }
             }
         }
         //echo print_r($_SESSION);
@@ -33,11 +39,11 @@ class MailController extends Controller
 
             $errors = [];
 
-            if(empty($_POST['content'])){
-            $errors['content']['empty']=true;
+            if (strlen($_POST['title']) < 3) {
+                $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
             }
-            if(empty($_POST['title'])){
-            $errors['title']['empty']=true;
+            if (strlen($_POST['content']) < 3) {
+                $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
             }
 
 
@@ -121,18 +127,47 @@ class MailController extends Controller
         $manager = new \Manager\MailManager();
         $newsletter = $manager->find($id);
 
-        if(isset($_POST['addNewsletter'])){
-            
-            $data = [
-                'title'=>$_POST['title'],
-                'content'=>$_POST['content']
-            ];
+        if (!empty($_POST)) {
+            if($_POST['content']){
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = trim($value);
+                }
+            } else {
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = strip_tags(trim($value));
+                }
+            }
+        }
+        //echo print_r($_SESSION);
+        //$this->allowTo('admin');
 
-            if(!empty($_POST['sendDate'])){
-                $data['sendDate']=date('Y-m-d', strtotime($_POST['sendDate']));
+        if(isset($_POST['addNewsletter'])){
+
+            $errors = [];
+
+            if (strlen($_POST['title']) < 3) {
+                $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
+            }
+            if (strlen($_POST['content']) < 3) {
+                $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
             }
 
-            $manager->update($data, $id);
+            // Si aucune erreur
+            if(count($errors) == 0) {
+            
+                $data = [
+                    'title'=>$_POST['title'],
+                    'content'=>$_POST['content']
+                ];
+
+                if(!empty($_POST['sendDate'])){
+                    $data['sendDate']=date('Y-m-d', strtotime($_POST['sendDate']));
+                }
+
+                $manager->update($data, $id);
+            } else {
+                $this->show('mail/editNewsletter', ['newsletter'=>$newsletter, 'errors'=>$errors]);
+            }
         }
 
 

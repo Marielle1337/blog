@@ -19,9 +19,7 @@
         
         <label>
             <input type="text" name="author"  placeholder="Votre nom">
-            <?php if (isset($errors['author']['empty'])): ?>
-            Votre nom ou pseudo n'est pas renseigné
-            <?php endif; ?>
+            <?php if (isset($errors['author'])) { echo $errors['author'] } ?>
         </label>
 
         <label>
@@ -32,9 +30,7 @@
     
         <label>
             <textarea name="content" placeholder="Saisir un texte ici."></textarea>
-            <?php if (isset($errors['content']['empty'])): ?>
-            Le commentaire est vide
-            <?php endif; ?>
+            <?php if (isset($errors['content'])) { echo $errors['content'] } ?>
         </label>
         </br>
         <button type="submit" name="addComment">ajouter un commentaire</button>
