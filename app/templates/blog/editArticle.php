@@ -2,7 +2,7 @@
 
 <?php $this->start('main_content') ?>
 <?php //print_r($articles); ?>
-<form action="#" method="POST" accept-charset="utf-8">
+<form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 
             <label>
                 <input type="text" name="title" value="<?= $article['title'] ?>">
@@ -19,7 +19,6 @@
             <label>
                 <textarea name="content"><?= $article['content'] ?></textarea>
             </label> <br/>
-            
             <label>
                 <figure>
                     <img src="/uploads/<?php echo $article['picture'] ?>" alt="" />
