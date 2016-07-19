@@ -529,11 +529,12 @@ class BlogController extends Controller
                 'title'=>$_POST['title'],
                 'content'=>$_POST['content'],
                 'author'=>$_POST['author'],
+                'dateCreated'=>date("Y-m-d"),
             ];
 
-            if(!empty($_POST['dateCreated'])){
-                $data['dateCreated']=date('Y-m-d', strtotime($_POST['dateCreated']));
-            }
+//            if(!empty($_POST['dateCreated'])){
+//                $data['dateCreated']= date('Y-m-d', strtotime($_POST['dateCreated']));
+//            }
             
             // traitement du medias
             // Vérifier si le téléchargement du fichier n'a pas été interrompu
