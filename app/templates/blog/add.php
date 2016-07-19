@@ -17,7 +17,7 @@
 		<?php endif; ?>
 	</label>
     
-    <label>
+        <label>
         <input type="text" name="dateCreated"  placeholder="yyyy-mm-dd">
         <?php if (isset($errors['dateCreated']['empty'])): ?>
 		"remplis la date de création"
@@ -33,7 +33,7 @@
     
    	<label>
 		<input type="text" name="author"  placeholder="l'auteur de votre article">
-        <?php if (isset($errors['author']['empty'])): ?>
+                <?php if (isset($errors['author']['empty'])): ?>
 		"remplis l'auteur"
 		<?php endif; ?>
 	</label>
