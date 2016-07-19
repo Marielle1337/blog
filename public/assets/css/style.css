@@ -1,11 +1,33 @@
 html, body {
-	font-family: Consolas, monaco, monospace;
+	font-family: Helvetica, Arial;
 	background-color: #272822;
 	color: #F8F8F2;
 }
 
 .container {
-	margin: 50px;
+	margin: auto;
+	padding: 0px;
+}
+
+aside {
+	float: right;
+	width: 20%;
+	height: 100%;
+	padding-left: 40px;
+}
+
+aside::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+main {
+	width: 80%;
+}
+
+p {
+	text-align: justify;
 }
 
 a {
@@ -14,13 +36,38 @@ a {
 }
 
 a:hover {
-	color: #F92672;
+	color: #337ab7;
 }
 
-h1 {
-	color: #F92672;
-}
-
-h2 {
+h1, h2, a, legend {
 	color: #66D9EF;
 }
+
+label, input, button {
+	color: #272822;
+	display: block;
+}
+
+#theme1 {
+	border-radius: 50%;
+	height: 50px;
+	width: 50px;
+	border: 3px solid #FFF;
+	background-color: #337ab7;
+	color: #FFF;
+	float: left;
+}
+
+#theme2 {
+	border-radius: 50%;
+	height: 50px;
+	width: 50px;
+	border: 3px solid #66D9EF;
+	background-color: #272822;
+	color: #F8F8F2;
+	float: right;
+}
+
+
+
+

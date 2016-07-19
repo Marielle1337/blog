@@ -6,18 +6,18 @@
 	<label>
 		<input type="text" name="newTitle" value="<?= $articles['title'] ?>">
 		<?php if (isset($errors['newTitle']['empty'])): ?>
-		remplis le nouveau titre
+		Titre non renseigné
 		<?php endif; ?>
 	</label>
     
     	<label>
 		<input type="text" name="newAuthor" value="<?= $articles['author'] ?>">
 		<?php if (isset($errors['newAuthor']['empty'])): ?>
-		remplis le nouvel auteur
+		Auteur non renseigné
 		<?php endif; ?>
 	</label>
     
-    	<label>
+    <label>
 		<input type="text" name="newDateCreated" value="<?= date('d/m/Y', strtotime($article['dateCreated'])) ?>">
 		<?php if (isset($errors['newDateCreated']['empty'])): ?>
 		remplis la nouvelle date
@@ -25,16 +25,16 @@
 	</label>
     
 	<label>
-                <textarea name="newContent" ><?= $articles['content'] ?></textarea>
-                <?php if (isset($errors['newContent']['empty'])): ?>
-		remplis le nouvel article
+        <textarea name="newContent" class="admin" ><?= $articles['content'] ?></textarea>
+        <?php if (isset($errors['newContent']['empty'])): ?>
+		Contenu inexistant
 		<?php endif; ?>
 	</label>
     
-    	<label>
-                <input type="file" name="newPicture" src="/uploads/<?= $article['picture'] ?>">
-                <?php if (isset($errors['newPicture']['empty'])): ?>
-		choisi une nouvelle image
+    <label>
+        <input type="file" name="newPicture" src="/uploads/<?= $article['picture'] ?>">
+        <?php if (isset($errors['newPicture']['empty'])): ?>
+		Bannière inexistante
 		<?php endif; ?>
 	</label>
 

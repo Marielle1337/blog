@@ -14,12 +14,11 @@
             </label> <br/>
 
             <label>
-                <textarea name="content"><?= $newsletter['content'] ?></textarea>
+                <textarea name="content" class="admin"><?= $newsletter['content'] ?></textarea>
             </label> </br>
             <button type="submit" name="addNewsletter">Envoyer votre newsletter</button>
 
         </fieldset>    
     </form>
- 
 
 <?php $this->stop('main_content') ?>

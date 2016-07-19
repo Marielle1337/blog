@@ -18,7 +18,7 @@
             </label> <br/>
 
             <label>
-                <textarea name="content" placeholder="Contenu"></textarea>
+                <textarea name="content" placeholder="Contenu" class="admin"></textarea>
                 <?php if (isset($errors['content']['empty'])): ?>
                 Aucun contenu
                 <?php endif; ?>
