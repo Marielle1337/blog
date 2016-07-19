@@ -68,6 +68,7 @@ class BlogController extends Controller
                         //'email'=>$email,
                     ];
                     $managerComments -> insert($data);
+                    $this->redirectToRoute('article', ['id'=>$id]);
            
                 
                 } else {
@@ -118,18 +119,21 @@ class BlogController extends Controller
 
         //var_dump($_FILES); etat des lieux mettre en com a la fin ou supprimer la ligne
         // Autorisation
-        if (!empty($_POST)) {
-            if($_POST['content']){
-                foreach ($_POST as $key => $value) {
-                    $_POST[$key] = trim($value);
-                }
-            } else {
-                foreach ($_POST as $key => $value) {
-                    $_POST[$key] = strip_tags(trim($value));
-                }
-            }
-        }
+        // if (!empty($_POST)) {
+        //     if($_POST['content']){
+        //         foreach ($_POST as $key => $value) {
+        //             $_POST[$key] = trim($value);
+        //         }
+        //     } else {
+        //         foreach ($_POST as $key => $value) {
+        //             $_POST[$key] = strip_tags(trim($value));
+        //         }
+        //     }
+        // }
 
+        $categoryManager = new \Manager\BlogManager;
+        $categoryManager->setTable('categories');
+        $categories = $categoryManager->findAll();
 
         // Je verifie si j'ai une soumission de formulaire
         if (isset($_POST['addArticle']) || isset($_POST['addArticleAndStay'])) {
@@ -139,11 +143,17 @@ class BlogController extends Controller
             if (strlen($_POST['title']) < 3) {
                 $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
             }
-            if (isset($_POST['author']) && strlen($_POST['author']) < 3) {
+            if (!empty($_POST['author']) && strlen($_POST['author']) < 3) {
                 $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
             }
             if (strlen($_POST['content']) < 3) {
                 $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
+            }
+            if(!is_numeric($_POST['category'])) {
+                $errors['categoryNumber'] = 'La catégorie est mal renseignée';
+            }
+            if(!isset($_POST['category'])){
+                $errors['categoryEmpty'] = 'Aucune catégorie n\'a été renseignée';
             }
 
             // Ajout en DB
@@ -207,14 +217,15 @@ class BlogController extends Controller
                             $data = [
                                 'title' => $title,
                                 'content' => $content,
+                                'idCategory'=>$_POST['category']
                             ];
 
-                            if(isset($author)){
+                            if(!empty($author)){
                                 $data['author'] = $author;
                             } else {
                                 $data['author'] = 5;
                             }
-                            if(isset($fileName)){
+                            if(!empty($fileName)){
                                 $data['picture'] = $fileName;
                             }
                             
@@ -234,12 +245,12 @@ class BlogController extends Controller
 
             // Si j'ai une erreur
             // J'affiche le template, avec un tableau d'erreurs
-            $this->show('blog/add', ['errors' => $errors]);
+            $this->show('blog/add', ['errors' => $errors, 'categories'=>$categories]);
             }
 
         }else{
             // premier acces a la page
-            $this->show('blog/add');
+            $this->show('blog/add', ['categories'=>$categories]);
         }
     }
 

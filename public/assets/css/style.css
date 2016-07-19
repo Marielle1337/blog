@@ -43,9 +43,13 @@ h1, h2, a, legend {
 	color: #66D9EF;
 }
 
-label, input, button {
-	color: #272822;
+label {
 	display: block;
+}
+
+input, button, select {
+	color: #272822;
+	display: inline;
 }
 
 .themes{

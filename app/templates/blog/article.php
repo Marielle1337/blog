@@ -4,7 +4,8 @@
 
 	<article>
 	       
-	    <div>Posté le <?php echo date('d/m/Y', strtotime($article['dateCreated'])) ?>, par <?= $author['login'] ?></div>
+	    <div>Posté le <?php echo date('d/m/Y', strtotime($article['dateCreated'])) ?>, 
+        par <?php if (is_numeric($article['author'])) { echo $author['login']; } else { echo $article['author']; }?></div>
 	    <p><?php echo $article['content'] ?></p>
 
         <figure>
@@ -18,19 +19,19 @@
     <fieldset> <legend>Ajouter un commentaire</legend>
         
         <label>
-            <input type="text" name="author"  placeholder="Votre nom">
-            <?php if (isset($errors['author'])) { echo $errors['author'] ; } ?>
+            <input type="text" name="author"  placeholder="Votre nom" <?php if(isset($_POST['author'])) { echo 'value="'.$_POST['author'].'"';}?> >
+            <?php if (isset($errors['author'])) { echo $errors['author'] ;} ?>
         </label>
 
         <label>
-            <input type="mail" name="email"  placeholder="Votre email (facultatif)">
+            <input type="mail" name="email"  placeholder="Votre email (facultatif)" <?php if(isset($_POST['email'])) { echo 'value="'.$_POST['email'].'"';}?>>
         </label>
     
         <label>
-            <textarea name="content" placeholder="Saisir un texte ici."></textarea>
+            <textarea name="content" placeholder="Saisir un texte ici."><?php if(isset($_POST['content'])){ echo $_POST['content']; } ?></textarea>
             <?php if (isset($errors['content'])) { echo $errors['content'] ; } ?>
         </label>
-        </br>
+
         <button type="submit" name="addComment">Ajouter un commentaire</button>
 
     </fieldset>
