@@ -229,7 +229,7 @@ class BlogController extends Controller
                                 $data['picture'] = $fileName;
                             }
                             
-                            $managerArticles->insert($data);
+                            $managerArticles->insert($data, false);
                             
                             if (isset($_POST['addArticle'])) {
                                 // Ajout et redirection
