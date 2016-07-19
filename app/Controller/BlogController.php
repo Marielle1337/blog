@@ -227,8 +227,6 @@ class BlogController extends Controller
                             }
                             if(!empty($fileName)){
                                 $data['picture'] = $fileName;
-                            }else{
-                                $data['picture'] = 0;
                             }
                             
                             $managerArticles->insert($data);
