@@ -139,10 +139,8 @@ class BlogController extends Controller
             if (strlen($_POST['title']) < 3) {
                 $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
             }
-            if (isset($_POST['author']) && strlen($_POST['author']) < 3) {
+            if (!empty($_POST['author']) && strlen($_POST['author']) < 3) {
                 $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
-            }else {
-                $_POST['author'] = "Benjamin Cerbai";
             }
             if (strlen($_POST['content']) < 3) {
                 $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
@@ -209,18 +207,20 @@ class BlogController extends Controller
                             $data = [
                                 'title' => $title,
                                 'content' => $content,
-                                'author'=>$author,
-                                'picture'=>$filename,
+                                //'author'=>$author,
+                                //'picture'=>$filename,
                             ];
 
-//                            if(isset($author)){
-//                                $data['author'] = $author;
-//                            } else {
-//                                $data['author'] = 5;
-//                            }
-//                            if(isset($fileName)){
-//                                $data['picture'] = $fileName;
-//                            }
+                            if(!empty($author)){
+                                $data['author'] = $author;
+                            } else {
+                                $data['author'] = 5;
+                            }
+                            if(!empty($fileName)){
+                                $data['picture'] = $fileName;
+                            }else{
+                                $data['picture'] = 0;
+                            }
                             
                             $managerArticles->insert($data);
                             
