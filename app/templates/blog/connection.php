@@ -3,13 +3,14 @@
 $this->layout('layout', ['title' => 'Connexion']) ?>
 
 <?php $this->start('main_content') ?>
+<?php if(isset($errors['connect'])){ echo $errors['connect']; } ?>
 <form action="#" method="POST" accept-charset="utf-8">
 	<fieldset>
 		<legend> Connexion </legend>
 		
 		<label>
 			<input type="text" name="login" placeholder="Login ou Mail">
-			<?php if(isset($errors['user'])){ echo $errors['login']; } ?>
+			<?php if(isset($errors['user'])){ echo $errors['user']; } ?>
 		</label>
 	    
 	    <label>

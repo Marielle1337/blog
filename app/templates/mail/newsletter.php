@@ -6,24 +6,20 @@
         <fieldset> <legend>Ajouter une newsletter</legend>
 
             <label>
+                <?php if (isset($errors['title'])) { echo $errors['title']; } ?>
                 <input type="text" name="title"  placeholder="Titre">
-                <?php if (isset($errors['title']['empty'])): ?>
-                Titre non renseigné
-                <?php endif; ?>
-            </label> <br/>
+            </label> 
 
             <label>
                 Si la date d'envoi n'est pas renseignée, la newsletter sera envoyée immédiatement.<br/>
                 <input type="text" name="sendDate"  placeholder="Date d'envoi">
-            </label> <br/>
+            </label> 
 
             <label>
+                <?php if (isset($errors['content'])) { echo $errors['content']; } ?>
                 <textarea name="content" placeholder="Contenu" class="admin"></textarea>
-                <?php if (isset($errors['content']['empty'])): ?>
-                Aucun contenu
-                <?php endif; ?>
             </label>
-            </br>
+            
             <button type="submit" name="addNewsletter">Envoyer votre newsletter</button>
 
         </fieldset>    

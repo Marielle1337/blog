@@ -9,8 +9,14 @@ class SubscriptionController extends Controller
     public function subscriptions()//Page qui ajoutera un abonnement a la newsletter.
     {
         if (!empty($_POST)) {
-            foreach ($_POST as $key => $value) {
-            $_POST[$key] = strip_tags(trim($value));
+            if($_POST['content']){
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = trim($value);
+                }
+            } else {
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = strip_tags(trim($value));
+                }
             }
         }
         //echo print_r($_SESSION);

@@ -32,6 +32,10 @@ p {
 	text-align: justify;
 }
 
+.themes{
+	width: 120px;
+}
+
 #theme1 {
 	border-radius: 50%;
 	height: 50px;

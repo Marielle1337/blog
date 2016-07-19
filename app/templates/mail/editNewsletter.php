@@ -6,6 +6,7 @@
         <fieldset>
 
             <label>
+                <?php if (isset($errors['title'])) { echo $errors['title']; } ?>
                 <input type="text" name="title" value="<?= $newsletter['title'] ?>">
             </label> <br/>
 
@@ -14,6 +15,7 @@
             </label> <br/>
 
             <label>
+                <?php if (isset($errors['content'])) { echo $errors['content']; } ?>
                 <textarea name="content" class="admin"><?= $newsletter['content'] ?></textarea>
             </label> </br>
             <button type="submit" name="addNewsletter">Envoyer votre newsletter</button>

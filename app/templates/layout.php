@@ -83,8 +83,10 @@
 	<div class="container">
 
 		<aside>
-			<button type="button" id="theme1">Basic</button>
-			<button type="button" id="theme2">Eco</button>
+			<div class="themes">
+				<button type="button" id="theme1">Jour</button>
+				<button type="button" id="theme2">Nuit</button>
+			</div>
 			<?= $this->section('aside') ?>
 		</aside>
 

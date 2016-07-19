@@ -19,25 +19,19 @@
         
         <label>
             <input type="text" name="author"  placeholder="Votre nom">
-            <?php if (isset($errors['author']['empty'])): ?>
-            Votre nom ou pseudo n'est pas renseigné
-            <?php endif; ?>
+            <?php if (isset($errors['author'])) { echo $errors['author'] ; } ?>
         </label>
 
         <label>
-
             <input type="mail" name="email"  placeholder="Votre email (facultatif)">
-
         </label>
     
         <label>
             <textarea name="content" placeholder="Saisir un texte ici."></textarea>
-            <?php if (isset($errors['content']['empty'])): ?>
-            Le commentaire est vide
-            <?php endif; ?>
+            <?php if (isset($errors['content'])) { echo $errors['content'] ; } ?>
         </label>
         </br>
-        <button type="submit" name="addComment">ajouter un commentaire</button>
+        <button type="submit" name="addComment">Ajouter un commentaire</button>
 
     </fieldset>
     </form>

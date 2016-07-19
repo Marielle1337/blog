@@ -34,7 +34,7 @@ class UserController extends Controller
                 $authentificationManager->logUserIn($userInfos);
                 $this->redirectToRoute('home');
             } else {
-                echo 'La connexion a échoué';
+                $errors['connect'] = 'La connexion a échoué';
             }
             
         }
