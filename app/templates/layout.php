@@ -93,7 +93,6 @@
 		<main>
 			<?= $this->section('main_content') ?>
 			<a href="#top" title='revenir en haut'> Revenir en haut </a>
-
 		</main>
 
         <footer>
