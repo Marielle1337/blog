@@ -16,7 +16,6 @@
 
 	<!-- TinyMCE -->
 	<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-  	<script>tinymce.init({ selector:'textarea' });</script>
 
 	<!-- Mon JS -->
 	<script type="text/javascript" src="<?= $this->assetUrl('js/script.js') ?>" defer></script>
@@ -84,7 +83,7 @@
 	<div class="container">
 
 		<aside>
-			<button type="button" id="theme1">N</button>
+			<button type="button" id="theme1">Basic</button>
 			<button type="button" id="theme2">Eco</button>
 			<?= $this->section('aside') ?>
 		</aside>
