@@ -19,7 +19,7 @@
 
 	<label>
         <?php if (isset($errors['content'])) { echo $errors['content']; } ?>
-        <textarea name="content" class="admin">Saisir un texte ici.</textarea>
+        <textarea name="content" class="admin" placeholder="Saisir un texte ici."></textarea>
 	</label>
     
 	</br>

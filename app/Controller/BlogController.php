@@ -59,8 +59,8 @@ class BlogController extends Controller
                     $content = $_POST['content'];
                     $idArticle = $id;
                 
-                    $managerArticles = new \Manager\BlogManager();
-                    $managerArticles->setTable('comments');
+                    $managerComments = new \Manager\BlogManager();
+                    $managerComments->setTable('comments');
                     $data =[
                         'author'=>$author,
                         'content'=>$content,
@@ -139,7 +139,7 @@ class BlogController extends Controller
             if (strlen($_POST['title']) < 3) {
                 $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
             }
-            if (strlen($_POST['author']) < 3) {
+            if (isset($_POST['author']) && strlen($_POST['author']) < 3) {
                 $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
             }
             if (strlen($_POST['content']) < 3) {
@@ -207,9 +207,16 @@ class BlogController extends Controller
                             $data = [
                                 'title' => $title,
                                 'content' => $content,
-                                'picture' => $fileName,
-                                'author' => $author,
                             ];
+
+                            if(isset($author)){
+                                $data['author'] = $author;
+                            } else {
+                                $data['author'] = 5;
+                            }
+                            if(isset($fileName)){
+                                $data['picture'] = $fileName;
+                            }
                             
                             $managerArticles->insert($data);
                             

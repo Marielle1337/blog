@@ -19,21 +19,19 @@
         
         <label>
             <input type="text" name="author"  placeholder="Votre nom">
-            <?php if (isset($errors['author'])) { echo $errors['author'] } ?>
+            <?php if (isset($errors['author'])) { echo $errors['author'] ; } ?>
         </label>
 
         <label>
-
             <input type="mail" name="email"  placeholder="Votre email (facultatif)">
-
         </label>
     
         <label>
             <textarea name="content" placeholder="Saisir un texte ici."></textarea>
-            <?php if (isset($errors['content'])) { echo $errors['content'] } ?>
+            <?php if (isset($errors['content'])) { echo $errors['content'] ; } ?>
         </label>
         </br>
-        <button type="submit" name="addComment">ajouter un commentaire</button>
+        <button type="submit" name="addComment">Ajouter un commentaire</button>
 
     </fieldset>
     </form>

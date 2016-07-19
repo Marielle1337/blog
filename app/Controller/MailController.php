@@ -33,7 +33,7 @@ class MailController extends Controller
             }
         }
         //echo print_r($_SESSION);
-        //$this->allowTo('admin');
+        $this->allowTo('admin');
 
         if(isset($_POST['addNewsletter'])){
 
