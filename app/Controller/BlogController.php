@@ -185,8 +185,8 @@ class BlogController extends Controller
                             'jpg' => 'image/jpeg',
                             'png' => 'image/png',
                             'gif' => 'image/gif',
-                            //'mpeg' => 'video/mpeg',
-                            //'mp4' => 'video/mp4',
+                            'mpeg' => 'video/mpeg',
+                            'mp4' => 'video/mp4',
                         )
                     );
                     if ($extFoundInArray === false) {
