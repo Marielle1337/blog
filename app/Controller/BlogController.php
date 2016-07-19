@@ -531,6 +531,7 @@ class BlogController extends Controller
         $manager = new \Manager\BlogManager();
         $article = $manager->find($id);
 
+
         if (!empty($_POST)) {
             if($_POST['content']){
                 foreach ($_POST as $key => $value) {
