@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Liste des articles']) ?>
+<?php $this->layout('layout', ['title' => 'Liste des articles', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 <?php //print_r($_SESSION) ?>

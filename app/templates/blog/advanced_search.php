@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Recherche avancée']) ?>
+<?php $this->layout('layout', ['title' => 'Recherche avancée', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 	

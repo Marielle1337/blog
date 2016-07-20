@@ -11,9 +11,14 @@ html, body {
 
 aside {
 	float: right;
-	width: 20%;
-	height: 100%;
-	padding-left: 40px;
+	width: 15%;
+	height: 200px;
+}
+
+aside > div {
+	position: fixed;
+	margin: auto;
+	width: 17%;
 }
 
 aside::after {
@@ -23,7 +28,9 @@ aside::after {
 }
 
 main {
-	width: 80%;
+	width: 85%;
+	padding-right: 20px;
+
 }
 
 p {
@@ -52,8 +59,31 @@ input, button, select {
 	display: inline;
 }
 
+input[name= 'title']{
+	width: 100%;
+	display: block;
+}
+
+input[type='file']{
+	display: inline;
+}
+
+#navlaterale{
+	margin: auto;
+	width: 50%;
+	padding-bottom: 40px;
+}
+
+#topButton {
+	margin: auto;
+	width: 50%;
+	display: block;
+}
+
 .themes{
 	width: 120px;
+	margin: auto;
+	padding-bottom: 100px;
 }
 
 #theme1 {
@@ -76,6 +106,40 @@ input, button, select {
 	float: right;
 }
 
+footer{	
+	margin-top: 50px;
+	padding-top: 50px;	
+	position: relative;
+	bottom: 0;	
+	padding-bottom: 60px;
+	background-color: #2E2E2E;
+	color: white;
+	width: 100%;	
+}
+
+.copyright{
+	float: left;
+	font-size:1.5rem;
+	text-align: center;
+	width: 65%;	
+	vertical-align: middle;
+	margin: auto;
+	font-style: italic;
+}
+
+/* Réseaux sociaux */
+.social{
+	float: right;
+	text-align: right;
+	margin-right: 20px;
+	width: 30%;
+	vertical-align: top;
+}
+
+.social img{	
+	width: 20px;
+	padding-right: 5px;	
+}
 
 
 

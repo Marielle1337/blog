@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Modifier vos articles']) ?>
+<?php $this->layout('layout', ['title' => 'Modifier vos articles', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 <?php //print_r($articles); ?>

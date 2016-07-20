@@ -26,6 +26,9 @@
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
+	<!-- FontAwesome -->
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/font-awesome.min.css') ?>">
+
 	<!-- Mes feuilles de style -->
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>" title="standard">
 	<link rel="alternate stylesheet" href="<?= $this->assetUrl('css/style.css') ?>" title="eco">
@@ -83,22 +86,70 @@
 	<div class="container">
 
 		<aside>
+		<div>
 			<div class="themes">
 				<button type="button" id="theme1">Jour</button>
 				<button type="button" id="theme2">Nuit</button>
 			</div>
-			<?= $this->section('aside') ?>
+			
+			<nav id="navlaterale" class="categories">
+				<h3> Catégories </h3>
+				<ul>
+				<?php foreach ($categories as $category) { ?>
+					<li><a href="<?=$this->url('category', array('id' => $category['id'])) ?>" title="<?= $category['name'] ?>"><?= $category['name'] ?></a></li>
+				<?php } ?>
+				</ul>
+			</nav>
+			
+			<a id='topButton' href="#top" title='Revenir en haut'> Revenir en haut </a>
+		</div>
 		</aside>
 
 		<main>
 			<?= $this->section('main_content') ?>
-			<a href="#top" title='revenir en haut'> Revenir en haut </a>
 		</main>
 
-        <footer>
-            <p> &copy 2016 Créez vos images et racontez vos histoires </p>
-			<div id="reseaux"> Réseaux sociaux </div>
-        </footer>
 	</div>
+
+        <footer>
+        	<div class="container">
+            
+            	<a href="#top"> <img class="top" src="img/haut.png"> </a>
+		
+				<p class="copyright"> &copy  2016 Créez vos images et racontez vos histoires </p>
+
+				<!-- Réseaux sociaux -->
+				<div class="social">
+
+					<span class="fa-stack fa-lg"><i class="fa fa-youtube-play" aria-hidden="true"></i></span>
+
+					<i class="fa fa-twitter" aria-hidden="true"></i>
+
+					<i class="fa fa-google-plus-official" aria-hidden="true"></i>
+
+					<i class="fa fa-facebook-square" aria-hidden="true"></i>
+
+					<i class="fa fa-instagram" aria-hidden="true"></i>
+
+
+					<span class="social_button tw">
+						<a rel="nofollow" href="http://facebook.com/BenjaminCerbaiArt" target="_blank"><span class="social_ico"><img src="img/facebook.png"></span></a>
+					</span>
+					<span class="social_button fb">
+						<a rel="nofollow" href="http://www.youtube.com/BenjaminCerbai" target="_blank"><span class="social_ico"><img src="img/youtube.png"></i></span></a>
+					</span>
+					<span class="social_button go">
+						<a rel="nofollow" href="https://www.instagram.com/benjamincerbai" target="_blank"><span class="social_ico"><img src="img/instagram.png"></span></a>
+					</span>
+					<span class="social_button in">
+						<a rel="nofollow" href="https://twitter.com/BenjaminCerbai"><span class="social_ico"><img src="img/twitter.png"></span></a>
+					</span>
+					<span class="social_button in">
+						<a rel="nofollow" href="https://plus.google.com/u/0/+BenjaminCerbai"><span class="social_ico"><img src="img/google.png"></span></a>
+					</span>
+				</div>
+			</div>
+        </footer>
+	
 </body>
 </html>

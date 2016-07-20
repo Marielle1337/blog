@@ -92,7 +92,19 @@ class BlogController extends Controller
         $caterogyManager = new \Manager\BlogManager();
         $caterogyManager->setTable('categories');
         return $caterogyManager->findAll();
+    }
 
+    private function adminLinks()
+    {
+        $this->allowTo('admin');
+        // return '<ul>'.
+        //             '<li> <a href="'.$this->url('add').'"> Ajouter un article </a> </li>'.
+        //             '<li> <a href="'.$this->url('liste').'"> Gérer les articles </a> </li>'.
+        //             '<li> <a href="'.$this->url('archive').'"> Gérer les newsletters </a> </li>'.
+        //             '<li> <a href="'.$this->url('newsletters').'">Créer une newsletter </a> </li>'.
+        //             '<li> <a href="'.$this->url('add').'"></a> </li>'.
+        //         '<ul>';
+        
     }
 
     public function home()
@@ -104,6 +116,7 @@ class BlogController extends Controller
         
         // Liste les catégories
         $categories = $this->categoriesMenu();
+        $admin = $this->adminLinks();
 		
         // Recherche par mot clé
         $this->searchBar(); 
