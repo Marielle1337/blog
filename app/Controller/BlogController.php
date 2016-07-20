@@ -10,7 +10,6 @@ class BlogController extends Controller
     /**
      * Page d'accueil par défaut
      */
-
     // public function __construct()
     // {
     //     parent::__construct();
@@ -19,67 +18,64 @@ class BlogController extends Controller
 
     private function searchBar()
     {
-        if(isset($_GET['search'])){
+        if (isset($_GET['search'])) {
             $searchManager = new\Manager\BlogManager();
             $find = $searchManager->searchByKeyWord($keyword = $_GET['toSearch']);
-            $this->show('blog/search', ['find'=>$find]);
+            $this->show('blog/search', ['find' => $find]);
         }
     }
 
     private function addComment($id)
     {
-            // Autorisation
-            if (!empty($_POST)) {
-                if($_POST['content']){
-                    foreach ($_POST as $key => $value) {
-                        $_POST[$key] = trim($value);
-                    }
-                } else {
-                    foreach ($_POST as $key => $value) {
-                        $_POST[$key] = strip_tags(trim($value));
-                    }
+        // Autorisation
+        if (!empty($_POST)) {
+            if ($_POST['content']) {
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = trim($value);
+                }
+            } else {
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = strip_tags(trim($value));
                 }
             }
+        }
 
-            if(isset($_POST['addComment'])) {
+        if (isset($_POST['addComment'])) {
 
-                $errors = [];
+            $errors = [];
 
-                if (strlen($_POST['author']) < 3) {
-                    $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
-                }
-                if (strlen($_POST['content']) < 3) {
-                    $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
-                }
-            
-                // Si aucune erreur
-                if(count($errors) == 0) {
-                    $email = $_POST['email'];
-                    $author = $_POST['author'];
-                    $content = $_POST['content'];
-                    $idArticle = $id;
-                
-                    $managerComments = new \Manager\BlogManager();
-                    $managerComments->setTable('comments');
-                    $data =[
-                        'author'=>$author,
-                        'content'=>$content,
-                        'idArticle'=>$idArticle,
+            if (strlen($_POST['author']) < 3) {
+                $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
+            }
+            if (strlen($_POST['content']) < 3) {
+                $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
+            }
+
+            // Si aucune erreur
+            if (count($errors) == 0) {
+                $email = $_POST['email'];
+                $author = $_POST['author'];
+                $content = $_POST['content'];
+                $idArticle = $id;
+
+                $managerComments = new \Manager\BlogManager();
+                $managerComments->setTable('comments');
+                $data = [
+                    'author' => $author,
+                    'content' => $content,
+                    'idArticle' => $idArticle,
                         //'email'=>$email,
-                    ];
-                    $managerComments -> insert($data);
-                    $this->redirectToRoute('article', ['id'=>$id]);
-           
-                
-                } else {
-                    // Si j'ai des erreurs
+                ];
+                $managerComments->insert($data);
+                $this->redirectToRoute('article', ['id' => $id]);
+            } else {
+                // Si j'ai des erreurs
 
-                    $this->show('blog/article', ['errors' => $errors, 'article'=>$article, 'author'=>$author, 'comments'=>$comments]);
-                }
-            
-            } 
+                $this->show('blog/article', ['errors' => $errors, 'article' => $article, 'author' => $author, 'comments' => $comments]);
+            }
+        }
     }
-        
+
     private function showComment($id)// affichage du commentaire
     {
         $managerComments = new \Manager\BlogManager();
@@ -92,7 +88,6 @@ class BlogController extends Controller
         $caterogyManager = new \Manager\BlogManager();
         $caterogyManager->setTable('categories');
         return $caterogyManager->findAll();
-
     }
 
     public function home()
@@ -101,22 +96,20 @@ class BlogController extends Controller
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
         $articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit = 5);
-        
+
         // Liste les catégories
         $categories = $this->categoriesMenu();
-		
-        // Recherche par mot clé
-        $this->searchBar(); 
-        
-        $this->show('blog/home', ['articles'=>$articles, 'categories'=>$categories]);
 
+        // Recherche par mot clé
+        $this->searchBar();
+
+        $this->show('blog/home', ['articles' => $articles, 'categories' => $categories]);
     }
 
     public function add()// ajouter un article
     {
         //si tu es admin 
         //$this->allowTo('admin');
-
         //var_dump($_FILES); etat des lieux mettre en com a la fin ou supprimer la ligne
         // Autorisation
         // if (!empty($_POST)) {
@@ -149,13 +142,12 @@ class BlogController extends Controller
             if (strlen($_POST['content']) < 3) {
                 $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
             }
-            if(!is_numeric($_POST['category'])) {
-                $errors['categoryNumber'] = 'La catégorie est mal renseignée';
-            }
-            if(!isset($_POST['category'])){
-                $errors['categoryEmpty'] = 'Aucune catégorie n\'a été renseignée';
-            }
-
+//            if(!is_numeric($_POST['category'])) {
+//                $errors['categoryNumber'] = 'La catégorie est mal renseignée';
+//            }
+//            if(!isset($_POST['category'])){
+//                $errors['categoryEmpty'] = 'Aucune catégorie n\'a été renseignée';
+//            }
             // Ajout en DB
             if (count($errors) === 0) {
                 // Si j'ai pas d'erreur
@@ -165,92 +157,83 @@ class BlogController extends Controller
                 $author = $_POST['author'];
 
                 $managerArticles = new \Manager\BlogManager();
-                
 
-                
 
-                // traitement du medias
-                // Vérifier si le téléchargement du fichier n'a pas été interrompu
-                if ($_FILES['picture']['error'] != UPLOAD_ERR_OK) {
-                    echo 'Erreur lors du téléchargement.';
-                } else {
-                    // Objet FileInfo
-                    $finfo = new \finfo(FILEINFO_MIME_TYPE);
-
-                    // Récupération du Mime
-                    $mimeType = $finfo->file($_FILES['picture']['tmp_name']);
-
-                    $extFoundInArray = array_search(
-                        $mimeType, array(
-                            'jpg' => 'image/jpeg',
-                            'png' => 'image/png',
-                            'gif' => 'image/gif',
-                            'mpeg' => 'video/mpeg',
-                            'mp4' => 'video/mp4',
-                        )
-                    );
-                    if ($extFoundInArray === false) {
-                        echo 'Le fichier n\'est pas une image';
-                        
-                        
+                if (isset($_FILES['picture']) && UPLOAD_ERR_NO_FILE != $_FILES['picture']['error']) {
+                    // traitement du medias
+                    // Vérifier si le téléchargement du fichier n'a pas été interrompu
+                    if ($_FILES['picture']['error'] != UPLOAD_ERR_OK) {
+                        echo 'Erreur lors du téléchargement.';
                     } else {
+                        // Objet FileInfo
+                        $finfo = new \finfo(FILEINFO_MIME_TYPE);
 
-                        // Renommer nom du fichier
-                        $fileName = sha1_file($_FILES['picture']['tmp_name']) . time() . '.' . $extFoundInArray;
-                        $path = __DIR__ . '/../../uploads/' . $fileName;
-                        $moved = move_uploaded_file($_FILES['picture']['tmp_name'], $path);
-                        if (!$moved) {
-                            echo 'Erreur lors de l\'enregistrement';
-                            
+                        // Récupération du Mime
+                        $mimeType = $finfo->file($_FILES['picture']['tmp_name']);
+
+                        $extFoundInArray = array_search(
+                            $mimeType, array(
+                                'jpg' => 'image/jpeg',
+                                'png' => 'image/png',
+                                'gif' => 'image/gif',
+                                //'mpeg' => 'video/mpeg',
+                                //'mp4' => 'video/mp4',
+                            )
+                        );
+                        if ($extFoundInArray === false) {
+                            echo 'Le fichier n\'est pas une image';
                         } else {
-                            //on redimensionne le medias
 
-                            //si je suis jpg ou png ou gif
-                            if($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg' )
-                            {
-                             //resize
-                             $resize = $this ->resize($path, null, 80, 80, $path);
-                            }
-                            
-                            // On upload le fichier
-
-                            $data = [
-                                'title' => $title,
-                                'content' => $content,
-                                'idCategory'=>$_POST['category']
-                            ];
-
-                            if(!empty($author)){
-                                $data['author'] = $author;
+                            // Renommer nom du fichier
+                            $fileName = sha1_file($_FILES['picture']['tmp_name']) . time() . '.' . $extFoundInArray;
+                            $path = __DIR__ . '/../../uploads/' . $fileName;
+                            $moved = move_uploaded_file($_FILES['picture']['tmp_name'], $path);
+                            if (!$moved) {
+                                echo 'Erreur lors de l\'enregistrement';
                             } else {
-                                $data['author'] = 5;
+                                //on redimensionne le medias
+                                //si je suis jpg ou png ou gif
+                                if ($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg') {
+                                    //resize
+                                    $resize = $this->resize($path, null, 80, 80, $path);
+                                }
+
+                                // On upload le fichier
                             }
-                            if(!empty($fileName)){
-                                $data['picture'] = $fileName;
-                            }
-                            
-                            $managerArticles->insert($data);
-                            
-                            if (isset($_POST['addArticle'])) {
-                                // Ajout et redirection
-                                $this->redirectToRoute('home');
-                            } else { // Facultatif
-                                // Si j'ai clique sur 'rester'
-                                $this->redirectToRoute('add');
-                            }
-                        }
-                    } // End File Is Image
-                } // End Upload Success
+                        } // End File Is Image
+                    } // End Upload Success
+                }
+                $data = [
+                    'title' => $title,
+                    'content' => $content,
+                    //'idCategory'=>$_POST['category']
+                ];
+
+                if (!empty($author)) {
+                    $data['author'] = $author;
+                } else {
+                    $data['author'] = 5;
+                }
+                if (!empty($fileName)) {
+                    $data['picture'] = $fileName;
+                }
+                $managerArticles->insert($data);
+                if (isset($_POST['addArticle'])) {
+                    // Ajout et redirection
+                    $this->redirectToRoute('home');
+                } else { // Facultatif
+                    // Si j'ai clique sur 'rester'
+                    $this->redirectToRoute('add');
+                }
             } else {
 
-            // Si j'ai une erreur
-            // J'affiche le template, avec un tableau d'erreurs
-            $this->show('blog/add', ['errors' => $errors, 'categories'=>$categories]);
+                // Si j'ai une erreur
+                // J'affiche le template, avec un tableau d'erreurs
+                $this->show('blog/add', ['errors' => $errors, 'categories' => $categories]);
             }
-
-        }else{
+        } else {
             // premier acces a la page
-            $this->show('blog/add', ['categories'=>$categories]);
+            $this->show('blog/add', ['categories' => $categories]);
         }
     }
 
@@ -258,35 +241,35 @@ class BlogController extends Controller
     {
         //si tu es admin 
         //$this->allowTo('admin');
-        
+
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
         $managerArticles->delete($id);
         $this->redirectToRoute('liste');
     }
-    
+
     public function liste()// liste de tous les articles
     {
         //si tu es admin 
         //$this->allowTo('admin');
-        
+
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
-        $articles = $managerArticles -> findAll();
+        $articles = $managerArticles->findAll();
         $this->searchBar();
-        $this->show('blog/liste', ['articles'=>$articles]);
+        $this->show('blog/liste', ['articles' => $articles]);
     }
 
     public function grid()//grille des X derniers articles
     {
         //si tu es admin 
         //$this->allowTo('admin');
-        
+
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
-        $articles = $managerArticles -> findAll($orderBy = "dateCreated", $orderDir = "DESC", $limit = 5);
+        $articles = $managerArticles->findAll($orderBy = "dateCreated", $orderDir = "DESC", $limit = 5);
         $this->searchBar();
-        $this->show('blog/grid', ['articles'=>$articles]);
+        $this->show('blog/grid', ['articles' => $articles]);
     }
 
     //redimensioner un media
@@ -317,21 +300,16 @@ class BlogController extends Controller
         if ($proportional) {
 
             if ($width == 0)
-
                 $factor = $height / $height_old;
 
             elseif ($height == 0)
-
                 $factor = $width / $width_old;
-
             else
-
                 $factor = min($width / $width_old, $height / $height_old);
 
             $final_width = round($width_old * $factor);
 
             $final_height = round($height_old * $factor);
-
         }
 
         else {
@@ -349,14 +327,11 @@ class BlogController extends Controller
             $cropWidth = ($width_old - $width * $x) / 2;
 
             $cropHeight = ($height_old - $height * $x) / 2;
-
         }
 
         # Loading image to memory according to type
 
-        switch ($info[2])
-
-        {
+        switch ($info[2]) {
 
             case IMAGETYPE_JPEG: $file !== null ? $image = imagecreatefromjpeg($file) : $image = imagecreatefromstring($string);
 
@@ -371,7 +346,6 @@ class BlogController extends Controller
                 break;
 
             default: return false;
-
         }
 
         # This is the resizing/resampling/transparency-preserving magic
@@ -393,7 +367,6 @@ class BlogController extends Controller
                 imagefill($image_resized, 0, 0, $transparency);
 
                 imagecolortransparent($image_resized, $transparency);
-
             } elseif ($info[2] == IMAGETYPE_PNG) {
 
                 imagealphablending($image_resized, false);
@@ -403,9 +376,7 @@ class BlogController extends Controller
                 imagefill($image_resized, 0, 0, $color);
 
                 imagesavealpha($image_resized, true);
-
             }
-
         }
 
 
@@ -416,20 +387,14 @@ class BlogController extends Controller
         if ($delete_original) {
 
             if ($use_linux_commands)
-
                 exec('rm ' . $file);
-
             else
-
                 @unlink($file);
-
         }
 
         # Preparing a method of providing result
 
-        switch (strtolower($output))
-
-        {
+        switch (strtolower($output)) {
 
             case 'browser':
 
@@ -456,22 +421,19 @@ class BlogController extends Controller
             default:
 
                 break;
-
         }
-        
+
         # Writing image according to type to the output destination and image quality
 
-        switch ($info[2])
-
-        {
+        switch ($info[2]) {
 
             case IMAGETYPE_GIF: imagegif($image_resized, $output);
 
                 break;
 
             case IMAGETYPE_JPEG: imagejpeg($image_resized, $output, $quality);
-                
-                
+
+
 
                 break;
 
@@ -484,21 +446,19 @@ class BlogController extends Controller
                 break;
 
             default: return false;
-
         }
 
         return true;
     }
 
-
     public function search() // Recherche avancée
     {
-        if(isset($_GET['advanced_search'])){
+        if (isset($_GET['advanced_search'])) {
             $searchManager = new\Manager\BlogManager();
-            $find = $searchManager->search($title = $_GET['title'], $content=$_GET['content'], $dateCreated=$_GET['date']);
+            $find = $searchManager->search($title = $_GET['title'], $content = $_GET['content'], $dateCreated = $_GET['date']);
 
-            $this->show('blog/search', ['find'=>$find]);
-        }   
+            $this->show('blog/search', ['find' => $find]);
+        }
         $this->searchBar();
         $this->show('blog/advanced_search');
     }
@@ -507,8 +467,8 @@ class BlogController extends Controller
     {
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
-        $article = $managerArticles -> find($id);
-        
+        $article = $managerArticles->find($id);
+
         $authorManager = new \Manager\BlogManager();
         $authorManager->setTable('users');
         $author = $authorManager->find($article['author']);
@@ -518,30 +478,29 @@ class BlogController extends Controller
         $this->addComment($article['id']);
 
         $comments = $this->showComment($article['id']);
-        
-        $this->show('blog/article', ['article'=>$article, 'author'=>$author, 'comments'=>$comments]);
 
+        $this->show('blog/article', ['article' => $article, 'author' => $author, 'comments' => $comments]);
     }
 
     public function category($id)
     {
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
-        $articles = $managerArticles -> category($id);
+        $articles = $managerArticles->category($id);
         $this->searchBar();
-        $this->show('blog/category', ['articles'=>$articles]);
+        $this->show('blog/category', ['articles' => $articles]);
     }
-    
+
     public function archive()//liste de toute les newsletters 
     {
         //si tu es admin 
         //$this->allowTo('admin');
-        
+
         $managerNewsletters = new \Manager\BlogManager();
         $managerNewsletters->setTable('newsletters');
-        $newsletters = $managerNewsletters -> findAll($orderBy = "sendDate", $orderDir = "DESC");
-        $this->searchBar();// je te garde quand meme ta searchbar ???
-        $this->show('mail/archive', ['newsletters'=>$newsletters]);
+        $newsletters = $managerNewsletters->findAll($orderBy = "sendDate", $orderDir = "DESC");
+        $this->searchBar(); // je te garde quand meme ta searchbar ???
+        $this->show('mail/archive', ['newsletters' => $newsletters]);
     }
 
     public function editArticle($id)
@@ -551,7 +510,7 @@ class BlogController extends Controller
 
 
         if (!empty($_POST)) {
-            if($_POST['content']){
+            if ($_POST['content']) {
                 foreach ($_POST as $key => $value) {
                     $_POST[$key] = trim($value);
                 }
@@ -562,7 +521,7 @@ class BlogController extends Controller
             }
         }
 
-        if(isset($_POST['editArticle'])){
+        if (isset($_POST['editArticle'])) {
 
             $errors = [];
 
@@ -577,14 +536,14 @@ class BlogController extends Controller
                 $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
             }
 
-            if(count($errors) === 0){
-            
+            if (count($errors) === 0) {
+
                 $data = [
-                    'title'=>$_POST['title'],
-                    'content'=>$_POST['content'],
-                    'dateCreated'=>date("Y-m-d"),
+                    'title' => $_POST['title'],
+                    'content' => $_POST['content'],
+                    'dateCreated' => date("Y-m-d"),
                 ];
-                
+
                 // traitement du medias
                 // Vérifier si le téléchargement du fichier n'a pas été interrompu
                 if ($_FILES['picture']['error'] != UPLOAD_ERR_OK) {
@@ -598,59 +557,49 @@ class BlogController extends Controller
 
                     $extFoundInArray = array_search(
                         $mimeType, array(
-                                'jpg' => 'image/jpeg',
-                                'png' => 'image/png',
-                                'gif' => 'image/gif',
-                                //'mpeg' => 'video/mpeg',
-                                //'mp4' => 'video/mp4',
+                            'jpg' => 'image/jpeg',
+                            'png' => 'image/png',
+                            'gif' => 'image/gif',
+                            //'mpeg' => 'video/mpeg',
+                            //'mp4' => 'video/mp4',
                         )
                     );
-                    
+
                     if ($extFoundInArray === false) {
-                        echo 'Le fichier n\'est pas une image';    
+                        echo 'Le fichier n\'est pas une image';
                     } else {
                         // Renommer nom du fichier
                         $fileName = sha1_file($_FILES['picture']['tmp_name']) . time() . '.' . $extFoundInArray;
                         $path = __DIR__ . '/../../uploads/' . $fileName;
                         $moved = move_uploaded_file($_FILES['picture']['tmp_name'], $path);
-                        
+
                         if (!$moved) {
-                            echo 'Erreur lors de l\'enregistrement';           
+                            echo 'Erreur lors de l\'enregistrement';
                         } else {
                             //on redimensionne le medias
-
                             //si je suis jpg ou png ou gif
-                            if($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg' ){
+                            if ($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg') {
                                 //resize
-                                $resize = $this ->resize($path, null, 80, 80, $path);
+                                $resize = $this->resize($path, null, 80, 80, $path);
                             }
-                            
+
                             // suppression ancienne
                             unlink(__DIR__ . '/../../uploads/' . $article['picture']);
-                            
+
                             // maj db
-                            $data['picture']=$fileName;
-                        }               
+                            $data['picture'] = $fileName;
+                        }
                     }
                 }
-            
-                $manager->update($data, $id);
-                $this->redirectToRoute('editArticle',['id'=>$id]);
-            } else {
-                $this->show('blog/editArticle', ['article'=>$article, 'errors'=>$errors]);
-            }
 
+                $manager->update($data, $id);
+                $this->redirectToRoute('editArticle', ['id' => $id]);
+            } else {
+                $this->show('blog/editArticle', ['article' => $article, 'errors' => $errors]);
+            }
         }
 
-        $this->show('blog/editArticle', ['article'=>$article]);
+        $this->show('blog/editArticle', ['article' => $article]);
     }
-        
-
-    
-    
-    
 
 }
-
-
-
