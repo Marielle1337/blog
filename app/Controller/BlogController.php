@@ -225,6 +225,7 @@ class BlogController extends Controller
                     // Si j'ai clique sur 'rester'
                     $this->redirectToRoute('add');
                 }
+
             } else {
 
                 // Si j'ai une erreur
