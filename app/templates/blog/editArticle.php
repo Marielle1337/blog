@@ -12,22 +12,23 @@
 	</label>
     
 	<label>
-        <?php if (isset($errors['content']['empty'])): ?>
+                <?php if (isset($errors['content']['empty'])): ?>
 		Contenu inexistant
-        <textarea name="content" class="admin" ><?= $article['content'] ?></textarea>
+                <?php endif; ?>
+                <textarea name="content" class="admin" ><?= $article['content'] ?></textarea>
 	</label>
     
-    <label>
-        <figure>
-            <img src="/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
-        </figure>
-        <?php if (isset($errors['picture']['empty'])): ?>
-		Bannière inexistante
-        <?php endif; ?>
-        <input type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
-    </label>
+        <label>
+                <figure>
+                    <img src="/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
+                </figure>
+                <?php if (isset($errors['picture']['empty'])): ?>
+                Bannière inexistante
+                <?php endif; ?>
+                <input type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
+        </label>
             
-    <button type="submit" name="editArticle">Editer</button>
+        <button type="submit" name="editArticle">Editer</button>
         
 
 </form>
