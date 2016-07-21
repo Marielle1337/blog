@@ -22,7 +22,7 @@ class BlogController extends Controller
         if(isset($_GET['search'])){
             $searchManager = new\Manager\BlogManager();
             $find = $searchManager->searchByKeyWord($keyword = $_GET['toSearch']);
-            $this->show('blog/search', ['find'=>$find]);
+            $this->show('blog/search', ['find'=>$find, 'categories' => BlogController::categoriesMenu()]);
         }
     }
 
@@ -74,7 +74,7 @@ class BlogController extends Controller
                 } else {
                     // Si j'ai des erreurs
 
-                    $this->show('blog/article', ['errors' => $errors, 'article'=>$article, 'author'=>$author, 'comments'=>$comments]);
+                    $this->show('blog/article', ['errors' => $errors, 'article'=>$article, 'author'=>$author, 'comments'=>$comments, 'categories' => BlogController::categoriesMenu()]);
                 }
             
             } 
@@ -87,11 +87,11 @@ class BlogController extends Controller
         return $managerComments->comments($id);
     }
 
-    private function categoriesMenu()
+    public static function categoriesMenu()
     {
-        $caterogyManager = new \Manager\BlogManager();
-        $caterogyManager->setTable('categories');
-        return $caterogyManager->findAll();
+        $categoryManager = new \Manager\BlogManager();
+        $categoryManager->setTable('categories');
+        return $categoryManager->findAll();
     }
 
     private function adminLinks()
@@ -102,7 +102,6 @@ class BlogController extends Controller
         //             '<li> <a href="'.$this->url('liste').'"> Gérer les articles </a> </li>'.
         //             '<li> <a href="'.$this->url('archive').'"> Gérer les newsletters </a> </li>'.
         //             '<li> <a href="'.$this->url('newsletters').'">Créer une newsletter </a> </li>'.
-        //             '<li> <a href="'.$this->url('add').'"></a> </li>'.
         //         '<ul>';
         
     }
@@ -115,13 +114,12 @@ class BlogController extends Controller
         $articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit = 5);
         
         // Liste les catégories
-        $categories = $this->categoriesMenu();
         $admin = $this->adminLinks();
 		
         // Recherche par mot clé
         $this->searchBar(); 
         
-        $this->show('blog/home', ['articles'=>$articles, 'categories'=>$categories]);
+        $this->show('blog/home', ['articles'=>$articles, 'categories' => BlogController::categoriesMenu()]);
 
     }
 
@@ -258,12 +256,12 @@ class BlogController extends Controller
 
             // Si j'ai une erreur
             // J'affiche le template, avec un tableau d'erreurs
-            $this->show('blog/add', ['errors' => $errors, 'categories'=>$categories]);
+            $this->show('blog/add', ['errors' => $errors, 'categories' => BlogController::categoriesMenu()]);
             }
 
         }else{
             // premier acces a la page
-            $this->show('blog/add', ['categories'=>$categories]);
+            $this->show('blog/add', ['categories' => BlogController::categoriesMenu()]);
         }
     }
 
@@ -287,7 +285,7 @@ class BlogController extends Controller
         $managerArticles->setTable('articles');
         $articles = $managerArticles -> findAll();
         $this->searchBar();
-        $this->show('blog/liste', ['articles'=>$articles]);
+        $this->show('blog/liste', ['articles'=>$articles, 'categories' => BlogController::categoriesMenu()]);
     }
 
     public function grid()//grille des X derniers articles
@@ -299,7 +297,7 @@ class BlogController extends Controller
         $managerArticles->setTable('articles');
         $articles = $managerArticles -> findAll($orderBy = "dateCreated", $orderDir = "DESC", $limit = 5);
         $this->searchBar();
-        $this->show('blog/grid', ['articles'=>$articles]);
+        $this->show('blog/grid', ['articles'=>$articles,'categories' => BlogController::categoriesMenu()]);
     }
 
     //redimensioner un media
@@ -510,10 +508,10 @@ class BlogController extends Controller
             $searchManager = new\Manager\BlogManager();
             $find = $searchManager->search($title = $_GET['title'], $content=$_GET['content'], $dateCreated=$_GET['date']);
 
-            $this->show('blog/search', ['find'=>$find]);
+            $this->show('blog/search', ['find'=>$find, 'categories' => BlogController::categoriesMenu()]);
         }   
         $this->searchBar();
-        $this->show('blog/advanced_search');
+        $this->show('blog/advanced_search', ['categories' => BlogController::categoriesMenu()]);
     }
 
     public function article($id)// page d'affichage de l'article
@@ -532,7 +530,7 @@ class BlogController extends Controller
 
         $comments = $this->showComment($article['id']);
         
-        $this->show('blog/article', ['article'=>$article, 'author'=>$author, 'comments'=>$comments]);
+        $this->show('blog/article', ['article'=>$article, 'author'=>$author, 'comments'=>$comments, 'categories' => BlogController::categoriesMenu()]);
 
     }
 
@@ -542,7 +540,7 @@ class BlogController extends Controller
         $managerArticles->setTable('articles');
         $articles = $managerArticles -> category($id);
         $this->searchBar();
-        $this->show('blog/category', ['articles'=>$articles]);
+        $this->show('blog/category', ['articles'=>$articles, 'categories' => BlogController::categoriesMenu()]);
     }
     
     public function archive()//liste de toute les newsletters 
@@ -554,7 +552,7 @@ class BlogController extends Controller
         $managerNewsletters->setTable('newsletters');
         $newsletters = $managerNewsletters -> findAll($orderBy = "sendDate", $orderDir = "DESC");
         $this->searchBar();// je te garde quand meme ta searchbar ???
-        $this->show('mail/archive', ['newsletters'=>$newsletters]);
+        $this->show('mail/archive', ['newsletters'=>$newsletters, 'categories' => BlogController::categoriesMenu()]);
     }
 
     public function editArticle($id)
@@ -647,15 +645,15 @@ class BlogController extends Controller
                     }
                 }
             
-                $manager->update($data, $id);
+                $manager->update($data, $id, false);
                 $this->redirectToRoute('editArticle',['id'=>$id]);
             } else {
-                $this->show('blog/editArticle', ['article'=>$article, 'errors'=>$errors]);
+                $this->show('blog/editArticle', ['article'=>$article, 'errors'=>$errors, 'categories' => BlogController::categoriesMenu()]);
             }
 
         }
 
-        $this->show('blog/editArticle', ['article'=>$article]);
+        $this->show('blog/editArticle', ['article'=>$article, 'categories' => BlogController::categoriesMenu()]);
     }
         
 

@@ -25,7 +25,7 @@
 		// Connexion
 		['GET|POST', '/blog/login', 'User#login', 'login'],
 		['GET|POST', '/blog/logout', 'User#logout', 'logout'],
-		['GET|POST', '/blog/contact', 'User#contact', 'contact'],
+		['GET|POST', '/blog/contact', 'Mail#contact', 'contact'],
 
 
         // NewsLetter

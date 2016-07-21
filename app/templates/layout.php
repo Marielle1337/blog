@@ -99,6 +99,16 @@
 					<li><a href="<?=$this->url('category', array('id' => $category['id'])) ?>" title="<?= $category['name'] ?>"><?= $category['name'] ?></a></li>
 				<?php } ?>
 				</ul>
+
+				<?php if($_SESSION['user']['role'] == 'admin') { ?>
+				<h3> Gestion administrateur </h3>
+				<ul>
+                    <li> <a href="<?= $this->url('add') ?>"> Ajouter un article </a> </li>
+                    <li> <a href="<?= $this->url('liste') ?>"> Gérer les articles </a> </li>
+                    <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
+                    <li> <a href="<?= $this->url('newsletter') ?>">Créer une newsletter </a> </li>
+                <ul>
+                <?php } ?>
 			</nav>
 			
 			<a id='topButton' href="#top" title='Revenir en haut'> Revenir en haut </a>

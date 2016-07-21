@@ -15,7 +15,7 @@ class MailController extends Controller
         $managerNewsletters->setTable('newsletters');
         $newsletters = $managerNewsletters -> findAll($orderBy = "sendDate", $orderDir = "DESC");
         //$this->searchBar();// je te garde quand meme ta searchbar ???
-        $this->show('mail/archive', ['newsletters'=>$newsletters]);
+        $this->show('mail/archive', ['newsletters'=>$newsletters, 'categories' => BlogController::categoriesMenu()]);
     }
     
     public function newsletters()// ajout d'une newsletter
@@ -64,7 +64,7 @@ class MailController extends Controller
                     $data['sendDate']=$sendDate;
                 }
 
-                $managerNewsletters -> insert($data);
+                $managerNewsletters -> insert($data, false);
 
                 $newsManager = new \Manager\SubscriptionManager();
                 $news = $newsManager->findAll();
@@ -84,12 +84,12 @@ class MailController extends Controller
 
         }else{
             // premier acces a la page
-            $this->show('mail/newsletter');
+            $this->show('mail/newsletter', ['categories' => BlogController::categoriesMenu()]);
         }
         //$this->show('mail/newsletter.php');
     }
 
-    private function sendMail($destMail, $title, $content)
+    private function sendMail($destMail, $title, $content, $sender='marielle010495@gmail.com', $senderName='Benjamin Cerbai')
     {
         $mail = new \PHPMailer();
 
@@ -101,10 +101,10 @@ class MailController extends Controller
         $mail->SMTPSecure = 'tls';                              // TLS Mode
         $mail->Port = 587;                                      // Port TCP à utiliser
 
-        $mail->Sender='mailer@monsite.fr';
-        $mail->setFrom('mailer@monsite.fr', 'Benjamin Cerbai', false);
+        $mail->Sender=$sender;
+        $mail->setFrom($sender, $senderName, false);
         $mail->addAddress($destMail);          // Ajouter un destinataire
-        $mail->addReplyTo('contact@monsite.fr', 'Information');
+        $mail->addReplyTo($sender, $senderName);
         $mail->addCC('cc@example.com');
         $mail->addBCC('bcc@example.com');
 
@@ -164,14 +164,25 @@ class MailController extends Controller
                     $data['sendDate']=date('Y-m-d', strtotime($_POST['sendDate']));
                 }
 
-                $manager->update($data, $id);
+                $manager->update($data, $id, false);
+                $this->redirectToRoute('archive');
             } else {
                 $this->show('mail/editNewsletter', ['newsletter'=>$newsletter, 'errors'=>$errors]);
             }
         }
 
 
-        $this->show('mail/editNewsletter', ['newsletter'=>$newsletter]);
+        $this->show('mail/editNewsletter', ['newsletter'=>$newsletter, 'categories' => BlogController::categoriesMenu()]);
+    }
+
+    public function contact()
+    {
+        if(isset($_POST['contact'])){
+            $this->sendMail('marielle010495@gmail.com', $_POST['title'], $_POST['content'], $_POST['email'], $_POST['senderName']);
+            $_SESSION['flash'] = 'Message envoyé';
+        }
+
+        $this->show('blog/contact', ['categories' => BlogController::categoriesMenu()]);
     }
     
 }

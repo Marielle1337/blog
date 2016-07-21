@@ -46,14 +46,14 @@ class SubscriptionController extends Controller
                 
             } else {
                 // Si j'ai des erreurs
-                $this->show('mail/subscription', ['errors' => $errors]);
+                $this->show('mail/subscription', ['errors' => $errors, 'categories' => BlogController::categoriesMenu()]);
             }
             
         }
         else {
             // Premier acces a la page
 
-            $this->show('mail/subscription');
+            $this->show('mail/subscription', ['categories' => BlogController::categoriesMenu()]);
         }
     }
     
