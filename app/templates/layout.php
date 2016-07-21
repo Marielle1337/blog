@@ -136,15 +136,15 @@
 				<!-- Réseaux sociaux -->
 				<div class="social">
 
-					<a rel="nofollow" href="http://www.youtube.com/BenjaminCerbai" target="_blank"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+					<a rel="nofollow" href="http://www.youtube.com/BenjaminCerbai" target="_blank"><i class="fa fa-youtube-play fa-2x" aria-hidden="true"></i></a>
 
-					<a rel="nofollow" href="https://twitter.com/BenjaminCerbai"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+					<a rel="nofollow" href="https://twitter.com/BenjaminCerbai"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
 
-					<a rel="nofollow" href="https://plus.google.com/u/0/+BenjaminCerbai"><i class="fa fa-google-plus-official" aria-hidden="true"></i></a>
+					<a rel="nofollow" href="https://plus.google.com/u/0/+BenjaminCerbai"><i class="fa fa-google-plus-official fa-2x" aria-hidden="true"></i></a>
 
-					<a rel="nofollow" href="http://facebook.com/BenjaminCerbaiArt" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+					<a rel="nofollow" href="http://facebook.com/BenjaminCerbaiArt" target="_blank"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a>
 
-					<a rel="nofollow" href="https://www.instagram.com/benjamincerbai" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+					<a rel="nofollow" href="https://www.instagram.com/benjamincerbai" target="_blank"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
 
 				</div>
 			</div>
