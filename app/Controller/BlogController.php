@@ -67,35 +67,20 @@ class BlogController extends Controller
                         'author'=>$author,
                         'content'=>$content,
                         'idArticle'=>$idArticle,
+                    ];
 
-            if (strlen($_POST['author']) < 3) {
-                $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
-            }
-            if (strlen($_POST['content']) < 3) {
-                $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
-            }
+                    if (strlen($_POST['author']) < 3) {
+                        $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
+                    }
+                    if (strlen($_POST['content']) < 3) {
+                        $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
+                    }
 
-            // Si aucune erreur
-            if (count($errors) == 0) {
-                $email = $_POST['email'];
-                $author = $_POST['author'];
-                $content = $_POST['content'];
-                $idArticle = $id;
+               
+                } else {
+                    // Si j'ai des erreurs
 
-                $managerComments = new \Manager\BlogManager();
-                $managerComments->setTable('comments');
-                $data = [
-                    'author' => $author,
-                    'content' => $content,
-                    'idArticle' => $idArticle,
-                        //'email'=>$email,
-                ];
-                $managerComments->insert($data);
-                $this->redirectToRoute('article', ['id' => $id]);
-            } else {
-                // Si j'ai des erreurs
-
-                    $this->show('blog/article', ['errors' => $errors, 'article'=>$article, 'author'=>$author, 'comments'=>$comments, 'categories' => BlogController::categoriesMenu()]);
+                        $this->show('blog/article', ['errors' => $errors, 'article'=>$article, 'author'=>$author, 'comments'=>$comments, 'categories' => BlogController::categoriesMenu()]);
                 }
             
             } 
@@ -123,10 +108,6 @@ class BlogController extends Controller
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
         $articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit = 5);
-
-        // Liste les catégories
-
-        $admin = $this->adminLinks();
 		
         // Recherche par mot clé
         $this->searchBar(); 

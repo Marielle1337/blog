@@ -67,8 +67,15 @@
 				  </a>
 				</form>
 
-				<a href='<?= $this->url('login')?>'>Connexion</a>
-				<a href='<?= $this->url('logout')?>'>Déconnexion</a>
+				<?php if(!isset($_SESSION['user'])) { ?>
+					<a href='<?= $this->url('login')?>'>Connexion</a>
+				<?php } else { ?>
+					<span> <?php if(isset($_SESSION['user']['firstname'])) { 
+								echo $_SESSION['user']['firstname']; 
+								} else { echo $_SESSION['user']['login']; } ?> 
+					</span>
+					<a href="<?=$this->url('logout')?>">Déconnexion</a>
+				<?php } ?>
 			</div>
 			</nav>
 
@@ -100,7 +107,7 @@
 				<?php } ?>
 				</ul>
 
-				<?php if($_SESSION['user']['role'] == 'admin') { ?>
+				<?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
 				<h3> Gestion administrateur </h3>
 				<ul>
                     <li> <a href="<?= $this->url('add') ?>"> Ajouter un article </a> </li>
