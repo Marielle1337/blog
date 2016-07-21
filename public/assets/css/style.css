@@ -107,6 +107,10 @@ input[type='file']{
 	float: right;
 }
 
+section ul li p {
+  display: none;
+}
+
 footer{	
 	margin-top: 50px;
 	padding-top: 50px;	
@@ -137,10 +141,11 @@ footer{
 	vertical-align: top;
 }
 
-.social img{	
-	width: 20px;
+.social i{	
 	padding-right: 5px;	
 }
 
-
+.navbar-fixed-bottom, .navbar-fixed-top, .navbar-static-top {
+    margin-bottom: 0;
+}
 

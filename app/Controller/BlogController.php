@@ -195,7 +195,8 @@ class BlogController extends Controller
 
                             // Renommer nom du fichier
                             $fileName = sha1_file($_FILES['picture']['tmp_name']) . time() . '.' . $extFoundInArray;
-                            $path = __DIR__ . '/../../uploads/' . $fileName;
+                            $path = __DIR__ . '/../../public/assets/uploads/' . $fileName;
+                            //echo $path;die();
                             $moved = move_uploaded_file($_FILES['picture']['tmp_name'], $path);
                             if (!$moved) {
                                 echo 'Erreur lors de l\'enregistrement';
@@ -226,7 +227,7 @@ class BlogController extends Controller
                 if (!empty($fileName)) {
                     $data['picture'] = $fileName;
                 }
-                $managerArticles->insert($data);
+                $managerArticles->insert($data, false);
                 if (isset($_POST['addArticle'])) {
                     // Ajout et redirection
                     $this->redirectToRoute('home');
@@ -446,8 +447,6 @@ class BlogController extends Controller
 
             case IMAGETYPE_JPEG: imagejpeg($image_resized, $output, $quality);
 
-
-
                 break;
 
             case IMAGETYPE_PNG:
@@ -544,9 +543,9 @@ class BlogController extends Controller
             if (strlen($_POST['title']) < 3) {
                 $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
             }
-            if (strlen($_POST['author']) < 3) {
-                $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
-            }
+//            if (strlen($_POST['author']) < 3) {
+//                $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
+//            }
             if (strlen($_POST['content']) < 3) {
                 $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
             }
@@ -585,7 +584,7 @@ class BlogController extends Controller
                     } else {
                         // Renommer nom du fichier
                         $fileName = sha1_file($_FILES['picture']['tmp_name']) . time() . '.' . $extFoundInArray;
-                        $path = __DIR__ . '/../../uploads/' . $fileName;
+                        $path = __DIR__ . '/../../public/assets/uploads/' . $fileName;
                         $moved = move_uploaded_file($_FILES['picture']['tmp_name'], $path);
 
                         if (!$moved) {
@@ -599,7 +598,7 @@ class BlogController extends Controller
                             }
 
                             // suppression ancienne
-                            unlink(__DIR__ . '/../../uploads/' . $article['picture']);
+                            unlink(__DIR__ . '/../../public/assets/uploads/' . $article['picture']);
 
                             // maj db
                             $data['picture'] = $fileName;

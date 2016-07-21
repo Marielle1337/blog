@@ -35,8 +35,7 @@
 </head>
 <body id="top">
 
-		<header>
-			
+		<header>                 
 			<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -79,6 +78,12 @@
 			</div>
 			</nav>
 
+<!--                        information sur l'utilisation des cookies-->
+			<div class="alert alert-info">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <i class="fa fa-rebel" aria-hidden="true"></i> Attention, jeune padawan, sur ce site en naviguant, les cookies accepter l'utilisation tu dois. Un verre de lait à prendre tu penseras.
+            </div>
+                    
 		<div class="container">
 
 			<img src="img/logoBC.png" alt="Logo Benjamin Cerbai">
@@ -130,40 +135,22 @@
 
         <footer>
         	<div class="container">
-            
-            	<a href="#top"> <img class="top" src="img/haut.png"> </a>
 		
 				<p class="copyright"> &copy  2016 Créez vos images et racontez vos histoires </p>
 
 				<!-- Réseaux sociaux -->
 				<div class="social">
 
-					<span class="fa-stack fa-lg"><i class="fa fa-youtube-play" aria-hidden="true"></i></span>
+					<a rel="nofollow" href="http://www.youtube.com/BenjaminCerbai" target="_blank"><i class="fa fa-youtube-play fa-2x" aria-hidden="true"></i></a>
 
-					<i class="fa fa-twitter" aria-hidden="true"></i>
+					<a rel="nofollow" href="https://twitter.com/BenjaminCerbai"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
 
-					<i class="fa fa-google-plus-official" aria-hidden="true"></i>
+					<a rel="nofollow" href="https://plus.google.com/u/0/+BenjaminCerbai"><i class="fa fa-google-plus-official fa-2x" aria-hidden="true"></i></a>
 
-					<i class="fa fa-facebook-square" aria-hidden="true"></i>
+					<a rel="nofollow" href="http://facebook.com/BenjaminCerbaiArt" target="_blank"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a>
 
-					<i class="fa fa-instagram" aria-hidden="true"></i>
+					<a rel="nofollow" href="https://www.instagram.com/benjamincerbai" target="_blank"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
 
-
-					<span class="social_button tw">
-						<a rel="nofollow" href="http://facebook.com/BenjaminCerbaiArt" target="_blank"><span class="social_ico"><img src="img/facebook.png"></span></a>
-					</span>
-					<span class="social_button fb">
-						<a rel="nofollow" href="http://www.youtube.com/BenjaminCerbai" target="_blank"><span class="social_ico"><img src="img/youtube.png"></i></span></a>
-					</span>
-					<span class="social_button go">
-						<a rel="nofollow" href="https://www.instagram.com/benjamincerbai" target="_blank"><span class="social_ico"><img src="img/instagram.png"></span></a>
-					</span>
-					<span class="social_button in">
-						<a rel="nofollow" href="https://twitter.com/BenjaminCerbai"><span class="social_ico"><img src="img/twitter.png"></span></a>
-					</span>
-					<span class="social_button in">
-						<a rel="nofollow" href="https://plus.google.com/u/0/+BenjaminCerbai"><span class="social_ico"><img src="img/google.png"></span></a>
-					</span>
 				</div>
 			</div>
         </footer>

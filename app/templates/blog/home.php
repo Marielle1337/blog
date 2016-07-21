@@ -6,6 +6,7 @@
 	<?php for($i=0; $i<count($articles); $i++) { ?>
 	<article>
 		<h2><a href="<?= $this->url('article', array('id' => $articles[$i]['id'])) ?>"> <?= $articles[$i]['title'] ?></a></h2>
+			<?php if($articles[$i]['picture']) { echo '<img src="'.$this->assetUrl('/uploads/'.$articles[$i]['picture']).'">'; } ?>
 			<?php if($i < 2){ ?>
 				<p><?= $articles[$i]['content'] ?></p>
 			<?php } else { ?>
