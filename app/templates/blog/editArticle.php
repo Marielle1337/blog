@@ -25,7 +25,7 @@
 		Bannière inexistante
         <?php endif; ?>
         <input type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
-	</label>
+    </label>
             
     <button type="submit" name="editArticle">Editer</button>
         
