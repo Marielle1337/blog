@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Liste des articles']) ?>
+<?php $this->layout('layout', ['title' => 'Liste des articles', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 <?php //print_r($_SESSION) ?>
@@ -22,6 +22,7 @@
             <a href="<?= $this->url('delete', ['id' => $article['id']]) ?>" class="delete">
                 <div>Supprimer</div>
             </a>
+            <a href="<?= $this->url('editArticle', ['id'=>$article['id']]) ?>" >modifier l'article</a>
         </li>
         <?php endforeach; ?>
     </ul>

@@ -22,7 +22,7 @@ class BlogController extends Controller
         if(isset($_GET['search'])){
             $searchManager = new\Manager\BlogManager();
             $find = $searchManager->searchByKeyWord($keyword = $_GET['toSearch']);
-            $this->show('blog/search', ['find'=>$find]);
+            $this->show('blog/search', ['find'=>$find, 'categories' => BlogController::categoriesMenu()]);
         }
     }
 
@@ -30,22 +30,26 @@ class BlogController extends Controller
     {
             // Autorisation
             if (!empty($_POST)) {
-                foreach ($_POST as $key => $value) {
-                $_POST[$key] = strip_tags(trim($value));
+                if($_POST['content']){
+                    foreach ($_POST as $key => $value) {
+                        $_POST[$key] = trim($value);
+                    }
+                } else {
+                    foreach ($_POST as $key => $value) {
+                        $_POST[$key] = strip_tags(trim($value));
+                    }
                 }
             }
-            //echo print_r($_SESSION);
-            //$this->allowTo('admin');
 
             if(isset($_POST['addComment'])) {
 
-            $errors = [];
+                $errors = [];
 
-                if(empty($_POST['content'])){
-                $errors['content']['empty']=true;
+                if (strlen($_POST['author']) < 3) {
+                    $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
                 }
-                if(empty($_POST['author'])){
-                $errors['author']['empty']=true;
+                if (strlen($_POST['content']) < 3) {
+                    $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
                 }
             
                 // Si aucune erreur
@@ -59,8 +63,8 @@ class BlogController extends Controller
                     $content = $_POST['content'];
                     $idArticle = $id;
                 
-                    $managerArticles = new \Manager\BlogManager();
-                    $managerArticles->setTable('comments');
+                    $managerComments = new \Manager\BlogManager();
+                    $managerComments->setTable('comments');
                     $data =[
                         'author'=>$author,
                         'content'=>$content,
@@ -68,12 +72,13 @@ class BlogController extends Controller
                         //'email'=>$email,
                     ];
                     $managerComments -> insert($data);
+                    $this->redirectToRoute('article', ['id'=>$id]);
            
                 
                 } else {
                     // Si j'ai des erreurs
 
-                    $this->show('blog/article', ['errors' => $errors, 'article'=>$article, 'author'=>$author, 'comments'=>$comments]);
+                    $this->show('blog/article', ['errors' => $errors, 'article'=>$article, 'author'=>$author, 'comments'=>$comments, 'categories' => BlogController::categoriesMenu()]);
                 }
             
             } 
@@ -86,12 +91,23 @@ class BlogController extends Controller
         return $managerComments->comments($id);
     }
 
-    private function categoriesMenu()
+    public static function categoriesMenu()
     {
-        $caterogyManager = new \Manager\BlogManager();
-        $caterogyManager->setTable('categories');
-        return $caterogyManager->findAll();
+        $categoryManager = new \Manager\BlogManager();
+        $categoryManager->setTable('categories');
+        return $categoryManager->findAll();
+    }
 
+    private function adminLinks()
+    {
+        $this->allowTo('admin');
+        // return '<ul>'.
+        //             '<li> <a href="'.$this->url('add').'"> Ajouter un article </a> </li>'.
+        //             '<li> <a href="'.$this->url('liste').'"> Gérer les articles </a> </li>'.
+        //             '<li> <a href="'.$this->url('archive').'"> Gérer les newsletters </a> </li>'.
+        //             '<li> <a href="'.$this->url('newsletters').'">Créer une newsletter </a> </li>'.
+        //         '<ul>';
+        
     }
 
     public function home()
@@ -102,12 +118,12 @@ class BlogController extends Controller
         $articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit = 5);
         
         // Liste les catégories
-        $categories = $this->categoriesMenu();
+        $admin = $this->adminLinks();
 		
         // Recherche par mot clé
         $this->searchBar(); 
         
-        $this->show('blog/home', ['articles'=>$articles, 'categories'=>$categories]);
+        $this->show('blog/home', ['articles'=>$articles, 'categories' => BlogController::categoriesMenu()]);
 
     }
 
@@ -119,34 +135,49 @@ class BlogController extends Controller
         //var_dump($_FILES); etat des lieux mettre en com a la fin ou supprimer la ligne
         // Autorisation
         if (!empty($_POST)) {
-            foreach ($_POST as $key => $value) {
-                $_POST[$key] = strip_tags(trim($value));
+            if($_POST['content']){
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = trim($value);
+                }
+            } else {
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = strip_tags(trim($value));
+                }
             }
         }
 
+        $categoryManager = new \Manager\BlogManager;
+        $categoryManager->setTable('categories');
+        $categories = $categoryManager->findAll();
 
         // Je verifie si j'ai une soumission de formulaire
         if (isset($_POST['addArticle']) || isset($_POST['addArticleAndStay'])) {
             $errors = [];
 
             // Verifications
-            if (empty($_POST['title'])) {
-                $errors['title']['empty'] = true;
+            if (strlen($_POST['title']) < 3) {
+                $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
             }
-            if (empty($_POST['dateCreated'])) {
-                $errors['dateCreated']['empty'] = true;
+            if (!empty($_POST['author']) && strlen($_POST['author']) < 3) {
+                $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
             }
-            if (empty($_FILES['picture'])) {
-                $errors['picture']['empty'] = true;
+            if (strlen($_POST['content']) < 3) {
+                $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
+            }
+            if(!is_numeric($_POST['category'])) {
+                $errors['categoryNumber'] = 'La catégorie est mal renseignée';
+            }
+            if(!isset($_POST['category'])){
+                $errors['categoryEmpty'] = 'Aucune catégorie n\'a été renseignée';
             }
 
             // Ajout en DB
             if (count($errors) === 0) {
                 // Si j'ai pas d'erreur
                 $title = $_POST['title'];
-                $dateCreated = $_POST['dateCreated'];
                 $content = $_POST['content'];
                 $picture = $_FILES['picture'];
+                $author = $_POST['author'];
 
                 $managerArticles = new \Manager\BlogManager();
                 
@@ -169,8 +200,8 @@ class BlogController extends Controller
                             'jpg' => 'image/jpeg',
                             'png' => 'image/png',
                             'gif' => 'image/gif',
-                            //'mpeg' => 'video/mpeg',
-                            //'mp4' => 'video/mp4',
+                            'mpeg' => 'video/mpeg',
+                            'mp4' => 'video/mp4',
                         )
                     );
                     if ($extFoundInArray === false) {
@@ -200,12 +231,20 @@ class BlogController extends Controller
 
                             $data = [
                                 'title' => $title,
-                                'dateCreated' => $dateCreated,
                                 'content' => $content,
-                                'picture' => $fileName,
+                                'idCategory'=>$_POST['category']
                             ];
+
+                            if(!empty($author)){
+                                $data['author'] = $author;
+                            } else {
+                                $data['author'] = 5;
+                            }
+                            if(!empty($fileName)){
+                                $data['picture'] = $fileName;
+                            }
                             
-                            $managerArticles->insert($data);
+                            $managerArticles->insert($data, false);
                             
                             if (isset($_POST['addArticle'])) {
                                 // Ajout et redirection
@@ -221,12 +260,12 @@ class BlogController extends Controller
 
             // Si j'ai une erreur
             // J'affiche le template, avec un tableau d'erreurs
-            $this->show('blog/add', ['errors' => $errors]);
+            $this->show('blog/add', ['errors' => $errors, 'categories' => BlogController::categoriesMenu()]);
             }
 
         }else{
             // premier acces a la page
-            $this->show('blog/add');
+            $this->show('blog/add', ['categories' => BlogController::categoriesMenu()]);
         }
     }
 
@@ -250,7 +289,7 @@ class BlogController extends Controller
         $managerArticles->setTable('articles');
         $articles = $managerArticles -> findAll();
         $this->searchBar();
-        $this->show('blog/liste', ['articles'=>$articles]);
+        $this->show('blog/liste', ['articles'=>$articles, 'categories' => BlogController::categoriesMenu()]);
     }
 
     public function grid()//grille des X derniers articles
@@ -262,7 +301,7 @@ class BlogController extends Controller
         $managerArticles->setTable('articles');
         $articles = $managerArticles -> findAll($orderBy = "dateCreated", $orderDir = "DESC", $limit = 5);
         $this->searchBar();
-        $this->show('blog/grid', ['articles'=>$articles]);
+        $this->show('blog/grid', ['articles'=>$articles,'categories' => BlogController::categoriesMenu()]);
     }
 
     //redimensioner un media
@@ -473,10 +512,10 @@ class BlogController extends Controller
             $searchManager = new\Manager\BlogManager();
             $find = $searchManager->search($title = $_GET['title'], $content=$_GET['content'], $dateCreated=$_GET['date']);
 
-            $this->show('blog/search', ['find'=>$find]);
+            $this->show('blog/search', ['find'=>$find, 'categories' => BlogController::categoriesMenu()]);
         }   
         $this->searchBar();
-        $this->show('blog/advanced_search');
+        $this->show('blog/advanced_search', ['categories' => BlogController::categoriesMenu()]);
     }
 
     public function article($id)// page d'affichage de l'article
@@ -495,7 +534,7 @@ class BlogController extends Controller
 
         $comments = $this->showComment($article['id']);
         
-        $this->show('blog/article', ['article'=>$article, 'author'=>$author, 'comments'=>$comments]);
+        $this->show('blog/article', ['article'=>$article, 'author'=>$author, 'comments'=>$comments, 'categories' => BlogController::categoriesMenu()]);
 
     }
 
@@ -505,11 +544,121 @@ class BlogController extends Controller
         $managerArticles->setTable('articles');
         $articles = $managerArticles -> category($id);
         $this->searchBar();
-        $this->show('blog/category', ['articles'=>$articles]);
+        $this->show('blog/category', ['articles'=>$articles, 'categories' => BlogController::categoriesMenu()]);
     }
     
+    public function archive()//liste de toute les newsletters 
+    {
+        //si tu es admin 
+        //$this->allowTo('admin');
+        
+        $managerNewsletters = new \Manager\BlogManager();
+        $managerNewsletters->setTable('newsletters');
+        $newsletters = $managerNewsletters -> findAll($orderBy = "sendDate", $orderDir = "DESC");
+        $this->searchBar();// je te garde quand meme ta searchbar ???
+        $this->show('mail/archive', ['newsletters'=>$newsletters, 'categories' => BlogController::categoriesMenu()]);
+    }
+
+    public function editArticle($id)
+    {
+        $manager = new \Manager\BlogManager();
+        $article = $manager->find($id);
 
 
+        if (!empty($_POST)) {
+            if($_POST['content']){
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = trim($value);
+                }
+            } else {
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = strip_tags(trim($value));
+                }
+            }
+        }
+
+        if(isset($_POST['editArticle'])){
+
+            $errors = [];
+
+            // Verifications
+            if (strlen($_POST['title']) < 3) {
+                $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
+            }
+            if (strlen($_POST['author']) < 3) {
+                $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
+            }
+            if (strlen($_POST['content']) < 3) {
+                $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
+            }
+
+            if(count($errors) === 0){
+            
+                $data = [
+                    'title'=>$_POST['title'],
+                    'content'=>$_POST['content'],
+                    'dateCreated'=>date("Y-m-d"),
+                ];
+                
+                // traitement du medias
+                // Vérifier si le téléchargement du fichier n'a pas été interrompu
+                if ($_FILES['picture']['error'] != UPLOAD_ERR_OK) {
+                    echo 'Erreur lors du téléchargement.' . $_FILES['picture']['error'];
+                } else {
+                    // Objet FileInfo
+                    $finfo = new \finfo(FILEINFO_MIME_TYPE);
+
+                    // Récupération du Mime
+                    $mimeType = $finfo->file($_FILES['picture']['tmp_name']);
+
+                    $extFoundInArray = array_search(
+                        $mimeType, array(
+                                'jpg' => 'image/jpeg',
+                                'png' => 'image/png',
+                                'gif' => 'image/gif',
+                                //'mpeg' => 'video/mpeg',
+                                //'mp4' => 'video/mp4',
+                        )
+                    );
+                    
+                    if ($extFoundInArray === false) {
+                        echo 'Le fichier n\'est pas une image';    
+                    } else {
+                        // Renommer nom du fichier
+                        $fileName = sha1_file($_FILES['picture']['tmp_name']) . time() . '.' . $extFoundInArray;
+                        $path = __DIR__ . '/../../uploads/' . $fileName;
+                        $moved = move_uploaded_file($_FILES['picture']['tmp_name'], $path);
+                        
+                        if (!$moved) {
+                            echo 'Erreur lors de l\'enregistrement';           
+                        } else {
+                            //on redimensionne le medias
+
+                            //si je suis jpg ou png ou gif
+                            if($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg' ){
+                                //resize
+                                $resize = $this ->resize($path, null, 80, 80, $path);
+                            }
+                            
+                            // suppression ancienne
+                            unlink(__DIR__ . '/../../uploads/' . $article['picture']);
+                            
+                            // maj db
+                            $data['picture']=$fileName;
+                        }               
+                    }
+                }
+            
+                $manager->update($data, $id, false);
+                $this->redirectToRoute('editArticle',['id'=>$id]);
+            } else {
+                $this->show('blog/editArticle', ['article'=>$article, 'errors'=>$errors, 'categories' => BlogController::categoriesMenu()]);
+            }
+
+        }
+
+        $this->show('blog/editArticle', ['article'=>$article, 'categories' => BlogController::categoriesMenu()]);
+    }
         
 
     

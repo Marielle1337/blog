@@ -90,4 +90,5 @@ class BlogManager extends Manager
 
 		return $stmt->fetchAll();
 	}
+        
 }

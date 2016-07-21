@@ -1,15 +1,14 @@
-<?php
-
-$this->layout('layout', ['title' => 'Connexion']) ?>
+<?php $this->layout('layout', ['title' => 'Connexion', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
+<?php if(isset($errors['connect'])){ echo $errors['connect']; } ?>
 <form action="#" method="POST" accept-charset="utf-8">
 	<fieldset>
 		<legend> Connexion </legend>
 		
 		<label>
 			<input type="text" name="login" placeholder="Login ou Mail">
-			<?php if(isset($errors['user'])){ echo $errors['login']; } ?>
+			<?php if(isset($errors['user'])){ echo $errors['user']; } ?>
 		</label>
 	    
 	    <label>
@@ -20,7 +19,8 @@ $this->layout('layout', ['title' => 'Connexion']) ?>
 		</br>
 		<button type="submit" name="connect">Connexion</button>
 	</fieldset>
-
+</form>
+<form action="#" method="POST" accept-charset="utf-8">
 	<fieldset>
 		<legend> Inscription </legend>
 		
@@ -47,6 +47,14 @@ $this->layout('layout', ['title' => 'Connexion']) ?>
 	        <input type="password" name="password2" placeholder="Confirmation mot de passe">
 	        <?php if(isset($errors['confirm_password'])){ echo $errors['confirm_password']; } ?>
 		</label>
+
+		<label>
+            <input type="checkbox" name="newsletter" value="1">
+            <?php if (isset($errors['newsletter'])): ?>
+            L'abonnement est mal renseigné
+            <?php endif; ?>
+            Je souhaite m'abonner à la newsletter
+        </label>
 
 		</br>
 		<button type="submit" name="signup">S'incrire</button>

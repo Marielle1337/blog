@@ -1,45 +1,45 @@
-<?php
-
-$this->layout('layout', ['title' => 'ajouter un article']) ?>
+<?php $this->layout('layout', ['title' => 'Ajouter un article', 'categories'=>$categories, 'admin'=>$admin]) ?>
 
 <?php $this->start('main_content') ?>
 <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+	
 	<label>
-		<input type="text" name="title"  placeholder="le titre de votre article">
-                <?php if (isset($errors['title']['empty'])): ?>
-		"remplis le titre"
-		<?php endif; ?>
+        <?php if (isset($errors['title'])) { echo $errors['title']; } ?>
+		<input type="text" name="title"  placeholder="Titre" <?php if(isset($_POST['title'])) {echo'value="'.$_POST['title'].'"';}?>>
+	</label>
+
+	<label> Catégorie de votre article :
+		<select name="category">
+		<?php foreach ($categories as $category) { ?>
+			<option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
+		<?php } ?>
+		</select>
+		<?php if (isset($errors['categoryNumber'])) { echo $errors['categoryNumber']; } ?>
+		<?php if (isset($errors['categoryEmpty'])) { echo $errors['categoryEmpty']; } ?>
 	</label>
     
 	<label>
-            <input type="file" name="picture" placeholder="le media de votre article">
-                <?php if (isset($errors['title']['empty'])): ?>
-		"choisir un media"
-		<?php endif; ?>
+    	Bannière de votre article : 
+        <input type="file" name="picture">
 	</label>
-    
-         <label>
-                <input type="text" name="dateCreated"  placeholder="yyyy-mm-dd">
-                <?php if (isset($errors['dateCreated']['empty'])): ?>
-		"remplis la date de création"
-		<?php endif; ?>
+
+
+	<label>
+        <?php if (isset($errors['content'])) { echo $errors['content']; } ?>
+        <textarea name="content" class="admin" placeholder="Saisir un texte ici."><?php if(isset($_POST['content'])){echo $_POST['content'];}?></textarea>
 	</label>
 
 	<label>
-                <textarea name="content" >Saisir un texte ici.</textarea>
-                <?php if (isset($errors['content']['empty'])): ?>
-		"remplis le commentaire"
-		<?php endif; ?>
+		<input type="text" name="author"  placeholder="Qui êtes-vous ?">
+   		(Par défaut l'auteur est Benjamin Cerbai.) 
+        <?php if (isset($errors['author'])) { echo $errors['author']; } ?>
 	</label>
+    
 	</br>
-	<button type="submit" name="addArticle">ajouter un article</button>
-	<button type="submit" name="addArticleAndStay">ajouter un article et rester ici</button>
+	<button type="submit" name="addArticle">Ajouter l'article</button>
+	<button type="submit" name="addArticleAndStay">Ajouter et rester</button>
 
 </form>
-
-<a href="<?= $this->url('liste') ?>" >retour a la liste</a>
-<a href="<?= $this->url('grid') ?>" >retour a la grille</a>
-<a href="<?= $this->url('home') ?>" >retour a la page d'accueil</a>
 
 <?php $this->stop('main_content') ?>
 

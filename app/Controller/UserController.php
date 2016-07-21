@@ -12,7 +12,7 @@ class UserController extends Controller
 
         $userManager = new \Manager\BlogManager();
         $userManager->setTable('users');
-
+//print_r($_POST);die();
         if(isset($_POST['connect'])) {
             if(empty($_POST['login']) || empty($_POST['password'])) {
                 // Redirection vers le login
@@ -24,11 +24,8 @@ class UserController extends Controller
             $id = $authentificationManager->isValidLoginInfo($_POST['login'], $_POST['password']);
 
             // Erreurs de connexion
-            if(!$foundUser){
+            if(!$id){
                 $errors['user'] = 'Le login ou l\'email n\'existe pas';
-            }
-            if (!password_verify($plainPassword, $foundUser[$app->getConfig('security_password_property')])){
-                $errors['passwordExist'] = 'Le password est incorrect !';
             }
             
             // Si la connexion a reussi
@@ -37,7 +34,7 @@ class UserController extends Controller
                 $authentificationManager->logUserIn($userInfos);
                 $this->redirectToRoute('home');
             } else {
-                echo 'La connexion a échoué';
+                $errors['connect'] = 'La connexion a échoué';
             }
             
         }
@@ -62,8 +59,16 @@ class UserController extends Controller
             if(strlen($_POST['firstname']) < 3){
                 $errors['firstname'] = 'Le firstname est trop court !';
             }
+            if($_POST['newsletter'] !== 1){
+                $errors['newsletter'] = true;
+            }
 
             if(!$errors){
+
+                if(isset($_POST['newsletter'])){
+                    $newsManager = new \Manager\SubscriptionManager();
+                    $newsManager->insert(['email'=>$_POST['email']]);
+                }
 
                 $data = [
                     'login' => $_POST['login'],
@@ -92,12 +97,7 @@ class UserController extends Controller
             }
         }
 
-        $this->show('blog/connection');
-    }
-
-    public function contact()
-    {
-        $this->show('blog/contact');
+        $this->show('blog/connection', ['categories' => BlogController::categoriesMenu()]);
     }
 
     public function aboutMe()
@@ -105,7 +105,7 @@ class UserController extends Controller
         $manager = new \Manager\BlogManager();
         $manager->setTable('whoIAm');
         $pres = $manager-> findAll();
-        $this->show('blog/aboutMe', ['pres'=>$pres]);
+        $this->show('blog/aboutMe', ['pres'=>$pres, 'categories' => BlogController::categoriesMenu()]);
     }
 
     public function logout()
