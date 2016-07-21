@@ -132,17 +132,17 @@ class BlogController extends Controller
 
         //var_dump($_FILES); etat des lieux mettre en com a la fin ou supprimer la ligne
         // Autorisation
-        // if (!empty($_POST)) {
-        //     if($_POST['content']){
-        //         foreach ($_POST as $key => $value) {
-        //             $_POST[$key] = trim($value);
-        //         }
-        //     } else {
-        //         foreach ($_POST as $key => $value) {
-        //             $_POST[$key] = strip_tags(trim($value));
-        //         }
-        //     }
-        // }
+        if (!empty($_POST)) {
+            if($_POST['content']){
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = trim($value);
+                }
+            } else {
+                foreach ($_POST as $key => $value) {
+                    $_POST[$key] = strip_tags(trim($value));
+                }
+            }
+        }
 
         $categoryManager = new \Manager\BlogManager;
         $categoryManager->setTable('categories');

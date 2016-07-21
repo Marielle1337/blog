@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php //$categories = Generator::categoriesMenu(); ?><!DOCTYPE html>
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
