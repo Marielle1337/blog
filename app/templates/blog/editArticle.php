@@ -12,9 +12,10 @@
 	</label>
     
 	<label>
-        <?php if (isset($errors['content']['empty'])): ?>
-		Contenu inexistant
-        <textarea name="content" class="admin" ><?= $article['content'] ?></textarea>
+            <?php if (isset($errors['content']['empty'])): ?>
+                    Contenu inexistant
+            <textarea name="content" class="admin" ><?= $article['content'] ?></textarea>
+            <?php endif; ?>
 	</label>
     
     <label>
