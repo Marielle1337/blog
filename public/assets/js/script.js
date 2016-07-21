@@ -93,6 +93,36 @@ tinymce.init({
     '//www.tinymce.com/css/codepen.min.css'
   ]
 });
+	
+/*
+ * Accordéon
+ * Quand je clique sur le titre d'un article, 
+    je veux afficher le paragraphe correspondant
+ */
+$(function(){
+ 
+    $("h3").on('click', function(event){
+         
+        var p = $(event.target).next();
+         
+        $('li.active').removeClass('active');
+        p.parent().addClass('active');
+         
+        if(p.css('display') == 'block'){
+            $('li.active').removeClass('active');
+            p.css('display', 'none');
+        } else {
+            // cacher tous les <p>
+            $('li p').css('display', 'none');
+            // afficher le <p> après le <h3> sur lequel on clique
+            p.css('display', 'block');
+        }
+ 
+         
+     
+    });
+ 
+});
 
 
 });

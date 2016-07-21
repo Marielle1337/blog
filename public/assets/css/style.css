@@ -75,7 +75,9 @@ input, button, select {
 	color: #F8F8F2;
 	float: right;
 }
-
+section ul li p {
+  display: none;
+}
 
 
 

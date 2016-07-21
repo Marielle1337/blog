@@ -12,9 +12,9 @@
     <ul>
         <?php foreach($newsletters as $newsletter) : ?>
         <li class="task">
-            <?= $newsletter['title']. ' , '.
-            date('d/m/Y', strtotime($newsletter['sendDate'])) . ' : ' .     
-            $newsletter['content'] ?>
+            <h3 class="newsletter"><?= $newsletter['title'] ?> </h3>
+             <?= date('d/m/Y', strtotime($newsletter['sendDate'])) . ' : ' .     
+              '<p class="newsletter">'.  $newsletter['content']  .'</p>' ?>
             <a href="<?= $this->url('editNewsletter', ['id'=>$newsletter['id']])?>"> Modifier la newsletter </a> 
         </li>
         <?php endforeach; ?>

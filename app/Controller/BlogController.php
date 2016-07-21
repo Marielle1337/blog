@@ -434,8 +434,6 @@ class BlogController extends Controller
 
             case IMAGETYPE_JPEG: imagejpeg($image_resized, $output, $quality);
 
-
-
                 break;
 
             case IMAGETYPE_PNG:
