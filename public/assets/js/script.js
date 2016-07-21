@@ -97,7 +97,7 @@ tinymce.init({
 /*
  * Accordéon
  * Quand je clique sur le titre d'un article, 
-    je veux afficher le paragraphe correspondant
+   je veux afficher le paragraphe correspondant
  */
 $(function(){
  

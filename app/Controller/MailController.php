@@ -165,6 +165,7 @@ class MailController extends Controller
                 }
 
                 $manager->update($data, $id);
+                $this->redirectToRoute('archive');
             } else {
                 $this->show('mail/editNewsletter', ['newsletter'=>$newsletter, 'errors'=>$errors]);
             }
