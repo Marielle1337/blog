@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php //$categories = Generator::categoriesMenu(); ?><!DOCTYPE html>
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
@@ -25,6 +25,9 @@
 
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<!-- FontAwesome -->
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/font-awesome.min.css') ?>">
 
 	<!-- Mes feuilles de style -->
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>" title="standard">
@@ -63,8 +66,15 @@
 				  </a>
 				</form>
 
-				<a href='<?= $this->url('login')?>'>Connexion</a>
-				<a href='<?= $this->url('logout')?>'>Déconnexion</a>
+				<?php if(!isset($_SESSION['user'])) { ?>
+					<a href='<?= $this->url('login')?>'>Connexion</a>
+				<?php } else { ?>
+					<span> <?php if(isset($_SESSION['user']['firstname'])) { 
+								echo $_SESSION['user']['firstname']; 
+								} else { echo $_SESSION['user']['login']; } ?> 
+					</span>
+					<a href="<?=$this->url('logout')?>">Déconnexion</a>
+				<?php } ?>
 			</div>
 			</nav>
 
@@ -88,22 +98,80 @@
 	<div class="container">
 
 		<aside>
+		<div>
 			<div class="themes">
 				<button type="button" id="theme1">Jour</button>
 				<button type="button" id="theme2">Nuit</button>
 			</div>
-			<?= $this->section('aside') ?>
+			
+			<nav id="navlaterale" class="categories">
+				<h3> Catégories </h3>
+				<ul>
+				<?php foreach ($categories as $category) { ?>
+					<li><a href="<?=$this->url('category', array('id' => $category['id'])) ?>" title="<?= $category['name'] ?>"><?= $category['name'] ?></a></li>
+				<?php } ?>
+				</ul>
+
+				<?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
+				<h3> Gestion administrateur </h3>
+				<ul>
+                    <li> <a href="<?= $this->url('add') ?>"> Ajouter un article </a> </li>
+                    <li> <a href="<?= $this->url('liste') ?>"> Gérer les articles </a> </li>
+                    <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
+                    <li> <a href="<?= $this->url('newsletter') ?>">Créer une newsletter </a> </li>
+                <ul>
+                <?php } ?>
+			</nav>
+			
+			<a id='topButton' href="#top" title='Revenir en haut'> Revenir en haut </a>
+		</div>
 		</aside>
 
 		<main>
 			<?= $this->section('main_content') ?>
-			<a href="#top" title='revenir en haut'> Revenir en haut </a>
 		</main>
 
-        <footer>
-            <p> &copy 2016 Créez vos images et racontez vos histoires </p>
-			<div id="reseaux"> Réseaux sociaux </div>
-        </footer>
 	</div>
+
+        <footer>
+        	<div class="container">
+            
+            	<a href="#top"> <img class="top" src="img/haut.png"> </a>
+		
+				<p class="copyright"> &copy  2016 Créez vos images et racontez vos histoires </p>
+
+				<!-- Réseaux sociaux -->
+				<div class="social">
+
+					<span class="fa-stack fa-lg"><i class="fa fa-youtube-play" aria-hidden="true"></i></span>
+
+					<i class="fa fa-twitter" aria-hidden="true"></i>
+
+					<i class="fa fa-google-plus-official" aria-hidden="true"></i>
+
+					<i class="fa fa-facebook-square" aria-hidden="true"></i>
+
+					<i class="fa fa-instagram" aria-hidden="true"></i>
+
+
+					<span class="social_button tw">
+						<a rel="nofollow" href="http://facebook.com/BenjaminCerbaiArt" target="_blank"><span class="social_ico"><img src="img/facebook.png"></span></a>
+					</span>
+					<span class="social_button fb">
+						<a rel="nofollow" href="http://www.youtube.com/BenjaminCerbai" target="_blank"><span class="social_ico"><img src="img/youtube.png"></i></span></a>
+					</span>
+					<span class="social_button go">
+						<a rel="nofollow" href="https://www.instagram.com/benjamincerbai" target="_blank"><span class="social_ico"><img src="img/instagram.png"></span></a>
+					</span>
+					<span class="social_button in">
+						<a rel="nofollow" href="https://twitter.com/BenjaminCerbai"><span class="social_ico"><img src="img/twitter.png"></span></a>
+					</span>
+					<span class="social_button in">
+						<a rel="nofollow" href="https://plus.google.com/u/0/+BenjaminCerbai"><span class="social_ico"><img src="img/google.png"></span></a>
+					</span>
+				</div>
+			</div>
+        </footer>
+	
 </body>
 </html>

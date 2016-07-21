@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => $article['title']]) ?>
+<?php $this->layout('layout', ['title' => $article['title'], 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 

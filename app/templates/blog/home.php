@@ -1,16 +1,5 @@
-<?php $this->layout('layout', ['title' => 'Accueil']) ?>
+<?php $this->layout('layout', ['title' => 'Accueil', 'categories'=>$categories]) ?>
 
-<?php $this->start('aside') ?>
-
-	<nav id="navlaterale" class="categories">
-		<ul>
-		<?php foreach ($categories as $category) { ?>
-			<li><a href="<?=$this->url('category', array('id' => $category['id'])) ?>" title="<?= $category['name'] ?>"><?= $category['name'] ?></a></li>
-		<?php } ?>
-		</ul>
-	</nav>
-
-<?php $this->stop('aside') ?>
 
 <?php $this->start('main_content') ?>
 	

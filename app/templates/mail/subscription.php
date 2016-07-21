@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'S\'inscrire à la newsletter']) ?>
+<?php $this->layout('layout', ['title' => 'S\'inscrire à la newsletter', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 

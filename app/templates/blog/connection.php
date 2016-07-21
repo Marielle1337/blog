@@ -1,6 +1,4 @@
-<?php
-
-$this->layout('layout', ['title' => 'Connexion']) ?>
+<?php $this->layout('layout', ['title' => 'Connexion', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 <?php if(isset($errors['connect'])){ echo $errors['connect']; } ?>

@@ -97,12 +97,7 @@ class UserController extends Controller
             }
         }
 
-        $this->show('blog/connection');
-    }
-
-    public function contact()
-    {
-        $this->show('blog/contact');
+        $this->show('blog/connection', ['categories' => BlogController::categoriesMenu()]);
     }
 
     public function aboutMe()
@@ -110,7 +105,7 @@ class UserController extends Controller
         $manager = new \Manager\BlogManager();
         $manager->setTable('whoIAm');
         $pres = $manager-> findAll();
-        $this->show('blog/aboutMe', ['pres'=>$pres]);
+        $this->show('blog/aboutMe', ['pres'=>$pres, 'categories' => BlogController::categoriesMenu()]);
     }
 
     public function logout()

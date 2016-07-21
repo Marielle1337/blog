@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Résultats de votre recherche']) ?>
+<?php $this->layout('layout', ['title' => 'Résultats de votre recherche', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 	

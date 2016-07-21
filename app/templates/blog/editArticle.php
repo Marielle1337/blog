@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Modifier vos articles']) ?>
+<?php $this->layout('layout', ['title' => 'Modifier vos articles', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 <?php //print_r($articles); ?>
@@ -12,20 +12,19 @@
 	</label>
     
 	<label>
-                <?php if (isset($errors['content']['empty'])): ?>
-		Contenu inexistant
-                <?php endif; ?>
-                <textarea name="content" class="admin" ><?= $article['content'] ?></textarea>
+        <?php if (isset($errors['content']['empty'])): ?>
+        <textarea name="content" class="admin" ><?= $article['content'] ?></textarea>
+        <?php endif; ?>
 	</label>
     
         <label>
-                <figure>
-                    <img src="/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
-                </figure>
-                <?php if (isset($errors['picture']['empty'])): ?>
-                Bannière inexistante
-                <?php endif; ?>
-                <input type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
+            <figure>
+                <img src="/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
+            </figure>
+            <?php if (isset($errors['picture']['empty'])): ?>
+            Bannière inexistante
+            <?php endif; ?>
+            <input type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
         </label>
             
         <button type="submit" name="editArticle">Editer</button>

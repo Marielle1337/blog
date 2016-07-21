@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => Newsletter]) ?>
+<?php $this->layout('layout', ['title' => 'Newsletter', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 

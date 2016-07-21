@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Liste des newsletters']) ?>
+<?php $this->layout('layout', ['title' => 'Liste des newsletters', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 <?php //print_r($_SESSION) ?>

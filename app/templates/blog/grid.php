@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'grille des articles']) ?>
+<?php $this->layout('layout', ['title' => 'grille des articles', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 
