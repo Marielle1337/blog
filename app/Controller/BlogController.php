@@ -142,12 +142,12 @@ class BlogController extends Controller
             if (strlen($_POST['content']) < 3) {
                 $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
             }
-//            if(!is_numeric($_POST['category'])) {
-//                $errors['categoryNumber'] = 'La catégorie est mal renseignée';
-//            }
-//            if(!isset($_POST['category'])){
-//                $errors['categoryEmpty'] = 'Aucune catégorie n\'a été renseignée';
-//            }
+           if(!is_numeric($_POST['category'])) {
+               $errors['categoryNumber'] = 'La catégorie est mal renseignée';
+           }
+           if(!isset($_POST['category'])){
+               $errors['categoryEmpty'] = 'Aucune catégorie n\'a été renseignée';
+           }
             // Ajout en DB
             if (count($errors) === 0) {
                 // Si j'ai pas d'erreur
@@ -206,7 +206,7 @@ class BlogController extends Controller
                 $data = [
                     'title' => $title,
                     'content' => $content,
-                    //'idCategory'=>$_POST['category']
+                    'idCategory'=>$_POST['category']
                 ];
 
                 if (!empty($author)) {
