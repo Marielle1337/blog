@@ -145,5 +145,7 @@ footer{
 	padding-right: 5px;	
 }
 
-
+.navbar-fixed-bottom, .navbar-fixed-top, .navbar-static-top {
+    margin-bottom: 0;
+}
 

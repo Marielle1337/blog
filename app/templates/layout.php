@@ -80,9 +80,9 @@
 
 <!--                        information sur l'utilisation des cookies-->
 			<div class="alert alert-info">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>Info!</strong> ce site utilise des cookies, pense a prendre un verre de lait jeune padawan
-                        </div>
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <i class="fa fa-rebel" aria-hidden="true"></i> Attention, jeune padawan, sur ce site en naviguant, les cookies accepter l'utilisation tu dois. Un verre de lait à prendre tu penseras.
+            </div>
                     
 		<div class="container">
 
