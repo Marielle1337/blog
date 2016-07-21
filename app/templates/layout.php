@@ -35,8 +35,7 @@
 </head>
 <body id="top">
 
-		<header>
-			
+		<header>                 
 			<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -79,6 +78,12 @@
 			</div>
 			</nav>
 
+<!--                        information sur l'utilisation des cookies-->
+			<div class="alert alert-info">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Info!</strong> ce site utilise des cookies, pense a prendre un verre de lait jeune padawan
+                        </div>
+                    
 		<div class="container">
 
 			<img src="img/logoBC.png" alt="Logo Benjamin Cerbai">

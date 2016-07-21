@@ -446,8 +446,6 @@ class BlogController extends Controller
 
             case IMAGETYPE_JPEG: imagejpeg($image_resized, $output, $quality);
 
-
-
                 break;
 
             case IMAGETYPE_PNG:
@@ -544,9 +542,9 @@ class BlogController extends Controller
             if (strlen($_POST['title']) < 3) {
                 $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
             }
-            if (strlen($_POST['author']) < 3) {
-                $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
-            }
+//            if (strlen($_POST['author']) < 3) {
+//                $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
+//            }
             if (strlen($_POST['content']) < 3) {
                 $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
             }

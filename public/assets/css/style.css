@@ -107,6 +107,10 @@ input[type='file']{
 	float: right;
 }
 
+section ul li p {
+  display: none;
+}
+
 footer{	
 	margin-top: 50px;
 	padding-top: 50px;	
