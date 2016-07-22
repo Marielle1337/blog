@@ -9,14 +9,24 @@ html, body {
 	padding: 0px;
 }
 
+.connexion {
+	padding: 15px;
+	position: absolute;
+	right: 100px;
+}
+
+.connexion span {
+	padding-right: 10px;
+}
+
 aside {
 	float: right;
-	width: 15%;
-	height: 200px;
+	width: 20%;
+	height: 100%;
 }
 
 aside > div {
-	position: fixed;
+	position: absolute;
 	margin: auto;
 	width: 17%;
 }
@@ -28,9 +38,9 @@ aside::after {
 }
 
 main {
-	width: 85%;
-	padding-right: 20px;
-
+	width: 80%;
+	/*padding-right: 20px;*/
+	padding-bottom: 100px;
 }
 
 p {
@@ -48,6 +58,11 @@ a:hover {
 
 h1, h2, a, legend {
 	color: #66D9EF;
+}
+
+ul li {
+	list-style-type: none;
+	list-style-position: outside;
 }
 
 label {
@@ -71,13 +86,17 @@ input[type='file']{
 
 #navlaterale{
 	margin: auto;
-	width: 50%;
+	width: 100%;
 	padding-bottom: 40px;
+}
+
+#navlaterale h3 {
+	text-align: center;
 }
 
 #topButton {
 	margin: auto;
-	width: 50%;
+	width: 60%;
 	display: block;
 }
 
@@ -112,14 +131,16 @@ section ul li p {
 }
 
 footer{	
-	margin-top: 50px;
-	padding-top: 50px;	
+	margin-top: 0px;
+	padding-top: 45px;	
 	position: relative;
 	bottom: 0;	
 	padding-bottom: 60px;
-	background-color: #2E2E2E;
+	background-color: #141212;
 	color: white;
-	width: 100%;	
+	width: 100%;
+	height: 100px;
+	border-top: 1px solid black;
 }
 
 .copyright{
@@ -147,6 +168,10 @@ footer{
 
 .navbar-fixed-bottom, .navbar-fixed-top, .navbar-static-top {
     margin-bottom: 0;
+}
+
+.alert {
+	margin-bottom: 0;
 }
 
 .banniere {
