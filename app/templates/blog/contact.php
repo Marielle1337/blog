@@ -3,21 +3,21 @@
 <?php $this->start('main_content') ?>
 	
 	<form action="#" method="post" accept-charset="utf-8">
-            <label>
-		<input type="text" name="title" placeholder="Sujet">
-            </label><br/>
+            <label for="title">
+		<input type="text" name="title" id="title" placeholder="Sujet">
+            </label>
             
-            <label>
-		<input type="text" name="senderName" placeholder="Votre nom">
-            </label><br/>
+            <label for="senderName">
+		<input type="text" name="senderName" id="senderName" placeholder="Votre nom">
+            </label>
             
-            <label>
-		<input type="email" name="email" placeholder="Email">
-            </label><br/>
+            <label for="email">
+		<input type="email" name="email" id="email" placeholder="Email">
+            </label>
             
-            <label>
-		<textarea name="content" placeholder="Bonjour..."></textarea>
-            </label><br/>
+            <label for="content">
+		<textarea name="content" id="content" placeholder="Bonjour..."></textarea>
+            </label>
             
 		<button type="submit" name="contact"> Envoyer ! </button>
 	</form>

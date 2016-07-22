@@ -179,7 +179,8 @@ class MailController extends Controller
     public function contact()
     {
         if(isset($_POST['contact'])){
-                        $errors = [];
+
+            $errors = [];
 
             if (strlen($_POST['title']) < 3) {
                 $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';

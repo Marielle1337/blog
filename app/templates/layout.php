@@ -48,12 +48,12 @@
 				</div>
 
 				    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			        <ul id="navsup" class="nav navbar-nav">	
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			    <ul id="navsup" class="nav navbar-nav">	
 				
 					<li><a href="<?=$this->url('home')?>" title="Accueil">Accueil</a></li>
 					<li><a href="<?=$this->url('aboutMe')?>" title="A propos de moi">Qui suis-je ?</a></li>
-					<li><a href="#" title="Mes créations">Portfolio</a></li>
+					<!-- <li><a href="#" title="Mes créations">Portfolio</a></li> -->
 					<li><a href="<?=$this->url('contact')?>" title="Me contacter">Contact</a></li>		
 				</ul>
 				<form class="navbar-form navbar-left" role="search">
