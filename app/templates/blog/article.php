@@ -3,15 +3,11 @@
 <?php $this->start('main_content') ?>
 
 	<article>
-	       
-	    <div>Posté le <?php echo date('d/m/Y', strtotime($article['dateCreated'])) ?>, 
+	   
+        <div>Posté le <?php echo date('d/m/Y', strtotime($article['dateCreated'])) ?>, 
         par <?php if (is_numeric($article['author'])) { echo $author['login']; } else { echo $article['author']; }?></div>
+       <?php if($article['picture']) { echo '<img class="banniere" src="'.$this->assetUrl('/uploads/'.$article['picture']).'">'; } ?>
 	    <p><?php echo $article['content'] ?></p>
-
-        <figure>
-            <img src="/public/assets/uploads/<?php echo $article['picture'] ?>" alt="" />
-        </figure>
-
 	</article>
 
 <!--  Ajouter des commentaires -->

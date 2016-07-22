@@ -213,7 +213,7 @@ class BlogController extends Controller
                                 //si je suis jpg ou png ou gif
                                 if ($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg') {
                                     //resize
-                                    $resize = $this->resize($path, null, 80, 80, $path);
+                                    $resize = $this->resize($path, null, 800, 180, $path);
                                 }
 
                                 // On upload le fichier
@@ -602,7 +602,7 @@ class BlogController extends Controller
                             //si je suis jpg ou png ou gif
                             if ($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg') {
                                 //resize
-                                $resize = $this->resize($path, null, 80, 80, $path);
+                                $resize = $this->resize($path, null, 800, 180, $path);
                             }
 
                             // suppression ancienne
