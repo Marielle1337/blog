@@ -179,6 +179,7 @@ class MailController extends Controller
     public function contact()
     {
         if(isset($_POST['contact'])){
+
             $this->sendMail('marielle010495@gmail.com', $_POST['title'], $_POST['content'], $_POST['email'], $_POST['senderName']);
             $_SESSION['flash'] = 'Message envoyé';
         }
