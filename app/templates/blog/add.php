@@ -3,13 +3,13 @@
 <?php $this->start('main_content') ?>
 <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 	
-	<label>
+	<label for="titre">
         <?php if (isset($errors['title'])) { echo $errors['title']; } ?>
-		<input type="text" name="title"  placeholder="Titre" <?php if(isset($_POST['title'])) {echo'value="'.$_POST['title'].'"';}?>>
+		<input type="text" name="title"  id="titre" placeholder="Titre" <?php if(isset($_POST['title'])) {echo'value="'.$_POST['title'].'"';}?>>
 	</label>
 
-	<label> Catégorie de votre article :
-		<select name="category">
+	<label for="categorie"> Catégorie de votre article :
+		<select name="category" id="categorie">
 		<?php foreach ($categories as $category) { ?>
 			<option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
 		<?php } ?>
@@ -18,19 +18,19 @@
 		<?php if (isset($errors['categoryEmpty'])) { echo $errors['categoryEmpty']; } ?>
 	</label>
     
-	<label>
+	<label for="image">
     	Bannière de votre article : 
-        <input type="file" name="picture">
+        <input type="file" name="picture" id="image">
 	</label>
 
 
-	<label>
+	<label for="article">
         <?php if (isset($errors['content'])) { echo $errors['content']; } ?>
-        <textarea name="content" class="admin" placeholder="Saisir un texte ici."><?php if(isset($_POST['content'])){echo $_POST['content'];}?></textarea>
+        <textarea name="content" class="admin" id="article" placeholder="Saisir un texte ici."><?php if(isset($_POST['content'])){echo $_POST['content'];}?></textarea>
 	</label>
 
-	<label>
-		<input type="text" name="author"  placeholder="Qui êtes-vous ?">
+	<label for="auteur">
+		<input type="text" name="author"  id="auteur" placeholder="Qui êtes-vous ?">
    		(Par défaut l'auteur est Benjamin Cerbai.) 
         <?php if (isset($errors['author'])) { echo $errors['author']; } ?>
 	</label>

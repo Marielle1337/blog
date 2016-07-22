@@ -5,18 +5,18 @@
     <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
         <fieldset>
 
-            <label>
+            <label for="titre">
                 <?php if (isset($errors['title'])) { echo $errors['title']; } ?>
-                <input type="text" name="title" value="<?= $newsletter['title'] ?>">
+                <input id="titre" type="text" name="title" value="<?= $newsletter['title'] ?>">
             </label> <br/>
 
-            <label>
-                <input type="text" name="sendDate"  value="<?= date('d/m/Y', strtotime($newsletter['sendDate'])) ?>">
+            <label for="date">
+                <input id="date" type="text" name="sendDate"  value="<?= date('d/m/Y', strtotime($newsletter['sendDate'])) ?>">
             </label> <br/>
 
-            <label>
+            <label for="newsletter">
                 <?php if (isset($errors['content'])) { echo $errors['content']; } ?>
-                <textarea name="content" class="admin"><?= $newsletter['content'] ?></textarea>
+                <textarea id="newsletter" name="content" class="admin"><?= $newsletter['content'] ?></textarea>
             </label> </br>
             <button type="submit" name="addNewsletter">Envoyer votre newsletter</button>
 

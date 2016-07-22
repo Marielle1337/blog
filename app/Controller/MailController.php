@@ -179,8 +179,27 @@ class MailController extends Controller
     public function contact()
     {
         if(isset($_POST['contact'])){
-            $this->sendMail('marielle010495@gmail.com', $_POST['title'], $_POST['content'], $_POST['email'], $_POST['senderName']);
-            $_SESSION['flash'] = 'Message envoyé';
+                        $errors = [];
+
+            if (strlen($_POST['title']) < 3) {
+                $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
+            }
+            if (strlen($_POST['content']) < 3) {
+                $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
+            }
+            if (empty($_POST['email'])) {
+                $errors['email'] = 'L\'email doit être renseigné';
+            }
+            if (empty($_POST['senderName'])) {
+                $errors['senderName'] = 'Le nom de l\'expéditeur doit être renseigné';
+            }
+            
+            // Si aucune erreur
+            if(count($errors) == 0) {
+            
+                $this->sendMail('marielle010495@gmail.com', $_POST['title'], $_POST['content'], $_POST['email'], $_POST['senderName']);
+                $_SESSION['flash'] = 'Message envoyé';
+            }
         }
 
         $this->show('blog/contact', ['categories' => BlogController::categoriesMenu()]);
