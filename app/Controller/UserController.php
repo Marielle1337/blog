@@ -115,5 +115,161 @@ class UserController extends Controller
 
         $this->redirectToRoute('home');
     }
+    
+    //gestion de recupération du mot de passe
+    public function lostPassword()
+    {
+        $displayMessage = false;
+        // On soumet le formualire
+        if (isset($_POST['reset-pass'])) {
+            // On déclare le tableau d'erreur
+            $errors = [];
 
+            // On fait les vérifications
+            if (!empty($_POST['mail'])) {
+                // Avant de valider un champ, on le nettoie
+                $email = filter_var($_POST['mail'], FILTER_SANITIZE_SPECIAL_CHARS);
+                // On teste la validité du email
+                $isemailValid = filter_var($email, FILTER_VALIDATE_EMAIL);
+
+                if (!$isemailValid) {
+                    // Si l'email n'est pas valide
+                    $errors['email']['invalid'] = true;
+                }
+            } else {
+                // Si l'email est vide
+                $errors['email']['empty'] = true;
+            }
+
+            // Ajout en DB
+            // Si pas d erreur
+            if (count($errors) === 0) {
+
+                // On vérifie si le mail exist en bdd
+                $usersModel = new \Model\UsersModel();
+                $mailExists = $usersModel->emailExists($_POST['mail']);
+
+                if ($mailExists) {
+                    $token = \W\Security\StringUtils::randomString(32);
+                    $uId = $usersModel->getIdForMail($_POST['mail']);
+
+                    $this->insertTokenReplaceOld($uId, $token);
+                    // Envoi du mail
+                    $this->sendRecoveryLink($_POST['mail'], $token);
+                }
+            }
+            // Si j'ai une erreur
+            $this->show('lostPassword/lostPassword', ['errors' => $errors]);
+        }
+        
+        $this->show('lostPassword/lostPassword');
+    }
+
+    // Insert un token à l'utilisateur concerné
+    private function insertTokenReplaceOld($IdUsers, $token)
+    {
+        
+
+        $recoveryTokenManager = new \Manager\RecoverytokenManager();
+        if($recoveryTokenModel->tokenExistsForUser($uId)) {
+            $recoveryTokenModel->deleteTokenForUser($uId);
+        }
+        $recoveryTokenModel->insert(['id_user' => $uId, 'token' => $token]);
+    }
+
+    // Envoie de l email pour la réinitialisation du mot de passe
+    public function sendRecoveryLink($mail, $token)
+    {
+        $mailer = new \PHPMailer();
+
+        $mailer->isSMTP();                                      // On va se servir de SMTP
+        $mailer->Host = 'smtp.gmail.com';  				        // Serveur SMTP
+        $mailer->SMTPAuth = true;                               // Active l'autentification SMTP
+        $mailer->Username = 'projet.wf3@gmail.com';             // SMTP username
+        $mailer->Password = 'Projet_JVC2016';                   // SMTP password
+        $mailer->SMTPSecure = 'tls';                            // TLS Mode
+        $mailer->Port = 587;                                    // Port TCP à utiliser
+
+        $mailer->Sender='projet.wf3@gmail.com';
+        $mailer->setFrom('projet.wf3@gmail.com', 'jeveuxcourir.fr', false);
+        $mailer->addAddress($mail, 'Utilisateur');                 // Ajouter un destinataire
+
+        $mailer->isHTML(true);                                  // Set email format to HTML
+
+        $mailer->Subject = 'Demande de changement de mot de passe';
+        $mailer->Body    = 'Bonjour, <br><br>
+        Vous avez fait une demande de changement de mot de passe, sur notre site "jeveuxcourir.fr". <br>
+        Cliquez sur ce lien pour changer votre mot de passe : <a href="http://localhost'.$this->generateUrl('reset_password', ['tk' => $token]).'">Cliquez ici</a>.
+        <br><br>
+        Bonne continuation sur notre site.';
+        $mailer->AltBody = 'Le message en texte brut, pour les clients qui ont désactivé l\'affichage HTML';
+
+        $mailer->send();
+
+        $_SESSION['flash'] = 'Un email vient de vous être envoyé';
+    }
+
+    public function resetPassword($tk)
+    {
+        $tk; // token
+        $recoveryTokenModel = new \Model\RecoverytokenModel();
+        $idUser = $recoveryTokenModel->getUserIdByToken($tk);
+        if ($idUser === false) {
+            /* Si ce token n'a jamais été émis, on redirige */
+            $this->redirectToRoute('login');
+        }
+        /* A partir de la, je sais que mon token existe en DB */
+
+        /* Si on a soumis le nouveau mot de passe */
+        if (isset($_POST['change_password'])) {
+            // On déclare le tableau d'erreur
+            $errors = [];
+
+            // Verification
+            if (!empty($_POST['new_pass'])) {
+                if (strlen($_POST['new_pass']) < 8 || strlen($_POST['new_pass']) > 50) {
+                    // S'il est pas vide et qu'il est pas compris entre 2 et 50 carractères
+                    $errors['new_pass']['size'] = true;
+                }
+            } else {
+                // Si on a pas précisé de mot de passe
+                $errors['new_pass']['empty'] = true;
+            }
+
+            if (!empty($_POST['password2'])) {
+                if (!empty($_POST['new_pass']) && ($_POST['new_pass'] !== $_POST['password2'])) {
+                    // Si les deux mot de passe ne sont pas identique
+                    $errors['password2']['different'] = true;
+                }
+            } else {
+                // Si la vérification de mot de passe n'est pas renseigné
+                $errors['password2']['empty'] = true;
+            }
+
+            // S'il n'y a pas d'erreur, on entre les changement dans la base de donnée
+            if (count($errors) === 0) {
+
+                /* Hash du nouveau mot de passe */
+                $security = new \W\Security\AuthentificationModel();
+                $passHash = $security->hashPassword($_POST['new_pass']);
+
+                /*  Mise à jour du mot de passe */
+
+                // Model pour insertion en base de donnees
+                $usersModel = new \Model\UsersModel();
+                $data = ['password' => $passHash];
+                $usersModel->update($data, $idUser);
+
+                /* Suppression du token maintenant inutile */
+                $recoveryTokenModel->deleteToken($tk);
+
+                /* Pour affichage du message */
+                $passUpdated = true;
+                $this->redirectToRoute('login');
+            }
+            // Si j'ai une erreur
+            $this->show('lost_password/reset_password.php', ['errors' => $errors]);
+        }
+        $this->show('lost_password/reset_password.php');
+    }
 }

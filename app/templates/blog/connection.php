@@ -18,6 +18,7 @@
 
 		</br>
 		<button type="submit" name="connect">Connexion</button>
+                <a href="<?= $this->url('lostPassword') ?>"> Mot de passe oublié </a>
 	</fieldset>
 </form>
 <form action="#" method="POST" accept-charset="utf-8">

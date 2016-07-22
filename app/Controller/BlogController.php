@@ -623,5 +623,8 @@ class BlogController extends Controller
 
         $this->show('blog/editArticle', ['article'=>$article, 'categories' => BlogController::categoriesMenu()]);
     }
+    
+        
+    
 
 }
