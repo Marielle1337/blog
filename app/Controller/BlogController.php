@@ -63,6 +63,7 @@ class BlogController extends Controller
                 
                     $managerComments = new \Manager\BlogManager();
                     $managerComments->setTable('comments');
+                    
                     $data =[
                         'author'=>$author,
                         'content'=>$content,
@@ -76,7 +77,13 @@ class BlogController extends Controller
                     if (strlen($_POST['content']) < 3) {
                         $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
                     }
-
+                    
+                    $managerComments->insert($data);
+                    
+                    //vers page 
+                    if (isset($_POST['addComment'])){
+                    $this->redirectToRoute('article', ['id'=>$id]);
+                    }
                
                 } else {
                     // Si j'ai des erreurs
