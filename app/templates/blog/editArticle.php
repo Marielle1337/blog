@@ -13,8 +13,9 @@
     
 	<label>
         <?php if (isset($errors['content']['empty'])): ?>
-        <textarea name="content" class="admin" ><?= $article['content'] ?></textarea>
+            Contenu inexistant
         <?php endif; ?>
+        <textarea name="content" class="admin" ><?= $article['content'] ?></textarea>
 	</label>
     
         <label>
