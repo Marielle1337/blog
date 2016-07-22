@@ -15,14 +15,13 @@
 
             <?php if (isset($errors['content']['empty'])): ?>
                     Contenu inexistant
-            <textarea id="article" name="content" class="admin" ><?= $article['content'] ?></textarea>
             <?php endif; ?>
-
+            <textarea id="article" name="content" class="admin" ><?= $article['content'] ?></textarea>
 	</label>
     
-        <label for="image">
+        <label for="">
             <figure>
-                <img src="/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
+                <img src="/public/assets/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
             </figure>
             <?php if (isset($errors['picture']['empty'])): ?>
             Bannière inexistante

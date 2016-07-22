@@ -9,7 +9,7 @@
 	    <p><?php echo $article['content'] ?></p>
 
         <figure>
-            <img src="/uploads/<?php echo $article['picture'] ?>" alt="" />
+            <img src="/public/assets/uploads/<?php echo $article['picture'] ?>" alt="" />
         </figure>
 
 	</article>
