@@ -66,6 +66,7 @@ class BlogController extends Controller
                     $data =[
                         'author'=>$author,
                         'content'=>$content,
+                        'email'=>$email,
                         'idArticle'=>$idArticle,
                     ];
 
