@@ -9,10 +9,6 @@
        <?php if($article['picture']) { echo '<img class="banniere" src="'.$this->assetUrl('/uploads/'.$article['picture']).'">'; } ?>
 	    <p><?php echo $article['content'] ?></p>
 
-        <figure>
-            <img src="/uploads/<?php echo $article['picture'] ?>" alt="" />
-        </figure>
-
 	</article>
 
 <!--  Ajouter des commentaires -->
