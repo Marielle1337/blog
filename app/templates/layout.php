@@ -48,12 +48,12 @@
 				</div>
 
 				    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			        <ul id="navsup" class="nav navbar-nav">	
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			    <ul id="navsup" class="nav navbar-nav">	
 				
 					<li><a href="<?=$this->url('home')?>" title="Accueil">Accueil</a></li>
 					<li><a href="<?=$this->url('aboutMe')?>" title="A propos de moi">Qui suis-je ?</a></li>
-					<li><a href="#" title="Mes créations">Portfolio</a></li>
+					<!-- <li><a href="#" title="Mes créations">Portfolio</a></li> -->
 					<li><a href="<?=$this->url('contact')?>" title="Me contacter">Contact</a></li>		
 				</ul>
 				<form class="navbar-form navbar-left" role="search">
@@ -66,23 +66,19 @@
 				  </a>
 				</form>
 
+				<div class="connexion">
 				<?php if(!isset($_SESSION['user'])) { ?>
 					<a href='<?= $this->url('login')?>'>Connexion</a>
 				<?php } else { ?>
-					<span> <?php if(isset($_SESSION['user']['firstname'])) { 
+					<span style="color : white"> <?php if(isset($_SESSION['user']['firstname'])) { 
 								echo $_SESSION['user']['firstname']; 
 								} else { echo $_SESSION['user']['login']; } ?> 
 					</span>
 					<a href="<?=$this->url('logout')?>">Déconnexion</a>
 				<?php } ?>
+				</div>
 			</div>
 			</nav>
-
-<!--                        information sur l'utilisation des cookies-->
-			<div class="alert alert-info">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <i class="fa fa-rebel" aria-hidden="true"></i> Attention, jeune padawan, sur ce site en naviguant, les cookies accepter l'utilisation tu dois. Un verre de lait à prendre tu penseras.
-            </div>
                     
 		<div class="container">
 
@@ -90,12 +86,9 @@
 			
 			<img src="img/photoBC.png" alt="Photo Benjamin Cerbai">
 
-			<h1><?= $this->e($title) ?></h1>
 
 		</div>
 		</header>
-
-	<div class="container">
 
 		<aside>
 		<div>
@@ -113,7 +106,7 @@
 				</ul>
 
 				<?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
-				<h3> Gestion administrateur </h3>
+				<h3> Gestion </h3>
 				<ul>
                     <li> <a href="<?= $this->url('add') ?>"> Ajouter un article </a> </li>
                     <li> <a href="<?= $this->url('liste') ?>"> Gérer les articles </a> </li>
@@ -127,11 +120,19 @@
 		</div>
 		</aside>
 
+	<div class="container">
 		<main>
+			<h1><?= $this->e($title) ?></h1>
 			<?= $this->section('main_content') ?>
 		</main>
 
 	</div>
+
+		<!--  Information sur l'utilisation des cookies-->
+		<div class="alert alert-info">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <i class="fa fa-rebel" aria-hidden="true"></i> Attention, jeune padawan, sur ce site en naviguant, les cookies accepter l'utilisation tu dois. Un verre de lait à prendre tu penseras.
+        </div>
 
         <footer>
         	<div class="container">

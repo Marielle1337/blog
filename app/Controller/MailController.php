@@ -50,7 +50,7 @@ class MailController extends Controller
             // Si aucune erreur
             if(count($errors) == 0) {
                 $title = $_POST['title'];
-                $sendDate = $_POST['sendDate'];
+                $sendDate = date("Y-m-d", strtotime($_POST['sendDate']);
                 $content = $_POST['content'];
 
                 $managerNewsletters = new \Manager\MailManager();
@@ -179,7 +179,8 @@ class MailController extends Controller
     public function contact()
     {
         if(isset($_POST['contact'])){
-                        $errors = [];
+
+            $errors = [];
 
             if (strlen($_POST['title']) < 3) {
                 $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
