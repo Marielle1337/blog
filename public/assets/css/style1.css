@@ -135,10 +135,11 @@ section ul li p {
 
 footer{	
 	margin-top: 0px;
-	padding-top: 45px;	
-	position: relative;
-	bottom: 0;	
+	margin-bottom: 0;
+	padding-top: 45px;		
 	padding-bottom: 60px;
+	position: absolute;
+	bottom: 0;
 	background-color: #2E2E2E;
 	color: white;
 	width: 100%;
