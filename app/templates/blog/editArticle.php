@@ -16,7 +16,7 @@
                 Contenu inexistant
         <?php endif; ?>
         <textarea id="article" name="content" class="admin" ><?= $article['content'] ?></textarea>
-	</label>
+	</label>   
     
         <label for="">
             <figure>
