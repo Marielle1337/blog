@@ -97,7 +97,7 @@ input, button, select {
 	display: inline;
 }
 
-input[name='title'], textarea[name='content'], input[name='email']{
+input, textarea{
 	width: 100%;
 	display: block;
 	color: #000;
@@ -138,8 +138,6 @@ footer{
 	margin-bottom: 0;
 	padding-top: 45px;		
 	padding-bottom: 60px;
-	position: absolute;
-	bottom: 0;
 	background-color: #2E2E2E;
 	color: white;
 	width: 100%;
@@ -181,4 +179,14 @@ footer{
 .banniere {
 	width: 100%;
 	height: 150px;
+}
+
+header strong {
+	text-transform: uppercase;
+	font-size: 2em;
+	font-weight: normal;
+}
+
+header strong::first-letter {
+	font-size: 3em;
 }

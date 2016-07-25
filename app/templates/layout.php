@@ -29,6 +29,9 @@
 	<!-- FontAwesome -->
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/font-awesome.min.css') ?>">
 
+	<!-- Animation logo -->
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/stylesAnim.css') ?>" title="standard">
+
 	<!-- Mes feuilles de style -->
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>" title="standard">
 	<link rel="alternate stylesheet" href="<?= $this->assetUrl('css/style.css') ?>" title="eco">
@@ -82,9 +85,16 @@
                     
 		<div class="container">
 
-			<img src="img/logoBC.png" alt="Logo Benjamin Cerbai">
-			
-			<img src="img/photoBC.png" alt="Photo Benjamin Cerbai">
+			<div class="wrap">
+			  	<div class="text-part">
+			    	<img id="miniBC" src="img/miniphotoBC.jpeg">
+			  	</div>
+			  	<div class="image-part">
+			    	<img id="logoseul" src="img/Logoseul.png">
+	  			</div>
+			</div>
+
+			<strong>Créez vos images et racontez vos histoires</strong>
 
 
 		</div>
