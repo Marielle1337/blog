@@ -14,11 +14,13 @@
             <?= date('d/m/Y', strtotime($article['dateCreated'])) ?>
             <div>
                 <i class="fa fa-pencil" aria-hidden="true"></i>
-                    <a href="<?= $this->url('article', array('id' => $article['id'])) ?>"> Lire </a>
+                <a href="<?= $this->url('article', array('id' => $article['id'])) ?>"> Lire </a>
+
                 <i class="fa fa-eye" aria-hidden="true"></i>
-                    <a href="<?= $this->url('editArticle', ['id'=>$article['id']]) ?>" > Modifier </a>
+                <a href="<?= $this->url('editArticle', ['id'=>$article['id']]) ?>" > Modifier </a>
+                
                 <i class="fa fa-trash" aria-hidden="true"></i>
-                    <a href="<?= $this->url('delete', ['id' => $article['id']]) ?>" class="delete"> Supprimer </a>
+                <a href="<?= $this->url('delete', ['id' => $article['id']]) ?>" class="delete"> Supprimer </a>
             </div>
         </li>
         <?php endforeach; ?>
