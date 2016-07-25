@@ -275,7 +275,7 @@ class BlogController extends Controller
 
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
-        $articles = $managerArticles->findAll();
+        $articles = $managerArticles->findAll($orderBy='dateCreated', $orderDir='DESC');
         $this->searchBar();
 
         $this->show('blog/liste', ['articles'=>$articles, 'categories' => BlogController::categoriesMenu()]);

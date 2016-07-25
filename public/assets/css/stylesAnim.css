@@ -76,3 +76,8 @@ aside a[title="newsletter"] {
   display: block;
   width: 100%;
 }
+
+h4 {
+  margin-bottom: 3px;
+  margin-top: 10px;
+}

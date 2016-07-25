@@ -7,7 +7,6 @@
 
 		// Affichage en liste ou en grille
         ['GET', '/blog/liste', 'Blog#liste', 'liste'],
-        ['GET', '/blog/grid', 'Blog#grid', 'grid'],
 
         // Gestion des articles
         ['GET|POST', '/blog/article/[:id]', 'Blog#article', 'article'],

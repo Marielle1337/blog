@@ -15,9 +15,6 @@
 	</article>
 	<?php } ?>
 
-
-<a href="<?= $this->url('archive') ?>" >retour a la page d'archive</a>
-<a href="<?= $this->url('subscription') ?>" >inscription a la newsletter</a>
 <?php $this->stop('main_content') ?>
 
 

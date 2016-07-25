@@ -133,7 +133,7 @@
                     <li> <a href="<?= $this->url('liste') ?>"> Gérer les articles </a> </li>
                     <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
                     <li> <a href="<?= $this->url('newsletter') ?>">Créer une newsletter </a> </li>
-                <ul>
+                </ul>
                 <?php } ?>
 			</nav>
 			
