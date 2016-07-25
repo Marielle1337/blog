@@ -563,7 +563,7 @@ class BlogController extends Controller
                 $data = [
                     'title' => $_POST['title'],
                     'content' => $_POST['content'],
-                    'dateCreated' => date("Y-m-d"),
+                    'edited' => date("Y-m-d"),
                 ];
 
                 // traitement du medias

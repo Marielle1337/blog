@@ -11,14 +11,14 @@
         <?php foreach($articles as $article) : ?>
         <li class="task">
             <h4> <?= $article['title'] ?></h4>
-            <?= date('d/m/Y', strtotime($article['dateCreated'])) ?>
+            <?= date('d/m/Y', strtotime($article['dateCreated'])) ?><?php if(isset($article['edited'])) { echo ', édité le '. date('d/m/Y', strtotime($article['edited'])); } ?>
             <div>
                 <i class="fa fa-pencil" aria-hidden="true"></i>
                 <a href="<?= $this->url('article', array('id' => $article['id'])) ?>"> Lire </a>
 
                 <i class="fa fa-eye" aria-hidden="true"></i>
                 <a href="<?= $this->url('editArticle', ['id'=>$article['id']]) ?>" > Modifier </a>
-                
+
                 <i class="fa fa-trash" aria-hidden="true"></i>
                 <a href="<?= $this->url('delete', ['id' => $article['id']]) ?>" class="delete"> Supprimer </a>
             </div>

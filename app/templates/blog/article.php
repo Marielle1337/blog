@@ -4,8 +4,11 @@
 
 	<article>
 	   
-        <div>Posté le <?php echo date('d/m/Y', strtotime($article['dateCreated'])) ?>, 
-        par <?php if (is_numeric($article['author'])) { echo $author['login']; } else { echo $article['author']; }?></div>
+        <div>
+            Posté le <?php echo date('d/m/Y', strtotime($article['dateCreated'])) ?>,
+            par <?php if (is_numeric($article['author'])) { echo $author['login']; } else { echo $article['author']; }?>,
+            <?php if(isset($article['edited'])) { echo 'édité le '. date('d/m/Y', strtotime($article['edited'])); } ?>
+        </div>
        <?php if($article['picture']) { echo '<img class="banniere" src="'.$this->assetUrl('/uploads/'.$article['picture']).'">'; } ?>
 	    <p><?php echo $article['content'] ?></p>
 	</article>
