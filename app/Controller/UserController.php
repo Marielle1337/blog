@@ -128,7 +128,7 @@ class UserController extends Controller
             // On fait les vérifications
             if (!empty($_POST['mail'])) {
                 // Avant de valider un champ, on le nettoie
-                $email = filter_var($_POST['mail'], FILTER_SANITIZE_SPECIAL_CHARS);
+                $email = filter_var($_POST['email'], FILTER_SANITIZE_SPECIAL_CHARS);
                 // On teste la validité du email
                 $isemailValid = filter_var($email, FILTER_VALIDATE_EMAIL);
 
@@ -147,15 +147,15 @@ class UserController extends Controller
 
                 // On vérifie si le mail exist en bdd
                 $usersModel = new \Model\UsersModel();
-                $mailExists = $usersModel->emailExists($_POST['mail']);
+                $mailExists = $usersModel->emailExists($_POST['email']);
 
                 if ($mailExists) {
                     $token = \W\Security\StringUtils::randomString(32);
-                    $uId = $usersModel->getIdForMail($_POST['mail']);
+                    $uId = $usersModel->getIdForMail($_POST['email']);
 
-                    $this->insertTokenReplaceOld($uId, $token);
+                    $this->insertTokenReplaceOld($idUsers, $token);
                     // Envoi du mail
-                    $this->sendRecoveryLink($_POST['mail'], $token);
+                    $this->sendRecoveryLink($_POST['email'], $token);
                 }
             }
             // Si j'ai une erreur
@@ -166,7 +166,7 @@ class UserController extends Controller
     }
 
     // Insert un token à l'utilisateur concerné
-    private function insertTokenReplaceOld($IdUsers, $token)
+    private function insertTokenReplaceOld($idUsers, $token)
     {
         
 
@@ -174,11 +174,11 @@ class UserController extends Controller
         if($recoveryTokenModel->tokenExistsForUser($uId)) {
             $recoveryTokenModel->deleteTokenForUser($uId);
         }
-        $recoveryTokenModel->insert(['id_user' => $uId, 'token' => $token]);
+        $recoveryTokenModel->insert(['idUsers' => $idUsers, 'token' => $token]);
     }
 
     // Envoie de l email pour la réinitialisation du mot de passe
-    public function sendRecoveryLink($mail, $token)
+    public function sendRecoveryLink($email, $token)
     {
         $mailer = new \PHPMailer();
 
@@ -192,14 +192,14 @@ class UserController extends Controller
 
         $mailer->Sender='projet.wf3@gmail.com';
         $mailer->setFrom('projet.wf3@gmail.com', 'jeveuxcourir.fr', false);
-        $mailer->addAddress($mail, 'Utilisateur');                 // Ajouter un destinataire
+        $mailer->addAddress($);                 // Ajouter un destinataire ....quelle adresse ???
 
         $mailer->isHTML(true);                                  // Set email format to HTML
 
         $mailer->Subject = 'Demande de changement de mot de passe';
         $mailer->Body    = 'Bonjour, <br><br>
         Vous avez fait une demande de changement de mot de passe, sur notre site "jeveuxcourir.fr". <br>
-        Cliquez sur ce lien pour changer votre mot de passe : <a href="http://localhost'.$this->generateUrl('reset_password', ['tk' => $token]).'">Cliquez ici</a>.
+        Cliquez sur ce lien pour changer votre mot de passe : <a href="http://localhost'.$this->generateUrl('resetPassword', ['tk' => $token]).'">Cliquez ici</a>.
         <br><br>
         Bonne continuation sur notre site.';
         $mailer->AltBody = 'Le message en texte brut, pour les clients qui ont désactivé l\'affichage HTML';
@@ -212,8 +212,8 @@ class UserController extends Controller
     public function resetPassword($tk)
     {
         $tk; // token
-        $recoveryTokenModel = new \Model\RecoverytokenModel();
-        $idUser = $recoveryTokenModel->getUserIdByToken($tk);
+        $recoveryTokenModel = new \Manager\RecoverytokenManager();
+        $idUser = $recoveryTokenManager->getUserIdByToken($tk);
         if ($idUser === false) {
             /* Si ce token n'a jamais été émis, on redirige */
             $this->redirectToRoute('login');
@@ -268,8 +268,8 @@ class UserController extends Controller
                 $this->redirectToRoute('login');
             }
             // Si j'ai une erreur
-            $this->show('lost_password/reset_password.php', ['errors' => $errors]);
+            $this->show('lostPassword/resetPassword', ['errors' => $errors]);
         }
-        $this->show('lost_password/reset_password.php');
+        $this->show('lostPassword/resetPassword.php');
     }
 }

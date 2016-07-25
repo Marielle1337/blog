@@ -26,8 +26,8 @@
 		['GET|POST', '/blog/login', 'User#login', 'login'],
 		['GET|POST', '/blog/logout', 'User#logout', 'logout'],
 		['GET|POST', '/blog/contact', 'Mail#contact', 'contact'],
-        ['POST', '/blog/lostPassword', 'User#lostPassword', 'lostPassword'],
-
+		['POST', '/blog/lostPassword', 'User#lostPassword', 'lostPassword'],
+        ['POST', '/blog/resetPassword', 'User#resetPassword', 'resetPassword'],
 
         // NewsLetter
 		['GET|POST', '/mail/newsletter', 'Mail#newsletters', 'newsletter'],
