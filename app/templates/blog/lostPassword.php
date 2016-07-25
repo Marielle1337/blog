@@ -1,10 +1,10 @@
-<?php $this->layout('layout', ['title' => 'LostPassword']) ?>
+<?php $this->layout('layout', ['title' => 'Mot de passe perdu ?', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 
     <section>
         <form method="POST" action="#" >
-            <label>Email : <input type="email" name="mail" placeholder="E-mail"></label>
+            <label>Email : <input type="email" name="email" placeholder="E-mail"></label>
             <?php if (isset($errors['email'])) :
                 if (isset($errors['email']['empty'])) : ?>
                     <div class="error">Le mail doit être rempli</div>
@@ -14,7 +14,9 @@
                 <?php endif ?>
             <?php endif ?><br />
 
-            <input type="submit" name="reset-pass" value="Réinitialiser le mot de passe">
+
+            <button type="submit" name="reset-pass">Réinitialiser le mot de passe</button>
+            <?php if(isset($_SESSION['flash'])) { echo '<p>'.$_SESSION['flash'].'</p>'; } ?>
         </form>
     </section>
 

@@ -111,8 +111,8 @@ class MailController extends Controller
         $mail->isHTML(true);                                     // Set email format to HTML
 
         $mail->Subject = $title;
-        $mail->Body    = $content;
-        $mail->AltBody = strip_tags($content);
+        $mail->Body    = $content . '<footer> Vous souhaitez vous désabonner de la newsletter ? <a href="http://localhost'.$this->generateUrl('unsubscribe', ['email' => $destMail]).'">Cliquez ici</a> ! </footer>';
+        $mail->AltBody = strip_tags($content. 'Vous souhaitez vous désabonner de la newsletter ? http://localhost'.echo $this->generateUrl('unsubscribe', ['email' => $destMail]).' Copiez/collez ce lien dans votre navigateur !');
 
         if(!$mail->send()) {
             echo 'Le message n\'a pas pu être envoyé';
@@ -168,7 +168,7 @@ class MailController extends Controller
 
                 $this->redirectToRoute('archive');
             } else {
-                $this->show('mail/editNewsletter', ['newsletter'=>$newsletter, 'errors'=>$errors]);
+                $this->show('mail/editNewsletter', ['newsletter'=>$newsletter, 'errors'=>$errors, , 'categories' => BlogController::categoriesMenu()]);
             }
         }
 

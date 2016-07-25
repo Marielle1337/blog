@@ -54,3 +54,25 @@ Translation et interchangement entre Logo et image de l'auteur*/
   -webkit-transform: translateX(-125%);
   transform: translateX(-125%);
 }
+
+header strong {
+  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: normal;
+}
+
+header strong::first-letter {
+  font-size: 3em;
+}
+
+input[name="newsletter"]#newsletter{
+  display: inline;
+  width: 20px;
+}
+
+aside a[title="newsletter"] {
+  text-align: center;
+  margin: auto;
+  display: block;
+  width: 100%;
+}

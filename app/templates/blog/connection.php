@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Connexion', 'categories'=>$categories]) ?>
+<?php $this->layout('layout', ['title' => 'Authentification', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 <?php if(isset($errors['connect'])){ echo $errors['connect']; } ?>
@@ -16,11 +16,14 @@
 	        <?php if(isset($errors['passwordExist'])){ echo $errors['passwordExist']; } ?>
 		</label>
 
-		</br>
+		<br/>
 		<button type="submit" name="connect">Connexion</button>
-                <a href="<?= $this->url('lostPassword') ?>"> Mot de passe oublié </a>
+		<br/><br/>
+        <a href="<?= $this->url('lostPassword') ?>"> Mot de passe oublié ?</a>
 	</fieldset>
 </form>
+<br/>
+<br/>
 <form action="#" method="POST" accept-charset="utf-8">
 	<fieldset>
 		<legend> Inscription </legend>
@@ -49,16 +52,17 @@
 	        <?php if(isset($errors['confirm_password'])){ echo $errors['confirm_password']; } ?>
 		</label>
 
-		<label>
-            <input type="checkbox" name="newsletter" value="1">
-            <?php if (isset($errors['newsletter'])): ?>
-            L'abonnement est mal renseigné
-            <?php endif; ?>
+		<label for="newsletter">
+            <input type="checkbox" name="newsletter" id="newsletter" value="1">
             Je souhaite m'abonner à la newsletter
+            <?php if (isset($errors['newsletter'])) { echo $errors['newsletter']; } ?>
         </label>
 
 		</br>
-		<button type="submit" name="signup">S'incrire</button>
+		<button type="submit" name="signup">S'inscrire</button>
+
+
+		<?php if(isset($_SESSION['flash'])) { echo $_SESSION['flash']; } ?>
 	</fieldset>
 
 </form>

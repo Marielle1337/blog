@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'LostPassword']) ?>
+<?php $this->layout('layout', ['title' => 'Réinitialiser le mot de passe', 'categories'=>$categories]) ?>
 
 <?php $this->start('main_content') ?>
 

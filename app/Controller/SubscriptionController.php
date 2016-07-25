@@ -19,8 +19,8 @@ class SubscriptionController extends Controller
                 }
             }
         }
-        //echo print_r($_SESSION);
-        //$this->allowTo('admin');
+
+        unset($_SESSION['flash']);
 
         if(isset($_POST['subscription'])) {
 
@@ -50,11 +50,25 @@ class SubscriptionController extends Controller
             }
             
         }
-        else {
-            // Premier acces a la page
 
-            $this->show('mail/subscription', ['categories' => BlogController::categoriesMenu()]);
-        }
+        if(isset($_POST['unsubscribe'])){
+            $this->redirectToRoute('unsubscribe', ['email'=>$_POST['email']]);
+
+        } 
+
+        $this->show('mail/subscription', ['categories' => BlogController::categoriesMenu()]);
+    }
+
+    public function unsubscribe($email)
+    {
+        unset($_SESSION['flash']);
+
+        $delete = new \Manager\SubscriptionManager();
+        $delete->deleteMail($email);
+
+        $_SESSION['flash'] = 'Vous n\'êtes plus abonné à la newsletter.';
+
+        $this->redirectToRoute('subscription');
     }
     
 }

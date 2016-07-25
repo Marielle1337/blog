@@ -30,10 +30,18 @@
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/font-awesome.min.css') ?>">
 
 	<!-- Animation logo -->
-	<link rel="stylesheet" href="<?= $this->assetUrl('css/stylesAnim.css') ?>" title="standard">
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/stylesAnim.css') ?>">
 
 	<!-- Mes feuilles de style -->
-	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>" title="standard">
+	<?php if($this->e($title) == "Perdu ?"){ ?>
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/errors.css') ?>">
+	<?php } ?>
+
+	<?php if($this->e($title) == "Créer un nouvel administrateur"){ ?>
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/errors.css') ?>">
+	<?php } ?>
+
+ 	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>" title="standard">
 	<link rel="alternate stylesheet" href="<?= $this->assetUrl('css/style.css') ?>" title="eco">
 </head>
 <body id="top">
@@ -102,12 +110,15 @@
 
 		<aside>
 		<div>
+
+			 
 			<div class="themes">
 				<button type="button" id="theme1">Jour</button>
 				<button type="button" id="theme2">Nuit</button>
 			</div>
 			
 			<nav id="navlaterale" class="categories">
+				<a href="<?= $this->url('subscription') ?>" title="newsletter"> Newsletter </a>
 				<h3> Catégories </h3>
 				<ul>
 				<?php foreach ($categories as $category) { ?>

@@ -8,11 +8,13 @@ class UserController extends Controller
 {
     public function login()
     {
+        unset($_SESSION['flash']);
+
         $errors = [];
 
         $userManager = new \Manager\BlogManager();
         $userManager->setTable('users');
-//print_r($_POST);die();
+
         if(isset($_POST['connect'])) {
             if(empty($_POST['login']) || empty($_POST['password'])) {
                 // Redirection vers le login
@@ -47,6 +49,7 @@ class UserController extends Controller
 
         if(isset($_POST['signup'])){
 
+
             if($_POST['password'] !== $_POST['password2']){
                 $errors['confirm_password'] = 'Les mots de passe renseignés sont différents';
             }
@@ -59,13 +62,13 @@ class UserController extends Controller
             if(strlen($_POST['firstname']) < 3){
                 $errors['firstname'] = 'Le firstname est trop court !';
             }
-            if($_POST['newsletter'] !== 1){
-                $errors['newsletter'] = true;
+            if(isset($_POST['newsletter']) && $_POST['newsletter'] != '1'){
+                $errors['newsletter'] = 'Paramètre d\'ajout à la newsletter invalide';
             }
 
             if(!$errors){
 
-                if(isset($_POST['newsletter'])){
+                if($_POST['newsletter']){
                     $newsManager = new \Manager\SubscriptionManager();
                     $newsManager->insert(['email'=>$_POST['email']]);
                 }
@@ -78,7 +81,7 @@ class UserController extends Controller
                     'role' => 'user'
                 ];
 
-                echo 'Inscription prise en compte !';
+                $_SESSION['flash'] = 'Inscription prise en compte ! <br/>';
                 $userManager->insert($data);
 
                 // Creation du Manager
@@ -89,10 +92,10 @@ class UserController extends Controller
                 if($id) {
                     $userInfos = $userManager->find($id);
                     $authentificationManager->logUserIn($userInfos);
-                    echo 'Utilisateur connecté';
+                    $_SESSION['flash'].= 'Utilisateur connecté <br/>';
                     //$this->redirectToRoute('home');
                 } else {
-                    echo 'La connexion a échoué';
+                    $_SESSION['flash'].= 'La connexion a échoué <br/>';
                 }
             }
         }
@@ -126,7 +129,7 @@ class UserController extends Controller
             $errors = [];
 
             // On fait les vérifications
-            if (!empty($_POST['mail'])) {
+            if (!empty($_POST['email'])) {
                 // Avant de valider un champ, on le nettoie
                 $email = filter_var($_POST['email'], FILTER_SANITIZE_SPECIAL_CHARS);
                 // On teste la validité du email
@@ -146,35 +149,33 @@ class UserController extends Controller
             if (count($errors) === 0) {
 
                 // On vérifie si le mail exist en bdd
-                $usersModel = new \Model\UsersModel();
-                $mailExists = $usersModel->emailExists($_POST['email']);
+                $usersManager = new \Manager\UsersManager();
+                $mailExists = $usersManager->emailExists($_POST['email']);
 
                 if ($mailExists) {
                     $token = \W\Security\StringUtils::randomString(32);
-                    $uId = $usersModel->getIdForMail($_POST['email']);
+                    $uId = $usersManager->getIdForMail($_POST['email']);
 
-                    $this->insertTokenReplaceOld($idUsers, $token);
+                    $this->insertTokenReplaceOld($uId, $token);
                     // Envoi du mail
                     $this->sendRecoveryLink($_POST['email'], $token);
                 }
             }
             // Si j'ai une erreur
-            $this->show('lostPassword/lostPassword', ['errors' => $errors]);
+            $this->show('blog/lostPassword', ['errors' => $errors, 'categories' => BlogController::categoriesMenu()]);
         }
         
-        $this->show('lostPassword/lostPassword');
+        $this->show('blog/lostPassword', ['categories' => BlogController::categoriesMenu()]);
     }
 
     // Insert un token à l'utilisateur concerné
-    private function insertTokenReplaceOld($idUsers, $token)
+    private function insertTokenReplaceOld($id, $token)
     {
-        
-
-        $recoveryTokenManager = new \Manager\RecoverytokenManager();
-        if($recoveryTokenModel->tokenExistsForUser($uId)) {
-            $recoveryTokenModel->deleteTokenForUser($uId);
+        $recoveryTokenManager = new \Manager\RecoveryTokenManager();
+        if($recoveryTokenManager->tokenExistsForUser($id)) {
+            $recoveryTokenManager->deleteTokenForUser($id);
         }
-        $recoveryTokenModel->insert(['idUsers' => $idUsers, 'token' => $token]);
+        $recoveryTokenManager->update(['token' => $token], $id);
     }
 
     // Envoie de l email pour la réinitialisation du mot de passe
@@ -191,17 +192,17 @@ class UserController extends Controller
         $mailer->Port = 587;                                    // Port TCP à utiliser
 
         $mailer->Sender='projet.wf3@gmail.com';
-        $mailer->setFrom('projet.wf3@gmail.com', 'jeveuxcourir.fr', false);
-        $mailer->addAddress($);                 // Ajouter un destinataire ....quelle adresse ???
+        $mailer->setFrom('projet.wf3@gmail.com', 'Benjamin Cerbai', false);
+        $mailer->addAddress($email);                 // Ajouter un destinataire ....quelle adresse ???
 
         $mailer->isHTML(true);                                  // Set email format to HTML
 
         $mailer->Subject = 'Demande de changement de mot de passe';
         $mailer->Body    = 'Bonjour, <br><br>
-        Vous avez fait une demande de changement de mot de passe, sur notre site "jeveuxcourir.fr". <br>
+        Vous avez fait une demande de changement de mot de passe, sur le site de Benjamin Cerbai. <br>
         Cliquez sur ce lien pour changer votre mot de passe : <a href="http://localhost'.$this->generateUrl('resetPassword', ['tk' => $token]).'">Cliquez ici</a>.
         <br><br>
-        Bonne continuation sur notre site.';
+        Bonne continuation sur le site.';
         $mailer->AltBody = 'Le message en texte brut, pour les clients qui ont désactivé l\'affichage HTML';
 
         $mailer->send();
@@ -212,7 +213,7 @@ class UserController extends Controller
     public function resetPassword($tk)
     {
         $tk; // token
-        $recoveryTokenModel = new \Manager\RecoverytokenManager();
+        $recoveryTokenManager = new \Manager\RecoveryTokenManager();
         $idUser = $recoveryTokenManager->getUserIdByToken($tk);
         if ($idUser === false) {
             /* Si ce token n'a jamais été émis, on redirige */
@@ -250,26 +251,25 @@ class UserController extends Controller
             if (count($errors) === 0) {
 
                 /* Hash du nouveau mot de passe */
-                $security = new \W\Security\AuthentificationModel();
-                $passHash = $security->hashPassword($_POST['new_pass']);
+                $passHash = password_hash($_POST['new_pass'], PASSWORD_DEFAULT);
 
                 /*  Mise à jour du mot de passe */
 
                 // Model pour insertion en base de donnees
-                $usersModel = new \Model\UsersModel();
+                $usersManager = new \Manager\UsersManager();
                 $data = ['password' => $passHash];
-                $usersModel->update($data, $idUser);
+                $usersManager->update($data, $idUser);
 
                 /* Suppression du token maintenant inutile */
-                $recoveryTokenModel->deleteToken($tk);
+                $recoveryTokenManager->deleteToken($tk);
 
                 /* Pour affichage du message */
                 $passUpdated = true;
                 $this->redirectToRoute('login');
             }
             // Si j'ai une erreur
-            $this->show('lostPassword/resetPassword', ['errors' => $errors]);
+            $this->show('blog/resetPassword', ['errors' => $errors, 'categories' => BlogController::categoriesMenu()]);
         }
-        $this->show('lostPassword/resetPassword.php');
+        $this->show('blog/resetPassword.php', ['categories' => BlogController::categoriesMenu()]);
     }
 }

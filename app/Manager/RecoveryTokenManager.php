@@ -9,7 +9,8 @@ class RecoveryTokenManager extends Manager
      public function __construct()
     {
         parent::__construct();
-        $this->setPrimaryKey('idUsers');
+        $this->setTable('users');
+        $this->setPrimaryKey('id');
     }
 
     /**
@@ -18,11 +19,11 @@ class RecoveryTokenManager extends Manager
      * @param $uId ID de l'utilisateur
      * @return bool
      */
-    public function tokenExistsForUser($idUsers){
+    public function tokenExistsForUser($id){
         $pdo= $this->dbh;
-        $sql = 'SELECT COUNT(*) FROM ' . $this->getTable() . ' WHERE idUsers=:id';
+        $sql = 'SELECT COUNT(*) FROM ' . $this->getTable() . ' WHERE id=:id';
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':id', $idUsers, \PDO::PARAM_INT);
+        $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
         $stmt->execute();
         return ($stmt->fetchColumn(0) > 0);
     }
@@ -35,15 +36,15 @@ class RecoveryTokenManager extends Manager
      */
     public function getUserIdByToken($token) {
         $pdo= $this->dbh;
-        $sql = 'SELECT idUsers FROM ' . $this->getTable() . ' WHERE token LIKE :token LIMIT 1';
+        $sql = 'SELECT id FROM ' . $this->getTable() . ' WHERE token LIKE :token LIMIT 1';
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':token', $token);
         $stmt->execute();
 
         $result = $stmt->fetch(\    PDO::FETCH_ASSOC);
-        $idUsers = $result['idUsers'];
-        if ($idUsers) {
-            return (int) $idUsers;
+        $id = $result['id'];
+        if ($id) {
+            return (int) $id;
         }
         return false;
         /* Cast facultatif */
@@ -54,11 +55,11 @@ class RecoveryTokenManager extends Manager
      * @param   $pdo Connexion PDO à la DB
      * @param   $id L'ID de l'utilisateur
      */
-    public function deleteTokenForUser($idUsers) {
+    public function deleteTokenForUser($id) {
         $pdo= $this->dbh;
-        $sql = 'DELETE FROM ' . $this->getTable() . ' WHERE idUsers LIKE :id';
+        $sql = 'UPDATE users SET token="NULL" WHERE id = :id';
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':id', $idUsers);
+        $stmt->bindValue(':id', $id);
         $stmt->execute();
     }
 
@@ -69,7 +70,7 @@ class RecoveryTokenManager extends Manager
      */
     function deleteToken($token) {
         $pdo= $this->dbh;
-        $sql = 'DELETE FROM ' . $this->getTable() . ' WHERE token LIKE :token';
+        $sql = 'UPDATE ' . $this->getTable() . 'SET token="NULL" WHERE token = :token';
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':token', $token);
         $stmt->execute();

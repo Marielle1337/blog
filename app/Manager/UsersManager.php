@@ -1,7 +1,7 @@
 <?php
-namespace Model;
+namespace Manager;
 
-class UsersModel extends \W\Manager\UsersManager
+class UsersManager extends \W\Manager\UserManager
 {
     public function __construct()
     {
@@ -23,8 +23,8 @@ class UsersModel extends \W\Manager\UsersManager
         $stmt->execute();
 
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        $idUser = $result['id'];
-        return (int) $idUsers;
+        $id = $result['id'];
+        return (int) $id;
         
     }
 
