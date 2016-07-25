@@ -125,38 +125,39 @@ $(function(){
 });
 
 // API Instagram
-var token = '3567021820.89f2636.d211939a983c4c67a5e9339bf1af7584',
-    username = 'benjamincerbai', // rudrastyh - my username :)
-    num_photos = 4;
+// var token = '2041609864.cfc5a53.7027f5823fdf4308a2f830d97085817b',
+//     username = 'benjamincerbai', // rudrastyh - my username :)
+//     num_photos = 4;
  
-$.ajax({ // the first ajax request returns the ID of user rudrastyh
-  url: 'https://api.instagram.com/v1/users/search',
-  dataType: 'jsonp',
-  type: 'GET',
-  data: {access_token: token, q: username}, // actually it is just the search by username
-  success: function(data){
-    console.log(data);
-    $.ajax({
-      url: 'https://api.instagram.com/v1/users/' + data.data[0].id + '/media/recent', // specify the ID of the first found user
-      dataType: 'jsonp',
-      type: 'GET',
-      data: {access_token: token, count: num_photos},
-      success: function(data2){
-        console.log(data2);
-        for(x in data2.data){
-          $('ul').append('<li><img src="'+data2.data[x].images.thumbnail.url+'"></li>');  
-        }
-          },
-      error: function(data2){
-        console.log(data2);
-        console.log('coucou');
-      }
-    });
-  },
-  error: function(data){
-    console.log(data);
-  }
-});
+// $.ajax({ // the first ajax request returns the ID of user rudrastyh
+//   url: 'https://api.instagram.com/v1/users/search',
+//   dataType: 'jsonp',
+//   type: 'GET',
+//   data: {access_token: token, q: username}, // actually it is just the search by username
+//   success: function(data){
+//     console.log(data);
+//     console.log(data.data[0].id);
+//     $.ajax({
+//       url: 'https://api.instagram.com/v1/users/' + data.data[0].id + '/media/recent', // specify the ID of the first found user
+//       dataType: 'jsonp',
+//       type: 'GET',
+//       data: {access_token: token, count: num_photos},
+//       success: function(data2){
+//         console.log(data2);
+//         for(x in data2.data){
+//           $('ul').append('<li><img src="'+data2.data[x].images.thumbnail.url+'"></li>');  
+//         }
+//           },
+//       error: function(data2){
+//         console.log(data2);
+//         console.log('coucou');
+//       }
+//     });
+//   },
+//   error: function(data){
+//     console.log(data);
+//   }
+// });
 
 
 });

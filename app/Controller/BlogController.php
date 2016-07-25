@@ -63,9 +63,11 @@ class BlogController extends Controller
                 
                     $managerComments = new \Manager\BlogManager();
                     $managerComments->setTable('comments');
+                    
                     $data =[
                         'author'=>$author,
                         'content'=>$content,
+                        'email'=>$email,
                         'idArticle'=>$idArticle,
                     ];
 
@@ -75,7 +77,13 @@ class BlogController extends Controller
                     if (strlen($_POST['content']) < 3) {
                         $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
                     }
-
+                    
+                    $managerComments->insert($data);
+                    
+                    //vers page 
+                    if (isset($_POST['addComment'])){
+                    $this->redirectToRoute('article', ['id'=>$id]);
+                    }
                
                 } else {
                     // Si j'ai des erreurs
@@ -205,7 +213,7 @@ class BlogController extends Controller
                                 //si je suis jpg ou png ou gif
                                 if ($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg') {
                                     //resize
-                                    $resize = $this->resize($path, null, 80, 80, $path);
+                                    $resize = $this->resize($path, null, 800, 180, $path);
                                 }
 
                                 // On upload le fichier
@@ -267,7 +275,7 @@ class BlogController extends Controller
 
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
-        $articles = $managerArticles->findAll();
+        $articles = $managerArticles->findAll($orderBy='dateCreated', $orderDir='DESC');
         $this->searchBar();
 
         $this->show('blog/liste', ['articles'=>$articles, 'categories' => BlogController::categoriesMenu()]);
@@ -555,7 +563,7 @@ class BlogController extends Controller
                 $data = [
                     'title' => $_POST['title'],
                     'content' => $_POST['content'],
-                    'dateCreated' => date("Y-m-d"),
+                    'edited' => date("Y-m-d"),
                 ];
 
                 // traitement du medias
@@ -594,7 +602,7 @@ class BlogController extends Controller
                             //si je suis jpg ou png ou gif
                             if ($extFoundInArray == 'gif' || $extFoundInArray == 'png' || $extFoundInArray == 'jpg') {
                                 //resize
-                                $resize = $this->resize($path, null, 80, 80, $path);
+                                $resize = $this->resize($path, null, 800, 180, $path);
                             }
 
                             // suppression ancienne
@@ -615,5 +623,8 @@ class BlogController extends Controller
 
         $this->show('blog/editArticle', ['article'=>$article, 'categories' => BlogController::categoriesMenu()]);
     }
+    
+        
+    
 
 }

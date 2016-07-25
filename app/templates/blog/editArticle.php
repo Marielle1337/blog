@@ -4,28 +4,28 @@
 <?php //print_r($articles); ?>
 <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 
-	<label>
+	<label for="titre">
 		<?php if (isset($errors['title']['empty'])): ?>
 		Titre non renseigné
 		<?php endif; ?>
-		<input type="text" name="title" value="<?= $article['title'] ?>">
+		<input id="titre" type="text" name="title" value="<?= $article['title'] ?>">
 	</label>
     
-	<label>
+	<label for="article">
         <?php if (isset($errors['content']['empty'])): ?>
-            Contenu inexistant
+                Contenu inexistant
         <?php endif; ?>
-        <textarea name="content" class="admin" ><?= $article['content'] ?></textarea>
+        <textarea id="article" name="content" class="admin" ><?= $article['content'] ?></textarea>
 	</label>
     
-        <label>
+        <label for="">
             <figure>
-                <img src="/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
+                <img src="/public/assets/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
             </figure>
             <?php if (isset($errors['picture']['empty'])): ?>
             Bannière inexistante
             <?php endif; ?>
-            <input type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
+            <input id="image" type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
         </label>
             
         <button type="submit" name="editArticle">Editer</button>

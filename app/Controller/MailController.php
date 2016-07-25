@@ -50,7 +50,7 @@ class MailController extends Controller
             // Si aucune erreur
             if(count($errors) == 0) {
                 $title = $_POST['title'];
-                $sendDate = $_POST['sendDate'];
+                $sendDate = date("Y-m-d", strtotime($_POST['sendDate']));
                 $content = $_POST['content'];
 
                 $managerNewsletters = new \Manager\MailManager();
@@ -111,8 +111,8 @@ class MailController extends Controller
         $mail->isHTML(true);                                     // Set email format to HTML
 
         $mail->Subject = $title;
-        $mail->Body    = $content;
-        $mail->AltBody = strip_tags($content);
+        $mail->Body    = $content . '<footer> Vous souhaitez vous désabonner de la newsletter ? <a href="http://localhost'.$this->generateUrl('unsubscribe', ['email' => $destMail]).'">Cliquez ici</a> ! </footer>';
+        $mail->AltBody = strip_tags($content. 'Vous souhaitez vous désabonner de la newsletter ? http://localhost'.echo $this->generateUrl('unsubscribe', ['email' => $destMail]).' Copiez/collez ce lien dans votre navigateur !');
 
         if(!$mail->send()) {
             echo 'Le message n\'a pas pu être envoyé';
@@ -168,7 +168,7 @@ class MailController extends Controller
 
                 $this->redirectToRoute('archive');
             } else {
-                $this->show('mail/editNewsletter', ['newsletter'=>$newsletter, 'errors'=>$errors]);
+                $this->show('mail/editNewsletter', ['newsletter'=>$newsletter, 'errors'=>$errors, , 'categories' => BlogController::categoriesMenu()]);
             }
         }
 
@@ -179,8 +179,28 @@ class MailController extends Controller
     public function contact()
     {
         if(isset($_POST['contact'])){
-            $this->sendMail('marielle010495@gmail.com', $_POST['title'], $_POST['content'], $_POST['email'], $_POST['senderName']);
-            $_SESSION['flash'] = 'Message envoyé';
+
+            $errors = [];
+
+            if (strlen($_POST['title']) < 3) {
+                $errors['title'] = 'Le titre renseigné est trop court (minimum 3 caractères)';
+            }
+            if (strlen($_POST['content']) < 3) {
+                $errors['content'] = 'Le contenu renseigné est insuffisant (minimum 3 caractères)';
+            }
+            if (empty($_POST['email'])) {
+                $errors['email'] = 'L\'email doit être renseigné';
+            }
+            if (empty($_POST['senderName'])) {
+                $errors['senderName'] = 'Le nom de l\'expéditeur doit être renseigné';
+            }
+            
+            // Si aucune erreur
+            if(count($errors) == 0) {
+            
+                $this->sendMail('marielle010495@gmail.com', $_POST['title'], $_POST['content'], $_POST['email'], $_POST['senderName']);
+                $_SESSION['flash'] = 'Message envoyé';
+            }
         }
 
         $this->show('blog/contact', ['categories' => BlogController::categoriesMenu()]);

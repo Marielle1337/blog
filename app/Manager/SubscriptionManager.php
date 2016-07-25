@@ -12,5 +12,12 @@ class SubscriptionManager extends Manager
         $this->setTable('subscriptions');
     }
     
+    public function deleteMail($email)
+	{
+		$sql = "DELETE FROM " . $this->table . " WHERE $this->email = :email LIMIT 1";
+		$sth = $this->dbh->prepare($sql);
+		$sth->bindValue(":email", $email);
+		return $sth->execute();
+	}
 
 }
