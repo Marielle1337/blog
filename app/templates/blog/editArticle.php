@@ -17,18 +17,18 @@
         <?php endif; ?>
 	</label>
     
-        <label>
-            <figure>
-                <img src="/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
-            </figure>
-            <?php if (isset($errors['picture']['empty'])): ?>
-            Bannière inexistante
-            <?php endif; ?>
-            <input type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
-        </label>
-            
-        <button type="submit" name="editArticle">Editer</button>
+    <label>
+        <figure>
+            <img src="/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
+        </figure>
+        <?php if (isset($errors['picture']['empty'])): ?>
+        Bannière inexistante
+        <?php endif; ?>
+        <input type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
+    </label>
         
+    <button type="submit" name="editArticle">Editer</button>
+    
 
 </form>
 

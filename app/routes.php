@@ -14,9 +14,6 @@
         ['GET|POST', '/blog/add', 'Blog#add', 'add'],
 		['GET|POST', '/blog/delete/[:id]', 'Blog#delete', 'delete'],
         ['GET|POST', '/blog/editArticle/[:id]', 'Blog#editArticle', 'editArticle'],
-
-        // Gestion des commentaires
-        //['GET|POST', '/blog/addComment', 'Blog#addComment', 'addComment'],
             
 		// Recherches spécifiques
 		['GET|POST', '/blog/category/[:id]', 'Blog#category', 'category'],
@@ -26,7 +23,6 @@
 		['GET|POST', '/blog/login', 'User#login', 'login'],
 		['GET|POST', '/blog/logout', 'User#logout', 'logout'],
 		['GET|POST', '/blog/contact', 'Mail#contact', 'contact'],
-
 
         // NewsLetter
 		['GET|POST', '/mail/newsletter', 'Mail#newsletters', 'newsletter'],
