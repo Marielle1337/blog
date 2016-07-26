@@ -2,68 +2,77 @@
 
 <?php $this->start('main_content') ?>
 <?php if(isset($errors['connect'])){ echo $errors['connect']; } ?>
-<form action="#" method="POST" accept-charset="utf-8">
-	<fieldset>
-		<legend> Connexion </legend>
-		
-		<label>
-			<input type="text" name="login" placeholder="Login ou Mail">
-			<?php if(isset($errors['user'])){ echo $errors['user']; } ?>
-		</label>
-	    
-	    <label>
-	        <input type="password" name="password" placeholder="Mot de passe">
-	        <?php if(isset($errors['passwordExist'])){ echo $errors['passwordExist']; } ?>
-		</label>
 
-		<br/>
-		<button type="submit" name="connect">Connexion</button>
-		<br/><br/>
-        <a href="<?= $this->url('lostPassword') ?>"> Mot de passe oublié ?</a>
-	</fieldset>
-</form>
-<br/>
-<br/>
-<form action="#" method="POST" accept-charset="utf-8">
-	<fieldset>
-		<legend> Inscription </legend>
-		
-		<label>
-			<input type="text" name="login" placeholder="Login">
-			<?php if(isset($errors['login'])){ echo $errors['login']; } ?>
-		</label>
+<div class="materialContainer">
 
-		<label>
-			<input type="text" name="firstname" placeholder="Prénom (facultatif)">
-			<?php if(isset($errors['firstname'])){ echo $errors['firstname']; } ?>
-		</label>
+	<form action="#" method="POST" accept-charset="utf-8">
+		<fieldset class='box'>
+			<legend class="title"> Connexion </legend>
+			
+			<label class='input'>
+				<input type="text" name="login" placeholder="Login ou Mail">
+				<?php if(isset($errors['user'])){ echo $errors['user']; } ?>
+				<span class="spin"></span>
+			</label>
+		    
+		    <label class='input'>
+		        <input type="password" name="password" placeholder="Mot de passe">
+		        <?php if(isset($errors['passwordExist'])){ echo $errors['passwordExist']; } ?>
+		        <span class="spin"></span>
+			</label>
 
-		<label>
-			<input type="email" name="email" placeholder="Adresse mail">
-		</label>
+			<div class="button login">
+				<button type="submit" name="connect"><span>Connexion<span> <i class="fa fa-check"></i></button>
+	      	</div>
+			
+	        <a href="<?= $this->url('lostPassword') ?>" class="pass-forgot"> Mot de passe oublié ?</a>
+		</fieldset>
+	</form>
 
-		<label>
-			<input type="password" name="password" placeholder="Mot de passe">
-			<?php if(isset($errors['password'])){ echo $errors['password']; } ?>
-		</label>
-	    
-	    <label>
-	        <input type="password" name="password2" placeholder="Confirmation mot de passe">
-	        <?php if(isset($errors['confirm_password'])){ echo $errors['confirm_password']; } ?>
-		</label>
+	<form action="#" method="POST" accept-charset="utf-8">
+		<fieldset class='overbox'>
 
-		<label for="newsletter">
-            <input type="checkbox" name="newsletter" id="newsletter" value="1">
-            Je souhaite m'abonner à la newsletter
-            <?php if (isset($errors['newsletter'])) { echo $errors['newsletter']; } ?>
-        </label>
+			<div class="material-button alt-2"><span class="shape"></span></div>
 
-		</br>
-		<button type="submit" name="signup">S'inscrire</button>
+			<legend class='title'> Inscription </legend>
+			
+			<label class='input'>
+				<input type="text" name="login" placeholder="Login">
+				<?php if(isset($errors['login'])){ echo $errors['login']; } ?>
+			</label>
 
+			<label class='input'>
+				<input type="text" name="firstname" placeholder="Prénom (facultatif)">
+				<?php if(isset($errors['firstname'])){ echo $errors['firstname']; } ?>
+			</label>
 
-		<?php if(isset($_SESSION['flash'])) { echo $_SESSION['flash']; } ?>
-	</fieldset>
+			<label class='input'>
+				<input type="email" name="email" placeholder="Adresse mail">
+			</label>
 
-</form>
+			<label class='input'>
+				<input type="password" name="password" placeholder="Mot de passe">
+				<?php if(isset($errors['password'])){ echo $errors['password']; } ?>
+			</label>
+		    
+		    <label class='input'>
+		        <input type="password" name="password2" placeholder="Confirmation mot de passe">
+		        <?php if(isset($errors['confirm_password'])){ echo $errors['confirm_password']; } ?>
+			</label>
+
+			<label for="newsletter" class='input'>
+	            <input type="checkbox" name="newsletter" id="newsletter" value="1">
+	            Je souhaite m'abonner à la newsletter
+	            <?php if (isset($errors['newsletter'])) { echo $errors['newsletter']; } ?>
+	        </label>
+
+			<div class="button">
+				<button type="submit" name="signup">S'inscrire</button>
+	     	</div>
+
+			<?php if(isset($_SESSION['flash'])) { echo $_SESSION['flash']; } ?>
+		</fieldset>
+
+	</form>
+</div>
 <?php $this->stop('main_content') ?>
