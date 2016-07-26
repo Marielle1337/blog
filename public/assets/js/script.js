@@ -166,6 +166,7 @@ $(function(){
 // });
 
 var token = '3586721364.3f41411.af5bb95f456942aa99aac35e04b1ae94',
+    token = '2041609864.cfc5a53.7027f5823fdf4308a2f830d97085817b';
         num_photos = 4; // how much photos do you want to get
      
     $.ajax({
