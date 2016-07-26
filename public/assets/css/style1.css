@@ -9,7 +9,7 @@ html, body {
 
 .connexion {
 	padding: 15px;
-	position: absolute;
+	/* position: absolute; */
 	right: 100px;
 }
 
@@ -36,7 +36,7 @@ aside::after {
 }
 
 h1, h2, a, legend {
-	color: #337ab7;
+	color: #66D9EF;
 }
 
 label, input, button {
@@ -179,4 +179,103 @@ footer{
 .banniere {
 	width: 100%;
 	height: 150px;
+}
+
+/* Masquage partie droite en responsive */
+@media screen and (max-width: 1050px) {
+    aside{
+    	display:none;
+    }
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+		top: 0;
+		border-width: 0 0 1px;
+	}
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+		margin-top: 7.5px;
+	}
+	.navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+  		display:block !important;
+	}
+}
+
+		/****** PARTIE DROITE ******/
+
+/* Position fixe de la partie droite */
+#navdroite{
+	position: absolute;
+	right: 0;	
+	top: 0;
+	background-color: rgba(225,245,250,0.4);
+	border-left: 0.5px ridge #E1E2E2;
+}
+
+/* Conteneur partie droite */
+aside{
+	padding-top: 100px;
+	padding-bottom: 70px;
+	width: 25%;
+	height: auto;
+	float: right;	
+}
+
+/* Image cliquable Newsletter */
+aside #news{	
+	width: 40%;
+	border: none;	
+	margin-left: 100px;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+aside .themes{	
+	margin-left: 180px;
+}
+
+/* Styles des Catégories */
+.categories, h3{
+	margin-top: 50px;
+	margin-left: 75px;
+	color: #2E2E2E;		
+	font-size: 1.5rem;
+	font-weight: bold;
+	text-transform: uppercase;		
+}
+
+/* Styles des liens Catégories */
+#navlaterale ul li a{	
+	font-size: 1.3rem;
+	line-height: 2;
+	margin-left: 55px;
+	color: #2E2E2E;
+	font-variant: small-caps;
+	text-decoration: none;
+}
+
+/* Suppression des styles de liste */
+ul{
+	list-style: none;	
 }
