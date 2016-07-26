@@ -2,6 +2,14 @@
 
 
 <?php $this->start('main_content') ?>
+
+<section> 
+
+	<h2> Mes dernières publications instagram </h2>
+
+	<ul id="rudr_instafeed"></ul>
+
+</section>
 	
 	<?php for($i=0; $i<count($articles); $i++) { ?>
 	<article>
@@ -15,9 +23,6 @@
 	</article>
 	<?php } ?>
 
-
-<a href="<?= $this->url('archive') ?>" >retour a la page d'archive</a>
-<a href="<?= $this->url('subscription') ?>" >inscription a la newsletter</a>
 <?php $this->stop('main_content') ?>
 
 

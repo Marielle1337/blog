@@ -29,8 +29,19 @@
 	<!-- FontAwesome -->
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/font-awesome.min.css') ?>">
 
+	<!-- Animation logo -->
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/stylesAnim.css') ?>">
+
 	<!-- Mes feuilles de style -->
-	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>" title="standard">
+	<?php if($this->e($title) == "Perdu ?"){ ?>
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/errors.css') ?>">
+	<?php } ?>
+
+	<?php if($this->e($title) == "Créer un nouvel administrateur"){ ?>
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/errors.css') ?>">
+	<?php } ?>
+
+ 	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>" title="standard">
 	<link rel="alternate stylesheet" href="<?= $this->assetUrl('css/style.css') ?>" title="eco">
 </head>
 <body id="top">
@@ -48,12 +59,12 @@
 				</div>
 
 				    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			        <ul id="navsup" class="nav navbar-nav">	
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			    <ul id="navsup" class="nav navbar-nav">	
 				
 					<li><a href="<?=$this->url('home')?>" title="Accueil">Accueil</a></li>
 					<li><a href="<?=$this->url('aboutMe')?>" title="A propos de moi">Qui suis-je ?</a></li>
-					<li><a href="#" title="Mes créations">Portfolio</a></li>
+					<!-- <li><a href="#" title="Mes créations">Portfolio</a></li> -->
 					<li><a href="<?=$this->url('contact')?>" title="Me contacter">Contact</a></li>		
 				</ul>
 				<form class="navbar-form navbar-left" role="search">
@@ -66,45 +77,48 @@
 				  </a>
 				</form>
 
+				<div class="connexion">
 				<?php if(!isset($_SESSION['user'])) { ?>
 					<a href='<?= $this->url('login')?>'>Connexion</a>
 				<?php } else { ?>
-					<span> <?php if(isset($_SESSION['user']['firstname'])) { 
+					<span style="color : white"> <?php if(isset($_SESSION['user']['firstname'])) { 
 								echo $_SESSION['user']['firstname']; 
 								} else { echo $_SESSION['user']['login']; } ?> 
 					</span>
 					<a href="<?=$this->url('logout')?>">Déconnexion</a>
 				<?php } ?>
+				</div>
 			</div>
 			</nav>
-
-<!--                        information sur l'utilisation des cookies-->
-			<div class="alert alert-info">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <i class="fa fa-rebel" aria-hidden="true"></i> Attention, jeune padawan, sur ce site en naviguant, les cookies accepter l'utilisation tu dois. Un verre de lait à prendre tu penseras.
-            </div>
                     
 		<div class="container">
 
-			<img src="img/logoBC.png" alt="Logo Benjamin Cerbai">
-			
-			<img src="img/photoBC.png" alt="Photo Benjamin Cerbai">
+			<div class="wrap">
+			  	<div class="text-part">
+			    	<img id="miniBC" src="img/miniphotoBC.jpeg">
+			  	</div>
+			  	<div class="image-part">
+			    	<img id="logoseul" src="img/Logoseul.png">
+	  			</div>
+			</div>
 
-			<h1><?= $this->e($title) ?></h1>
+			<strong>Créez vos images et racontez vos histoires</strong>
+
 
 		</div>
 		</header>
 
-	<div class="container">
-
 		<aside>
 		<div>
+
+			 
 			<div class="themes">
 				<button type="button" id="theme1">Jour</button>
 				<button type="button" id="theme2">Nuit</button>
 			</div>
 			
 			<nav id="navlaterale" class="categories">
+				<a href="<?= $this->url('subscription') ?>" title="newsletter"> Newsletter </a>
 				<h3> Catégories </h3>
 				<ul>
 				<?php foreach ($categories as $category) { ?>
@@ -113,13 +127,13 @@
 				</ul>
 
 				<?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
-				<h3> Gestion administrateur </h3>
+				<h3> Gestion </h3>
 				<ul>
                     <li> <a href="<?= $this->url('add') ?>"> Ajouter un article </a> </li>
                     <li> <a href="<?= $this->url('liste') ?>"> Gérer les articles </a> </li>
                     <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
                     <li> <a href="<?= $this->url('newsletter') ?>">Créer une newsletter </a> </li>
-                <ul>
+                </ul>
                 <?php } ?>
 			</nav>
 			
@@ -127,11 +141,19 @@
 		</div>
 		</aside>
 
+	<div class="container">
 		<main>
+			<h1><?= $this->e($title) ?></h1>
 			<?= $this->section('main_content') ?>
 		</main>
 
 	</div>
+
+		<!--  Information sur l'utilisation des cookies-->
+		<div class="alert alert-info">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <i class="fa fa-rebel" aria-hidden="true"></i> Attention, jeune padawan, sur ce site en naviguant, les cookies accepter l'utilisation tu dois. Un verre de lait à prendre tu penseras.
+        </div>
 
         <footer>
         	<div class="container">
