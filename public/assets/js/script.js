@@ -126,10 +126,6 @@ $(function(){
 
 // API Instagram
 
-// Infos Benjamin
-//2041609864.cfc5a53.7027f5823fdf4308a2f830d97085817b
-//benjamincerbai
-
 // Mes infos
 //'3586721364.3f41411.af5bb95f456942aa99aac35e04b1ae94',
 
