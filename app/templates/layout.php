@@ -43,52 +43,54 @@
 
  	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>" title="standard">
 	<link rel="alternate stylesheet" href="<?= $this->assetUrl('css/style.css') ?>" title="eco">
+	<!-- <link rel="stylesheet" href="<?= $this->assetUrl('css/styles.css') ?>"> -->
+
 </head>
 <body id="top">
 
 		<header>                 
 			<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-				    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				        <span class="sr-only">Toggle navigation</span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				    </button>
-				</div>
+				<div class="container">
+					<div class="navbar-header">
+				    	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				        	<span class="sr-only">Toggle navigation</span>
+				        	<span class="icon-bar"></span>
+				        	<span class="icon-bar"></span>
+				        	<span class="icon-bar"></span>
+				    	</button>
+					</div>
 
 				    <!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			    <ul id="navsup" class="nav navbar-nav">	
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			    	<ul id="navsup" class="nav navbar-nav">	
 				
-					<li><a href="<?=$this->url('home')?>" title="Accueil">Accueil</a></li>
-					<li><a href="<?=$this->url('aboutMe')?>" title="A propos de moi">Qui suis-je ?</a></li>
-					<!-- <li><a href="#" title="Mes créations">Portfolio</a></li> -->
-					<li><a href="<?=$this->url('contact')?>" title="Me contacter">Contact</a></li>		
-				</ul>
-				<form class="navbar-form navbar-left" role="search">
-				  <div class="form-group">
-				    <input type="text" class="form-control" name="toSearch" placeholder="Recherche">
-				  </div>
-				  <button type="submit" class="btn btn-default" name="search">Chercher</button>
-				  <a href="<?=$this->url('search')?>">
-				  	<button type="button" class="btn btn-default" name="advancedSearch">Recherche avancée</button>
-				  </a>
-				</form>
+						<li><a href="<?=$this->url('home')?>" title="Accueil">Accueil</a></li>
+						<li><a href="<?=$this->url('aboutMe')?>" title="A propos de moi">Qui suis-je ?</a></li>
+						<li><a href="<?=$this->url('contact')?>" title="Me contacter">Contact</a></li>		
+					</ul>
 
-				<div class="connexion">
-				<?php if(!isset($_SESSION['user'])) { ?>
-					<a href='<?= $this->url('login')?>'>Connexion</a>
-				<?php } else { ?>
-					<span style="color : white"> <?php if(isset($_SESSION['user']['firstname'])) { 
-								echo $_SESSION['user']['firstname']; 
-								} else { echo $_SESSION['user']['login']; } ?> 
-					</span>
-					<a href="<?=$this->url('logout')?>">Déconnexion</a>
-				<?php } ?>
+					<form class="navbar-form navbar-left" role="search">
+					  <div class="form-group">
+					    <input type="text" class="form-control" name="toSearch" placeholder="Recherche">
+					  </div>
+					  <button type="submit" class="btn btn-default" name="search">Chercher</button>
+					  <a href="<?=$this->url('search')?>">
+					  	<button type="button" class="btn btn-default" name="advancedSearch">Recherche avancée</button>
+					  </a>
+					</form>
+
+					<div class="connexion">
+						<?php if(!isset($_SESSION['user'])) { ?>
+							<a href='<?= $this->url('login')?>'>Connexion</a>
+						<?php } else { ?>
+							<span style="color : white"> <?php if(isset($_SESSION['user']['firstname'])) { 
+										echo $_SESSION['user']['firstname']; 
+										} else { echo $_SESSION['user']['login']; } ?> 
+							</span>
+							<a href="<?=$this->url('logout')?>">Déconnexion</a>
+						<?php } ?>
+					</div>
 				</div>
-			</div>
 			</nav>
                     
 		<div class="container">
@@ -108,46 +110,51 @@
 		</div>
 		</header>
 
-		<aside>
-		<div>
-
-			 
-			<div class="themes">
-				<button type="button" id="theme1">Jour</button>
-				<button type="button" id="theme2">Nuit</button>
-			</div>
+		<div class="container">
+			<aside id="navdroite">
+				<a href="<?=$this->url('subscription')?>">
+					<img id="news" src="img/news.png" alt="Inscription à la Newsletter">
+				</a>
+				<div class="themes">
+						<button type="button" id="theme1">Jour</button>
+						<button type="button" id="theme2">Nuit</button>
+				</div>
 			
-			<nav id="navlaterale" class="categories">
-				<a href="<?= $this->url('subscription') ?>" title="newsletter"> Newsletter </a>
-				<h3> Catégories </h3>
-				<ul>
-				<?php foreach ($categories as $category) { ?>
-					<li><a href="<?=$this->url('category', array('id' => $category['id'])) ?>" title="<?= $category['name'] ?>"><?= $category['name'] ?></a></li>
-				<?php } ?>
-				</ul>
+				<nav id="navlaterale" class="categories">
+					<h3> Catégories </h3>
+					<ul>
+					<?php foreach ($categories as $category) { ?>
+						<li><a href="<?=$this->url('category', array('id' => $category['id'])) ?>" title="<?= $category['name'] ?>"><?= $category['name'] ?></a></li>
+					<?php } ?>
+					</ul>
 
-				<?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
-				<h3> Gestion </h3>
-				<ul>
-                    <li> <a href="<?= $this->url('add') ?>"> Ajouter un article </a> </li>
-                    <li> <a href="<?= $this->url('liste') ?>"> Gérer les articles </a> </li>
-                    <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
-                    <li> <a href="<?= $this->url('newsletter') ?>">Créer une newsletter </a> </li>
-                </ul>
-                <?php } ?>
-			</nav>
-			
-			<a id='topButton' href="#top" title='Revenir en haut'> Revenir en haut </a>
+					<?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
+
+					<h3 id="gestion"> Gestion </h3>
+					<ul>
+	                    <li> <a href="<?= $this->url('add') ?>"> Ajouter un article </a> </li>
+	                    <li> <a href="<?= $this->url('liste') ?>"> Gérer les articles </a> </li>
+	                    <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
+	                    <li> <a href="<?= $this->url('newsletter') ?>">Créer une newsletter </a> </li>
+	                </ul>
+	                <?php } ?>
+				</nav>
+			</aside>
 		</div>
-		</aside>
 
-	<div class="container">
-		<main>
-			<h1><?= $this->e($title) ?></h1>
-			<?= $this->section('main_content') ?>
-		</main>
+		<div class="container">
+			<main>
+				<h1><?= $this->e($title) ?></h1>
+				<?= $this->section('main_content') ?>
+			</main>
 
-	</div>
+		</div>
+		<!-- Lien retour en Haut de la page -->
+		<div class="top">
+			<a id='topButton' href="#top" >
+				<img class="top" src="img/haut.png">
+			</a>
+		</div>
 
 		<!--  Information sur l'utilisation des cookies-->
 		<div class="alert alert-info">

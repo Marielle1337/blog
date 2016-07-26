@@ -1,24 +1,60 @@
 /* Mise en place de la police 
 et couleur générale du site */
 
-html{
+/* html{
   	font-size: 100%;
   	font-family: "Verdana";
   	color: #2E2E2E;
-}
+} */
 
 /* Taille responsive */
-@media screen and (min-width: 783px)
+/* @media screen and (min-width: 783px)
 {
     max-width: 1120px;
 }
-
+ */
 /* Masquage partie droite en responsive */
- @media screen and (max-width: 680px) {
-      #navdroite, .top {
-        display: none;
-      }
+ @media screen and (max-width: 1050px) {
+    aside{
+    	display:none;
+    }
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+		top: 0;
+		border-width: 0 0 1px;
+	}
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+		margin-top: 7.5px;
+	}
+	.navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+  		display:block !important;
+	}
  }
+
+
 
 /* Taille de la police générale en responsive */
 body{
@@ -44,9 +80,9 @@ header #logo, #miniBC{
 	padding-left: 5%;
 }
 
-#top{
+/* #top{
 	padding-top: 120px;
-}
+} */
 
 #miniBC, #logoseul{
 	width: 130px;
@@ -87,7 +123,7 @@ header nav{
 }
 
 .navbar{		
-	margin: 30px 0px;	
+	/* margin: 30px 0px;	 */
 	color: white;
 	font-size: 16px;		
 	background-color: #2E2E2E;	
@@ -196,14 +232,14 @@ h1{
     padding-bottom: 30px;
     text-align: left;
     font-variant: small-caps;
-	color: #2E2E2E;
+	/* color: #2E2E2E; */
 }
 
 h2{
 	font-size: 1.5rem;
 	text-align: left;
 	font-variant: small-caps;
-	color: #6496C8;
+	/* color: #6496C8; */
 	font-weight: bold;
 }
 
