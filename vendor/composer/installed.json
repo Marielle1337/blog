@@ -415,5 +415,47 @@
             }
         ],
         "description": "PHPMailer is a full-featured email creation and transfer class for PHP"
+    },
+    {
+        "name": "tiben/crontab-manager",
+        "version": "v1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/TiBeN/CrontabManager.git",
+            "reference": "e0e12c94e8b065ed07811b65f00d3fb00eab003e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/TiBeN/CrontabManager/zipball/e0e12c94e8b065ed07811b65f00d3fb00eab003e",
+            "reference": "e0e12c94e8b065ed07811b65f00d3fb00eab003e",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">= 5.3"
+        },
+        "time": "2014-05-17 15:12:24",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "TiBeN\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Benjamin Legendre",
+                "email": "legendre.benjamin@gmail.com"
+            }
+        ],
+        "description": "A library for managing linux cron jobs.",
+        "keywords": [
+            "crontab",
+            "scheduling"
+        ]
     }
 ]

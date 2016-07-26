@@ -2,6 +2,8 @@
 
 
 <?php $this->start('main_content') ?>
+
+<ul id="rudr_instafeed"></ul>
 	
 	<?php for($i=0; $i<count($articles); $i++) { ?>
 	<article>

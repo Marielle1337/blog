@@ -125,8 +125,14 @@ $(function(){
 });
 
 // API Instagram
-// var token = '2041609864.cfc5a53.7027f5823fdf4308a2f830d97085817b',
-//     username = 'benjamincerbai', // rudrastyh - my username :)
+
+// Infos Benjamin
+//2041609864.cfc5a53.7027f5823fdf4308a2f830d97085817b
+//benjamincerbai
+    
+// var token = '84c18dcec2c043f484755c6ba0c83e63',
+//     username = 'marielle1337', // rudrastyh - my username :)
+
 //     num_photos = 4;
  
 // $.ajax({ // the first ajax request returns the ID of user rudrastyh
@@ -158,6 +164,28 @@ $(function(){
 //     console.log(data);
 //   }
 // });
+
+var token = '3586721364.3f41411.af5bb95f456942aa99aac35e04b1ae94',
+        num_photos = 4; // how much photos do you want to get
+     
+    $.ajax({
+      url: 'https://api.instagram.com/v1/users/self/media/recent/?access_token='+token, // or /users/self/media/recent for Sandbox
+      dataType: 'jsonp',
+      type: 'GET',
+      data: {count: num_photos},
+      success: function(data){
+        console.log(data);
+        for( x in data.data ){
+          $('ul#rudr_instafeed').append('<li><img src="'+data.data[x].images.low_resolution.url+'"></li>'); // data.data[x].images.low_resolution.url - URL of image, 306х306
+          // data.data[x].images.thumbnail.url - URL of image 150х150
+          // data.data[x].images.standard_resolution.url - URL of image 612х612
+          // data.data[x].link - Instagram post URL 
+        }
+      },
+      error: function(data){
+        console.log(data);
+      }
+    });
 
 
 });
