@@ -3,7 +3,13 @@
 
 <?php $this->start('main_content') ?>
 
-<ul id="rudr_instafeed"></ul>
+<section> 
+
+	<h2> Mes dernières publications instagram </h2>
+
+	<ul id="rudr_instafeed"></ul>
+
+</section>
 	
 	<?php for($i=0; $i<count($articles); $i++) { ?>
 	<article>
