@@ -112,7 +112,7 @@ class MailController extends Controller
 
         $mail->Subject = $title;
         $mail->Body    = $content . '<footer> Vous souhaitez vous désabonner de la newsletter ? <a href="http://localhost'.$this->generateUrl('unsubscribe', ['email' => $destMail]).'">Cliquez ici</a> ! </footer>';
-        $mail->AltBody = strip_tags($content. 'Vous souhaitez vous désabonner de la newsletter ? http://localhost'.echo $this->generateUrl('unsubscribe', ['email' => $destMail]).' Copiez/collez ce lien dans votre navigateur !');
+        $mail->AltBody = strip_tags($content. 'Vous souhaitez vous désabonner de la newsletter ? http://localhost'.$this->generateUrl('unsubscribe', ['email' => $destMail]).' Copiez/collez ce lien dans votre navigateur !');
 
         if(!$mail->send()) {
             echo 'Le message n\'a pas pu être envoyé';
