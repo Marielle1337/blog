@@ -14,10 +14,9 @@ class SubscriptionManager extends Manager
     
     public function deleteMail($email)
 	{
-		$sql = "DELETE FROM " . $this->table . " WHERE $this->email = :email LIMIT 1";
+		$sql = "DELETE FROM " . $this->table . " WHERE email = :email";
 		$sth = $this->dbh->prepare($sql);
 		$sth->bindValue(":email", $email);
 		return $sth->execute();
 	}
-
 }
