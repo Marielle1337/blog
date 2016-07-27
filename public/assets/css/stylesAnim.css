@@ -3,8 +3,8 @@ Translation et interchangement entre Logo et image de l'auteur*/
 
 .wrap {
   border-radius: 50%;
-  height: 130px;
-  width: 130px;
+  height: 100px;
+  width: 100px;
   position: relative;
   top: 10px;
   left: 8%;
@@ -42,9 +42,9 @@ Translation et interchangement entre Logo et image de l'auteur*/
 
 .text-part {
   height: 100%;
-  width: 110%;
+  width: 125%;
   text-align: center;
-  background-color: #6496C8;
+  /* background-color: #6496C8; */
   line-height: 150px;
   color: #fff;
   font-family: "Verdana" sans-serif;
