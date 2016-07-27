@@ -414,12 +414,8 @@ div.alert {
 }
 
 .materialContainer {
-   top: 47%;
+   top: 60%;
    z-index: 2;
-}
-
-a[href='#top'] {
-   display: none;
 }
 
 .input span {

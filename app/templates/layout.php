@@ -32,7 +32,7 @@
 	<!-- Animation logo -->
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/stylesAnim.css') ?>">
 
-	<!-- Animation connexion -->
+	<!-- Animation connexion CSS -->
 	<?php if($this->e($title) == "Authentification"){ ?>
 		<script type="text/javascript" src="<?= $this->assetUrl('js/scriptLogin.js') ?>" defer></script>
 		<link rel="stylesheet" href="<?= $this->assetUrl('css/stylesLogin.css') ?>">
@@ -118,8 +118,8 @@
 					</a>
 
 					<div class="themes">
-							<button type="button" id="theme1">Jour</button>
-							<button type="button" id="theme2">Nuit</button>
+						<button type="button" id="theme1">Jour</button>
+						<button type="button" id="theme2">Nuit</button>
 					</div>
 				
 					<nav id="navlaterale" class="categories">
