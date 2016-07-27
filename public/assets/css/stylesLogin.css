@@ -403,7 +403,7 @@ h1 {
 
 main {
    position: relative;
-   min-height: 800px;
+   min-height: 950px;
 }
 
 div.alert {
@@ -414,7 +414,7 @@ div.alert {
 }
 
 .materialContainer {
-   top: 60%;
+   top: 50%;
    z-index: 2;
 }
 
