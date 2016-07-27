@@ -40,13 +40,13 @@
 
 	<!-- Styles footer -->
 	<?php if($this->e($title) == "Recherche avancée"){ ?>
-		<!-- <link rel="stylesheet" href="#"> -->
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/rechercheAvancee.css') ?>">
 	<?php } ?>
 	<?php if($this->e($title) == "Contact"){ ?>
-		<!-- <link rel="stylesheet" href="#"> -->
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/contact.css') ?>">
 	<?php } ?>
 	<?php if($this->e($title) == "S'inscrire à la newsletter"){ ?>
-		<!-- <link rel="stylesheet" href="#"> -->
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/newsletter.css') ?>">
 	<?php } ?>
 
 	<!-- Style pages erreur -->
