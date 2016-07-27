@@ -210,7 +210,6 @@ footer{
     width: 25%;
     top: 0;
     right: 0;
-    /* bottom: 0; */
     background-color: rgba(200,220,230,0.6);
     border-left: 1px ridge #DBDCDC;
 }

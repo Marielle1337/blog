@@ -39,15 +39,15 @@
 	<?php } ?>
 
 	<!-- Styles footer -->
-		<?php if($this->e($title) == "Recherche avancée"){ ?>
-			<!-- <link rel="stylesheet" href="#"> -->
-		<?php } ?>
-		<?php if($this->e($title) == "Contact"){ ?>
-			<!-- <link rel="stylesheet" href="#"> -->
-		<?php } ?>
-		<?php if($this->e($title) == "S'inscrire à la newsletter"){ ?>
-			<!-- <link rel="stylesheet" href="#"> -->
-		<?php } ?>
+	<?php if($this->e($title) == "Recherche avancée"){ ?>
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/rechercheAvancee.css') ?>">
+	<?php } ?>
+	<?php if($this->e($title) == "Contact"){ ?>
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/contact.css') ?>">
+	<?php } ?>
+	<?php if($this->e($title) == "S'inscrire à la newsletter"){ ?>
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/newsletter.css') ?>">
+	<?php } ?>
 
 	<!-- Style pages erreur -->
 	<?php if($this->e($title) == "Perdu ?"){ ?>
@@ -123,42 +123,42 @@
 					<strong>Créez vos images et racontez vos histoires</strong>
 				</div>
 
-			</div>
-			<aside id="navdroite">
-				<a href="<?=$this->url('subscription')?>">
-					<img id="news" src="<?= $this->assetUrl('img/news.png') ?>" alt="Inscription à la Newsletter">
-				</a>
-
-				<div class="themes">
-					<button type="button" id="theme1">Jour</button>
-					<button type="button" id="theme2">Nuit</button>
-				</div>
-			
-				<nav id="navlaterale" class="categories">
-					<ul>
-						<h3> Catégories </h3>
-						<?php foreach ($categories as $category) { ?>
-							<li><a href="<?=$this->url('category', array('id' => $category['id'])) ?>" title="<?= $category['name'] ?>"><?= $category['name'] ?></a></li>
-						<?php } ?>
-					</ul>
-
-					<?php //if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
-
-						<ul>
-							<h3 id="gestion"> Gestion </h3>
-		                    <li> <a href="<?= $this->url('add') ?>"> Ajouter un article </a> </li>
-		                    <li> <a href="<?= $this->url('liste') ?>"> Gérer les articles </a> </li>
-		                    <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
-		                    <li> <a href="<?= $this->url('newsletter') ?>">Créer une newsletter </a> </li>
-		                </ul>
-	                <?php //} ?>
-				</nav>
-				<div class="top">
-					<a id='topButton' href="#top" >
-						<img class="top" src="<?= $this->assetUrl('img/haut.png') ?>">
+				<aside id="navdroite">
+					<a href="<?=$this->url('subscription')?>">
+						<img id="news" src="<?= $this->assetUrl('img/news.png') ?>" alt="Inscription à la Newsletter">
 					</a>
-				</div>
-			</aside>
+
+					<div class="themes">
+						<button type="button" id="theme1">Jour</button>
+						<button type="button" id="theme2">Nuit</button>
+					</div>
+				
+					<nav id="navlaterale" class="categories">
+						<ul>
+							<h3> Catégories </h3>
+							<?php foreach ($categories as $category) { ?>
+								<li><a href="<?=$this->url('category', array('id' => $category['id'])) ?>" title="<?= $category['name'] ?>"><?= $category['name'] ?></a></li>
+							<?php } ?>
+						</ul>
+
+						<?php //if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
+
+							<ul>
+								<h3 id="gestion"> Gestion </h3>
+			                    <li> <a href="<?= $this->url('add') ?>"> Ajouter un article </a> </li>
+			                    <li> <a href="<?= $this->url('liste') ?>"> Gérer les articles </a> </li>
+			                    <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
+			                    <li> <a href="<?= $this->url('newsletter') ?>">Créer une newsletter </a> </li>
+			                </ul>
+		                <?php //} ?>
+					</nav>
+					<div class="top">
+						<a id='topButton' href="#top" >
+							<img class="top" src="<?= $this->assetUrl('img/haut.png') ?>">
+						</a>
+					</div>
+				</aside>
+			</div>
 			
 		</header>
 
@@ -180,6 +180,7 @@
         </div>
 
         <footer>
+        	
         	<div class="container">
 		
 				<p class="copyright"> &copy  2016 Créez vos images et racontez vos histoires </p>
@@ -199,6 +200,7 @@
 
 				</div>
 			</div>
+
         </footer>
 	
 </body>
