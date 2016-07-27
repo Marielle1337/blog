@@ -39,15 +39,15 @@
 	<?php } ?>
 
 	<!-- Styles footer -->
-	<?php if($this->e($title) == "Recherche avancée"){ ?>
-		<!-- <link rel="stylesheet" href="#"> -->
-	<?php } ?>
-	<?php if($this->e($title) == "Contact"){ ?>
-		<!-- <link rel="stylesheet" href="#"> -->
-	<?php } ?>
-	<?php if($this->e($title) == "S'inscrire à la newsletter"){ ?>
-		<!-- <link rel="stylesheet" href="#"> -->
-	<?php } ?>
+		<?php if($this->e($title) == "Recherche avancée"){ ?>
+			<!-- <link rel="stylesheet" href="#"> -->
+		<?php } ?>
+		<?php if($this->e($title) == "Contact"){ ?>
+			<!-- <link rel="stylesheet" href="#"> -->
+		<?php } ?>
+		<?php if($this->e($title) == "S'inscrire à la newsletter"){ ?>
+			<!-- <link rel="stylesheet" href="#"> -->
+		<?php } ?>
 
 	<!-- Style pages erreur -->
 	<?php if($this->e($title) == "Perdu ?"){ ?>
