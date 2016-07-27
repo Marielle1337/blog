@@ -6,7 +6,9 @@
 	<article>
 		<h2><?= $article['title'] ?></h2>
 		<div><?php echo date('d/m/Y', strtotime($article['dateCreated'])) ?></div>
-		<p><?= substr($article['content'], 0, 255) ?>... <a href="<?= $this->url('article', array('id' => $article['id'])) ?>"> Lire la suite </a></p>
+		<?php if($article['picture']) { echo '<img class="banniere" src="'.$this->assetUrl('/uploads/'.$article['picture']).'">'; } ?>
+		<p><?php echo substr($article['content'], 0, 455) ?>... <a href="<?= $this->url('article', array('id' => $article['id'])) ?>"> Lire la suite </a></p>
 	</article>
 	<?php } ?>
+	<?php if(count($find) < 1) { echo '<p> Aucun article ne correspond à votre recherche </p>'; } ?>
 <?php $this->stop('main_content') ?>

@@ -45,6 +45,9 @@ class SubscriptionController extends Controller
 
                 
             } else {
+
+                $this->searchBar();
+
                 // Si j'ai des erreurs
                 $this->show('mail/subscription', ['errors' => $errors, 'categories' => BlogController::categoriesMenu()]);
             }
@@ -55,6 +58,8 @@ class SubscriptionController extends Controller
             $this->redirectToRoute('unsubscribe', ['email'=>$_POST['email']]);
 
         } 
+
+        $this->searchBar();
 
         $this->show('mail/subscription', ['categories' => BlogController::categoriesMenu()]);
     }
@@ -69,6 +74,16 @@ class SubscriptionController extends Controller
         $_SESSION['flash'] = 'Vous n\'êtes plus abonné à la newsletter.';
 
         $this->redirectToRoute('subscription');
+    }
+
+    private function searchBar()
+    {
+        if (isset($_GET['search'])) {
+            $searchManager = new\Manager\BlogManager();
+            $find = $searchManager->searchByKeyWord($keyword = $_GET['toSearch']);
+
+            $this->show('blog/search', ['find'=>$find, 'categories' => BlogController::categoriesMenu()]);
+        }
     }
     
 }

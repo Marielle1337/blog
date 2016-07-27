@@ -100,6 +100,8 @@ class UserController extends Controller
             }
         }
 
+        $this->searchBar();
+
         $this->show('blog/connection', ['categories' => BlogController::categoriesMenu()]);
     }
 
@@ -108,6 +110,9 @@ class UserController extends Controller
         $manager = new \Manager\BlogManager();
         $manager->setTable('whoIAm');
         $pres = $manager-> findAll();
+
+        $this->searchBar();
+
         $this->show('blog/aboutMe', ['pres'=>$pres, 'categories' => BlogController::categoriesMenu()]);
     }
 
@@ -161,10 +166,15 @@ class UserController extends Controller
                     $this->sendRecoveryLink($_POST['email'], $token);
                 }
             }
+
+            $this->searchBar();
+
             // Si j'ai une erreur
             $this->show('blog/lostPassword', ['errors' => $errors, 'categories' => BlogController::categoriesMenu()]);
         }
         
+        $this->searchBar();
+
         $this->show('blog/lostPassword', ['categories' => BlogController::categoriesMenu()]);
     }
 
@@ -267,9 +277,25 @@ class UserController extends Controller
                 $passUpdated = true;
                 $this->redirectToRoute('login');
             }
+
+            $this->searchBar();
+
             // Si j'ai une erreur
             $this->show('blog/resetPassword', ['errors' => $errors, 'categories' => BlogController::categoriesMenu()]);
         }
+
+        $this->searchBar();
+
         $this->show('blog/resetPassword.php', ['categories' => BlogController::categoriesMenu()]);
+    }
+
+    private function searchBar()
+    {
+        if (isset($_GET['search'])) {
+            $searchManager = new\Manager\BlogManager();
+            $find = $searchManager->searchByKeyWord($keyword = $_GET['toSearch']);
+
+            $this->show('blog/search', ['find'=>$find, 'categories' => BlogController::categoriesMenu()]);
+        }
     }
 }

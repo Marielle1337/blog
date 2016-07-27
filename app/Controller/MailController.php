@@ -14,7 +14,9 @@ class MailController extends Controller
         $managerNewsletters = new \Manager\MailManager();
         $managerNewsletters->setTable('newsletters');
         $newsletters = $managerNewsletters -> findAll($orderBy = "sendDate", $orderDir = "DESC");
-        //$this->searchBar();// je te garde quand meme ta searchbar ???
+
+        $this->searchBar();;
+
         $this->show('mail/archive', ['newsletters'=>$newsletters, 'categories' => BlogController::categoriesMenu()]);
     }
     
@@ -78,11 +80,17 @@ class MailController extends Controller
 
                 $this->redirectToRoute('newsletter');
             } else {
+
+                $this->searchBar();
+
                 // Si j'ai des erreurs
                 $this->show('mail/newsletter', ['errors' => $errors, 'title'=>$title, 'sendDate'=>$sendDate, 'content'=>$content, 'news'=>$news]);
             } 
 
         }else{
+
+            $this->searchBar();
+
             // premier acces a la page
             $this->show('mail/newsletter', ['categories' => BlogController::categoriesMenu()]);
         }
@@ -168,10 +176,14 @@ class MailController extends Controller
 
                 $this->redirectToRoute('archive');
             } else {
+
+                $this->searchBar();
+
                 $this->show('mail/editNewsletter', ['newsletter'=>$newsletter, 'errors'=>$errors, 'categories' => BlogController::categoriesMenu()]);
             }
         }
 
+        $this->searchBar();
 
         $this->show('mail/editNewsletter', ['newsletter'=>$newsletter, 'categories' => BlogController::categoriesMenu()]);
     }
@@ -203,7 +215,18 @@ class MailController extends Controller
             }
         }
 
+        $this->searchBar();
+
         $this->show('blog/contact', ['categories' => BlogController::categoriesMenu()]);
     }
     
+    private function searchBar()
+    {
+        if (isset($_GET['search'])) {
+            $searchManager = new\Manager\BlogManager();
+            $find = $searchManager->searchByKeyWord($keyword = $_GET['toSearch']);
+
+            $this->show('blog/search', ['find'=>$find, 'categories' => BlogController::categoriesMenu()]);
+        }
+    }
 }
