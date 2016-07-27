@@ -115,12 +115,31 @@ class BlogController extends Controller
         // Liste les articles
         $managerArticles = new \Manager\BlogManager();
         $managerArticles->setTable('articles');
-        $articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit = 5);
+
+        // On met dans une variable le nombre de messages qu'on veut par page
+        $nombreDArticlesParPage = 5; // Essayez de changer ce nombre pour voir :o)
+        // On récupère le nombre total de messages
+        $totalDesArticles = $managerArticles->pagination();
+        // On calcule le nombre de pages à créer
+        $nombreDePages  = ceil($totalDesArticles / $nombreDArticlesParPage);
+        // Puis on fait une boucle pour écrire les liens vers chacune des pages
+                 
+        if (isset($_GET['page'])) {
+            $page = $_GET['page']; // On récupère le numéro de la page indiqué dans l'adresse
+        } else {
+            // La variable n'existe pas, c'est la première fois qu'on charge la page
+            $page = 1; // On se met sur la page 1 (par défaut)
+        }
+          
+        // On calcule le numéro du premier message qu'on prend pour le LIMIT de MySQL
+        $premierArticleAafficher = ($page - 1) * $nombreDArticlesParPage;
+    
+        $articles = $managerArticles->findAll($orderBy = 'dateCreated', $orderDir = 'DESC', $limit = $premierArticleAafficher, $offset = $nombreDArticlesParPage);
 		
         // Recherche par mot clé
         $this->searchBar(); 
         
-        $this->show('blog/home', ['articles'=>$articles, 'categories' => BlogController::categoriesMenu()]);
+        $this->show('blog/home', ['articles'=>$articles, 'categories' => BlogController::categoriesMenu(), 'pages'=>$nombreDePages]);
     }
 
     public function add()// ajouter un article

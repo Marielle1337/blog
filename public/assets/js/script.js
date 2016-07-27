@@ -118,11 +118,40 @@ $(function(){
             p.css('display', 'block');
         }
  
-         
-     
     });
  
 });
+
+var getUrlParameter = function getUrlParameter(sParam) {
+  var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+      sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
+
+  for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : sParameterName[1];
+      }
+  }
+};
+
+$(function(){
+
+  if(getUrlParameter('page') == 1){
+    $('ul.pagination>li:first-child').addClass('disabled');
+  } else {
+   $('ul.pagination>li:first-child').removeClass('disabled'); 
+  }
+
+  if($('ul.pagination>li:last-child>a').attr('href') == "?page=0") {
+    $('ul.pagination>li:last-child').addClass('disabled');
+  } else {
+    $('ul.pagination>li:last-child').removeClass('disabled');
+  }
+
+})
 
 // API Instagram
 // var token = '2041609864.cfc5a53.7027f5823fdf4308a2f830d97085817b',

@@ -90,5 +90,14 @@ class BlogManager extends Manager
 
 		return $stmt->fetchAll();
 	}
+
+	public function pagination()
+	{
+		$sql = 'SELECT COUNT(id) AS nb_messages FROM articles';
+
+		$stmt = $this->dbh->query($sql);
+
+		return $stmt->fetchColumn(0);
+	}
         
 }

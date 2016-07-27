@@ -15,6 +15,23 @@
 	</article>
 	<?php } ?>
 
+	<nav aria-label="...">
+	  <ul class="pagination">
+	    <li><a href="?page=<?= $_GET['page'] - 1 ?>" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+	
+	    <?php for ($i = 1 ; $i <= $pages ; $i++) {
+           echo '<li><a href="?page=' . $i . '">' . $i . '<span class="sr-only">(current)</span></a></li></a> ';
+        } ?>
+
+        <li><a href="?page=<?php if($_GET['page'] >= $pages) { echo 0; } 
+        						else { echo $_GET['page'] + 1; } ?>" 
+        			aria-label="Next"><span aria-hidden="true">&raquo;</span>
+        	</a>
+        </li>
+
+	  </ul>
+	</nav>
+
 <?php $this->stop('main_content') ?>
 
 
