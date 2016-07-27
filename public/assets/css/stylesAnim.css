@@ -81,3 +81,19 @@ h4 {
   margin-bottom: 3px;
   margin-top: 10px;
 }
+
+/* API Instagram */
+ul#rudr_instafeed li {
+  float: left;
+}
+
+ul#rudr_instafeed li img {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+ul#rudr_instafeed::after {
+  content: '';
+  display: block;
+  clear: both;
+}

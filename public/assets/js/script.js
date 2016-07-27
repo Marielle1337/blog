@@ -118,8 +118,6 @@ $(function(){
             p.css('display', 'block');
         }
  
-         
-     
     });
  
 });
