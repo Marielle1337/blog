@@ -102,7 +102,9 @@
 				    	<img id="logoseul" src="<?= $this->assetUrl('img/Logoseul.png') ?>">
 		  			</div>
 				</div>
-				<strong>Créez vos images et racontez vos histoires</strong>
+				<div class="catchPhrase">
+					<strong>Créez vos images et racontez vos histoires</strong>
+				</div>
 
 				<aside id="navdroite">
 					<a href="<?=$this->url('subscription')?>">

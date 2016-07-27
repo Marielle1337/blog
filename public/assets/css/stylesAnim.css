@@ -7,7 +7,7 @@ Translation et interchangement entre Logo et image de l'auteur*/
   width: 100px;
   position: relative;
   top: 10px;
-  left: 8%;
+  left: 5%;
   float: left;
   overflow: hidden;
   -webkit-transform: translate(-50%);
