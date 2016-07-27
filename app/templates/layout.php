@@ -38,6 +38,17 @@
 		<link rel="stylesheet" href="<?= $this->assetUrl('css/stylesLogin.css') ?>">
 	<?php } ?>
 
+	<!-- Styles footer -->
+	<?php if($this->e($title) == "Recherche avancée"){ ?>
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/rechercheAvancee.css') ?>">
+	<?php } ?>
+	<?php if($this->e($title) == "Contact"){ ?>
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/contact.css') ?>">
+	<?php } ?>
+	<?php if($this->e($title) == "S'inscrire à la newsletter"){ ?>
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/newsletter.css') ?>">
+	<?php } ?>
+
 	<!-- Style pages erreur -->
 	<?php if($this->e($title) == "Perdu ?"){ ?>
 		<link rel="stylesheet" href="<?= $this->assetUrl('css/errors.css') ?>">
@@ -130,7 +141,7 @@
 							<?php } ?>
 						</ul>
 
-						<?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
+						<?php //if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
 
 							<ul>
 								<h3 id="gestion"> Gestion </h3>
@@ -139,7 +150,7 @@
 			                    <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
 			                    <li> <a href="<?= $this->url('newsletter') ?>">Créer une newsletter </a> </li>
 			                </ul>
-		                <?php } ?>
+		                <?php //} ?>
 					</nav>
 					<div class="top">
 						<a id='topButton' href="#top" >
@@ -169,6 +180,7 @@
         </div>
 
         <footer>
+        	
         	<div class="container">
 		
 				<p class="copyright"> &copy  2016 Créez vos images et racontez vos histoires </p>
@@ -188,6 +200,7 @@
 
 				</div>
 			</div>
+
         </footer>
 	
 </body>

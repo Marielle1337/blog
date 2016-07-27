@@ -12,7 +12,6 @@ html, body {
 	background-color: #272822;
 	color: #F8F8F2;
 }
-
 .container {
 	padding: 0px;
 }
@@ -67,14 +66,7 @@ a{
 ul li {
 	list-style-type: none;
 	list-style-position: outside;
-	text-align: center;
-}
-
-aside ul li {
 	text-align:initial;
-	width: 40%;
-	margin: auto;
-	padding: 5px;
 }
 
 label {
@@ -84,6 +76,13 @@ label {
 input, button, select {
 	color: #272822;
 	display: inline;
+}
+
+aside ul li {
+	text-align:initial;
+	width: 40%;
+	margin: auto;
+	padding: 5px;
 }
 
 input, textarea{
@@ -163,8 +162,10 @@ footer{
 
 
 /******** partie responsive *************/
-@media screen and (max-width: 1050px) {
-
+@media screen and (max-width: 1080px) {
+    #navdroite, .top{
+    	display:none;
+    }
     .navbar-header {
         float: none;
     }
@@ -200,11 +201,6 @@ footer{
   		display:block !important;
 	}
 }
-@media screen and (max-width: 1080px) {
-	#navdroite{
-		display:none;
-	}
-}
 /****** fin de la partie responsive *****/
 
 
@@ -216,7 +212,6 @@ footer{
     width: 25%;
     top: 0;
     right: 0;
-    bottom: 0;
     background-color: rgba(200,220,230,0.6);
     border-left: 1px ridge #DBDCDC;
 }
@@ -229,8 +224,6 @@ aside>a{
 	box-shadow: none;
 	display:block;
 	text-align:center;
-	max-height:50px;
-	max-width:120px;
 }
 
 /* bouton de themes */
@@ -255,14 +248,14 @@ aside>a{
 	border-radius: 50%;
 	height: 50px;
 	width: 50px;
-	border: 3px solid #66D9EF;
-	background-color: #272822;
-	color: #F8F8F2;
+	border: 3px solid #272822;
+	background-color: #66D9EF;
+	color: #272822;
 	float: right;
 }
 
 /* liste des Catégories */
-#navlaterale, h3{
+#navlaterale, aside ul h3{
 	margin-top: 50px;
 	color: #2E2E2E;		
 	font-size: 1.5rem;
@@ -278,13 +271,18 @@ aside>a{
 	color: #2E2E2E;
 	font-variant: small-caps;
 	text-decoration: none;
+	text-align: center;
 }
 
 ul{
 	list-style: none;
-	display:block;	
+	display:block;
 	margin-top:50px;
 	padding-left:0px;
+}
+
+fieldset legend {
+	padding-top: 20px;
 }
 
 /* Retour en haut de page */

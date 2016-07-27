@@ -11,8 +11,6 @@
                 Aucun email n'est renseigné
                 <?php endif; ?>
             </label>
-
-            </br>
             <button type="submit" name="subscription">Je m'inscris à la newsletter</button>
 
         </fieldset>    
@@ -29,8 +27,6 @@
                 Aucun email n'est renseigné
                 <?php endif; ?>
             </label>
-
-            </br>
             <button type="submit" name="unsubscribe">Me désincrire</button>
 
         </fieldset>    

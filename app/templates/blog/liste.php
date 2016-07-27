@@ -3,7 +3,8 @@
 <?php $this->start('main_content') ?>
 <?php //print_r($_SESSION) ?>
 <section id="buttons">
-    <a href="<?= $this->url('add') ?>"><div id="add-button">Ajouter un article</div></a>
+    <a href="<?= $this->url('add') ?>"><i class="fa fa-plus" aria-hidden="true"></i>
+    <span id="add-button">Ajouter un article</span></a>
 </section>
 
 <section id="tasks" class="list">
