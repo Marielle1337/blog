@@ -168,7 +168,7 @@ class MailController extends Controller
 
                 $this->redirectToRoute('archive');
             } else {
-                $this->show('mail/editNewsletter', ['newsletter'=>$newsletter, 'errors'=>$errors, , 'categories' => BlogController::categoriesMenu()]);
+                $this->show('mail/editNewsletter', ['newsletter'=>$newsletter, 'errors'=>$errors, 'categories' => BlogController::categoriesMenu()]);
             }
         }
 

@@ -18,6 +18,7 @@ class ComposerStaticInitdb61c0e635d657fd1dd2feaa2f0cd62a
         'T' => 
         array (
             'TrueBV\\' => 7,
+            'TiBeN\\' => 6,
         ),
         'L' => 
         array (
@@ -34,6 +35,10 @@ class ComposerStaticInitdb61c0e635d657fd1dd2feaa2f0cd62a
         'TrueBV\\' => 
         array (
             0 => __DIR__ . '/..' . '/true/punycode/src',
+        ),
+        'TiBeN\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tiben/crontab-manager/src',
         ),
         'League\\Url\\' => 
         array (

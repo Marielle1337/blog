@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f1552de7fb4e35c5e1385d2a1f786915",
-    "content-hash": "524f6d3617858aa697b0c1113cbe226f",
+    "hash": "01624ce11dfbfc17915caa14f77b9d7f",
+    "content-hash": "78954d7688ad30201cdd88b243739271",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -361,6 +361,46 @@
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "time": "2016-06-06 09:09:37"
+        },
+        {
+            "name": "tiben/crontab-manager",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TiBeN/CrontabManager.git",
+                "reference": "e0e12c94e8b065ed07811b65f00d3fb00eab003e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TiBeN/CrontabManager/zipball/e0e12c94e8b065ed07811b65f00d3fb00eab003e",
+                "reference": "e0e12c94e8b065ed07811b65f00d3fb00eab003e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TiBeN\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Legendre",
+                    "email": "legendre.benjamin@gmail.com"
+                }
+            ],
+            "description": "A library for managing linux cron jobs.",
+            "keywords": [
+                "crontab",
+                "scheduling"
+            ],
+            "time": "2014-05-17 15:12:24"
         },
         {
             "name": "true/punycode",

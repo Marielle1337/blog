@@ -32,7 +32,13 @@
 	<!-- Animation logo -->
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/stylesAnim.css') ?>">
 
-	<!-- Mes feuilles de style -->
+	<!-- Animation connexion -->
+	<?php if($this->e($title) == "Authentification"){ ?>
+		<script type="text/javascript" src="<?= $this->assetUrl('js/scriptLogin.js') ?>" defer></script>
+		<link rel="stylesheet" href="<?= $this->assetUrl('css/stylesLogin.css') ?>">
+	<?php } ?>
+
+	<!-- Style pages erreur -->
 	<?php if($this->e($title) == "Perdu ?"){ ?>
 		<link rel="stylesheet" href="<?= $this->assetUrl('css/errors.css') ?>">
 	<?php } ?>

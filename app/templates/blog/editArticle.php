@@ -18,18 +18,20 @@
         <textarea id="article" name="content" class="admin" ><?= $article['content'] ?></textarea>
 	</label>   
     
-        <label for="">
-            <figure>
-                <img src="/public/assets/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
-            </figure>
-            <?php if (isset($errors['picture']['empty'])): ?>
-            Bannière inexistante
-            <?php endif; ?>
-            <input id="image" type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
-        </label>
-            
-        <button type="submit" name="editArticle">Editer</button>
+    <label for="">
+        <figure>
+            <img src="/public/assets/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
+        </figure>
+        <?php if (isset($errors['picture']['empty'])): ?>
+        Bannière inexistante
+        <?php endif; ?>
+        <input id="image" type="file" name="picture" src="/uploads/<?= $article['picture'] ?>">
+    </label>
         
+    <button type="submit" name="editArticle">Editer</button>
+        
+    <button type="submit" name="editArticle">Editer</button>
+    
 
 </form>
 

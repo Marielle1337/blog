@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'W\\' => array($baseDir . '/W'),
     'TrueBV\\' => array($vendorDir . '/true/punycode/src'),
+    'TiBeN\\' => array($vendorDir . '/tiben/crontab-manager/src'),
     'League\\Url\\' => array($vendorDir . '/league/url/src'),
     'League\\Plates\\' => array($vendorDir . '/league/plates/src'),
     '' => array($baseDir . '/app'),
