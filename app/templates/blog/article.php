@@ -17,17 +17,17 @@
     <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
     <fieldset> <legend>Ajouter un commentaire</legend>
         
-        <label>
-            <input type="text" name="author"  placeholder="Votre nom" <?php if(isset($_POST['author'])) { echo 'value="'.$_POST['author'].'"';}?> >
+        <label for="auteur">Votre nom
+            <input id="auteur" type="text" name="author"  placeholder="Votre nom" <?php if(isset($_POST['author'])) { echo 'value="'.$_POST['author'].'"';}?> >
             <?php if (isset($errors['author'])) { echo $errors['author'] ;} ?>
         </label>
 
-        <label>
-            <input type="mail" name="email"  placeholder="Votre email (facultatif)" <?php if(isset($_POST['email'])) { echo 'value="'.$_POST['email'].'"';}?>>
+        <label for="email">Email
+            <input id="email" type="mail" name="email"  placeholder="Votre email (facultatif)" <?php if(isset($_POST['email'])) { echo 'value="'.$_POST['email'].'"';}?>>
         </label>
     
-        <label>
-            <textarea name="content" placeholder="Saisir un texte ici."><?php if(isset($_POST['content'])){ echo $_POST['content']; } ?></textarea>
+        <label for="content">Votre commentaire
+            <textarea id="content" name="content" placeholder="Saisir un texte ici."><?php if(isset($_POST['content'])){ echo $_POST['content']; } ?></textarea>
             <?php if (isset($errors['content'])) { echo $errors['content'] ; } ?>
         </label>
 

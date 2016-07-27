@@ -9,13 +9,13 @@
 		<fieldset class='box'>
 			<legend class="title"> Connexion </legend>
 			
-			<label class='input'>
-				<input type="text" name="login" placeholder="Login ou Mail">
+			<label class='input' for="login">Login
+				<input id="login" type="text" name="login" placeholder="Login ou Mail">
 				<?php if(isset($errors['user'])){ echo $errors['user']; } ?>
 			</label>
 		    
-		    <label class='input'>
-		        <input type="password" name="password" placeholder="Mot de passe">
+		    <label class='input' for="password">Mot de passe
+		        <input id="password" type="password" name="password" placeholder="Mot de passe">
 		        <?php if(isset($errors['passwordExist'])){ echo $errors['passwordExist']; } ?>
 			</label>
 
