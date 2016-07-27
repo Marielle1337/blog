@@ -5,16 +5,16 @@
     <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
         <fieldset>
 
-            <label for="titre">
+            <label for="titre"> Titre
                 <?php if (isset($errors['title'])) { echo $errors['title']; } ?>
                 <input id="titre" type="text" name="title" value="<?= $newsletter['title'] ?>">
             </label> 
 
-            <label for="date">
+            <label for="date"> Date
                 <input id="date" type="text" name="sendDate"  value="<?= date('d/m/Y', strtotime($newsletter['sendDate'])) ?>">
             </label>
 
-            <label for="newsletter">
+            <label for="newsletter"> Contenu
                 <?php if (isset($errors['content'])) { echo $errors['content']; } ?>
                 <textarea id="newsletter" name="content" class="admin"><?= $newsletter['content'] ?></textarea>
             </label>

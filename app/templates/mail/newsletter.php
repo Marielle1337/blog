@@ -5,19 +5,19 @@
     <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
         <fieldset> <legend>Ajouter une newsletter</legend>
 
-            <label for="titre">
+            <label for="titre"> Titre
                 <?php if (isset($errors['title'])) { echo $errors['title']; } ?>
-                <input type="text" name="title"  placeholder="Titre" id="titre">
+                <input type="text" name="title"  placeholder="Ma belle newsletter" id="titre">
             </label> 
 
-            <label for="date">
-                Si la date d'envoi n'est pas renseignée, la newsletter sera envoyée immédiatement.<br/>
-                <input type="text" name="sendDate"  placeholder="Date d'envoi" id="date">
+            <label for="date"> Date
+                <span> (Si la date d'envoi n'est pas renseignée, la newsletter sera envoyée immédiatement.)</span>
+                <input type="text" name="sendDate"  placeholder="AAAA-MM-JJ" id="date">
             </label> 
 
-            <label for="newsletter">
+            <label for="newsletter"> Contenu
                 <?php if (isset($errors['content'])) { echo $errors['content']; } ?>
-                <textarea name="content" placeholder="Contenu" class="admin" id="newsletter"></textarea>
+                <textarea name="content" placeholder="Bla bla bla bla bla..." class="admin" id="newsletter"></textarea>
             </label>
             
             <button type="submit" name="addNewsletter">Envoyer votre newsletter</button>

@@ -5,8 +5,8 @@
     <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
         <fieldset><legend> S'abonner de la newsletter </legend>
 
-            <label>
-                <input type="email" name="email"  placeholder="Votre adresse mail">
+            <label for="email">
+                <input id="email" type="email" name="email"  placeholder="Votre adresse mail">
                 <?php if (isset($errors['email']['empty'])): ?>
                 Aucun email n'est renseigné
                 <?php endif; ?>
@@ -23,8 +23,8 @@
 
             <?php if(isset($_SESSION['flash'])) { echo $_SESSION['flash']; } ?>
 
-            <label>
-                <input type="email" name="email"  placeholder="Votre adresse mail">
+            <label for="mail">
+                <input id="mail" type="email" name="email"  placeholder="Votre adresse mail">
                 <?php if (isset($errors['email']['empty'])): ?>
                 Aucun email n'est renseigné
                 <?php endif; ?>

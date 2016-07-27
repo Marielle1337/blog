@@ -9,12 +9,12 @@
 		<fieldset class='box'>
 			<legend class="title"> Connexion </legend>
 			
-			<label class='input'>
+			<label for="log" class='input'>
 				<input type="text" name="login" placeholder="Login ou Mail">
 				<?php if(isset($errors['user'])){ echo $errors['user']; } ?>
 			</label>
 		    
-		    <label class='input'>
+		    <label for="pass" class='input'>
 		        <input type="password" name="password" placeholder="Mot de passe">
 		        <?php if(isset($errors['passwordExist'])){ echo $errors['passwordExist']; } ?>
 			</label>
@@ -34,27 +34,27 @@
 
 			<legend class='title'> Inscription </legend>
 			
-			<label class='input'>
-				<input type="text" name="login" placeholder="Login">
+			<label for="login" class='input'>
+				<input id="login" type="text" name="login" placeholder="Login">
 				<?php if(isset($errors['login'])){ echo $errors['login']; } ?>
 			</label>
 
-			<label class='input'>
-				<input type="text" name="firstname" placeholder="Prénom (facultatif)">
+			<label for="name" class='input'>
+				<input id="name" type="text" name="firstname" placeholder="Prénom (facultatif)">
 				<?php if(isset($errors['firstname'])){ echo $errors['firstname']; } ?>
 			</label>
 
-			<label class='input'>
-				<input type="email" name="email" placeholder="Adresse mail">
+			<label for="email" class='input'>
+				<input id="email" type="email" name="email" placeholder="Adresse mail">
 			</label>
 
-			<label class='input'>
-				<input type="password" name="password" placeholder="Mot de passe">
+			<label for="pass1" class='input'>
+				<input id="pass1" type="password" name="password" placeholder="Mot de passe">
 				<?php if(isset($errors['password'])){ echo $errors['password']; } ?>
 			</label>
 		    
-		    <label class='input'>
-		        <input type="password" name="password2" placeholder="Confirmation mot de passe">
+		    <label for="pass2" class='input'>
+		        <input id="pass2" type="password" name="password2" placeholder="Confirmation mot de passe">
 		        <?php if(isset($errors['confirm_password'])){ echo $errors['confirm_password']; } ?>
 			</label>
 

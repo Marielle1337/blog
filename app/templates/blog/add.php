@@ -3,7 +3,7 @@
 <?php $this->start('main_content') ?>
 <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 	
-	<label for="titre">
+	<label for="titre"> Titre
         <?php if (isset($errors['title'])) { echo $errors['title']; } ?>
 		<input type="text" name="title"  id="titre" placeholder="Titre" <?php if(isset($_POST['title'])) {echo'value="'.$_POST['title'].'"';}?>>
 	</label>
@@ -24,12 +24,12 @@
 	</label>
 
 
-	<label for="article">
+	<label for="article"> Contenu
         <?php if (isset($errors['content'])) { echo $errors['content']; } ?>
         <textarea name="content" class="admin" id="article" placeholder="Saisir un texte ici."><?php if(isset($_POST['content'])){echo $_POST['content'];}?></textarea>
 	</label>
 
-	<label for="auteur">
+	<label for="auteur"> Auteur
 		<input type="text" name="author"  id="auteur" placeholder="Qui êtes-vous ?">
    		(Par défaut l'auteur est Benjamin Cerbai.) 
         <?php if (isset($errors['author'])) { echo $errors['author']; } ?>
