@@ -43,7 +43,7 @@
 
  	<link rel="stylesheet" href="<?= $this->assetUrl('css/style1.css') ?>" title="standard">
 	<link rel="alternate stylesheet" href="<?= $this->assetUrl('css/style.css') ?>" title="eco">
-	<!-- <link rel="stylesheet" href="<?= $this->assetUrl('css/styles.css') ?>"> -->
+	
 
 </head>
 <body id="top">
@@ -93,68 +93,66 @@
 				</div>
 			</nav>
                     
-		<div class="container">
+			<div class="container">
+				<div class="wrap">
+				  	<div class="text-part">
+				    	<img id="miniBC" src="<?= $this->assetUrl('img/miniphotoBC.jpeg') ?>">
+				  	</div>
+				  	<div class="image-part">
+				    	<img id="logoseul" src="<?= $this->assetUrl('img/Logoseul.png') ?>">
+		  			</div>
+				</div>
+				<strong>Créez vos images et racontez vos histoires</strong>
 
-			<div class="wrap">
-			  	<div class="text-part">
-			    	<img id="miniBC" src="img/miniphotoBC.jpeg">
-			  	</div>
-			  	<div class="image-part">
-			    	<img id="logoseul" src="img/Logoseul.png">
-	  			</div>
+				<aside id="navdroite">
+					<a href="<?=$this->url('subscription')?>">
+						<img id="news" src="<?= $this->assetUrl('img/news.png') ?>" alt="Inscription à la Newsletter">
+					</a>
+
+					<div class="themes">
+							<button type="button" id="theme1">Jour</button>
+							<button type="button" id="theme2">Nuit</button>
+					</div>
+				
+					<nav id="navlaterale" class="categories">
+						<h3> Catégories </h3>
+						<ul>
+						<?php foreach ($categories as $category) { ?>
+							<li><a href="<?=$this->url('category', array('id' => $category['id'])) ?>" title="<?= $category['name'] ?>"><?= $category['name'] ?></a></li>
+						<?php } ?>
+						</ul>
+
+						<?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
+
+							<h3 id="gestion"> Gestion </h3>
+							<ul>
+			                    <li> <a href="<?= $this->url('add') ?>"> Ajouter un article </a> </li>
+			                    <li> <a href="<?= $this->url('liste') ?>"> Gérer les articles </a> </li>
+			                    <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
+			                    <li> <a href="<?= $this->url('newsletter') ?>">Créer une newsletter </a> </li>
+			                </ul>
+		                <?php } ?>
+					</nav>
+					<div class="top">
+						<a id='topButton' href="#top" >
+							<img class="top" src="<?= $this->assetUrl('img/haut.png') ?>">
+						</a>
+					</div>
+				</aside>
 			</div>
-
-			<strong>Créez vos images et racontez vos histoires</strong>
-
-
-		</div>
+			
 		</header>
 
-		<div class="container">
-			<aside id="navdroite">
-				<a href="<?=$this->url('subscription')?>">
-					<img id="news" src="img/news.png" alt="Inscription à la Newsletter">
-				</a>
-				<div class="themes">
-						<button type="button" id="theme1">Jour</button>
-						<button type="button" id="theme2">Nuit</button>
+
+		<main>
+			<div class="container">
+				<div class="listArticle">
+					<h1><?= $this->e($title) ?></h1>
+					<?= $this->section('main_content') ?>
 				</div>
-			
-				<nav id="navlaterale" class="categories">
-					<h3> Catégories </h3>
-					<ul>
-					<?php foreach ($categories as $category) { ?>
-						<li><a href="<?=$this->url('category', array('id' => $category['id'])) ?>" title="<?= $category['name'] ?>"><?= $category['name'] ?></a></li>
-					<?php } ?>
-					</ul>
-
-					<?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
-
-					<h3 id="gestion"> Gestion </h3>
-					<ul>
-	                    <li> <a href="<?= $this->url('add') ?>"> Ajouter un article </a> </li>
-	                    <li> <a href="<?= $this->url('liste') ?>"> Gérer les articles </a> </li>
-	                    <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
-	                    <li> <a href="<?= $this->url('newsletter') ?>">Créer une newsletter </a> </li>
-	                </ul>
-	                <?php } ?>
-				</nav>
-			</aside>
-		</div>
-
-		<div class="container">
-			<main>
-				<h1><?= $this->e($title) ?></h1>
-				<?= $this->section('main_content') ?>
-			</main>
-
-		</div>
+			</div>
+		</main>
 		<!-- Lien retour en Haut de la page -->
-		<div class="top">
-			<a id='topButton' href="#top" >
-				<img class="top" src="img/haut.png">
-			</a>
-		</div>
 
 		<!--  Information sur l'utilisation des cookies-->
 		<div class="alert alert-info">
