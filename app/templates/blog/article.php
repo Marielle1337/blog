@@ -26,8 +26,8 @@
             <input id="email" type="mail" name="email"  placeholder="ex. monemail@mail.fr" <?php if(isset($_POST['email'])) { echo 'value="'.$_POST['email'].'"';}?>>
         </label>
     
-        <label for="content"> Contenu
-            <textarea name="content" placeholder="Saisir un texte ici."><?php if(isset($_POST['content'])){ echo $_POST['content']; } ?></textarea>
+        <label for="content">Votre commentaire
+            <textarea id="content" name="content" placeholder="Saisir un texte ici."><?php if(isset($_POST['content'])){ echo $_POST['content']; } ?></textarea>
             <?php if (isset($errors['content'])) { echo $errors['content'] ; } ?>
         </label>
 

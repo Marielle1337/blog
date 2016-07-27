@@ -4,7 +4,9 @@
 
     <section>
         <form method="POST" action="#" >
-            <label>Email : <input type="email" name="email" placeholder="E-mail"></label>
+            <label for="email">Email :
+                <input id="email" type="email" name="email" placeholder="E-mail">
+            </label>
             <?php if (isset($errors['email'])) :
                 if (isset($errors['email']['empty'])) : ?>
                     <div class="error">Le mail doit être rempli</div>

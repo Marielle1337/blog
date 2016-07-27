@@ -4,21 +4,21 @@
 <?php //print_r($articles); ?>
 <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 
-	<label for="titre">
+	<label for="titre">Titre
 		<?php if (isset($errors['title']['empty'])): ?>
 		Titre non renseigné
 		<?php endif; ?>
 		<input id="titre" type="text" name="title" value="<?= $article['title'] ?>">
 	</label>
     
-	<label for="article">
+	<label for="article">Article
         <?php if (isset($errors['content']['empty'])): ?>
                 Contenu inexistant
         <?php endif; ?>
         <textarea id="article" name="content" class="admin" ><?= $article['content'] ?></textarea>
 	</label>   
     
-    <label for="">
+    <label for="image">Bannière de l'article
         <figure>
             <img src="/public/assets/uploads/<?php echo $article['picture'] ?>" alt="" /> Figure
         </figure>
