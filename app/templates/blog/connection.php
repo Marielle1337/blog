@@ -12,13 +12,11 @@
 			<label class='input'>
 				<input type="text" name="login" placeholder="Login ou Mail">
 				<?php if(isset($errors['user'])){ echo $errors['user']; } ?>
-				<span class="spin"></span>
 			</label>
 		    
 		    <label class='input'>
 		        <input type="password" name="password" placeholder="Mot de passe">
 		        <?php if(isset($errors['passwordExist'])){ echo $errors['passwordExist']; } ?>
-		        <span class="spin"></span>
 			</label>
 
 			<div class="button login">
@@ -62,7 +60,7 @@
 
 			<label for="newsletter" class='input'>
 	            <input type="checkbox" name="newsletter" id="newsletter" value="1">
-	            Je souhaite m'abonner à la newsletter
+	            <span> Je souhaite m'abonner à la newsletter </span>
 	            <?php if (isset($errors['newsletter'])) { echo $errors['newsletter']; } ?>
 	        </label>
 
