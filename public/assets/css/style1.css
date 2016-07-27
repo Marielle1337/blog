@@ -70,6 +70,12 @@ input, button, select {
 	display: inline;
 }
 
+aside ul li {
+	text-align:initial;
+	width: 40%;
+	margin: auto;
+}
+
 input[name='title'], textarea[name='content'], input[name='email']{
 	width: 100%;
 	display: block;
@@ -80,7 +86,9 @@ input[type='file']{
 	display: inline;
 }
 
-
+#news {
+	width: 180px;
+}
 
 section ul li p {
   display: none;
@@ -201,7 +209,7 @@ aside>a{
 
 /* bouton de themes */
 .themes{
-	width: 50%;
+	width: 40%;
 	margin: auto;
 	margin-top: 50px;
 	text-align:center;
@@ -211,9 +219,9 @@ aside>a{
 	border-radius: 50%;
 	height: 50px;
 	width: 50px;
-	border: 3px solid #FFF;
-	background-color: #337ab7;
-	color: #FFF;
+	border: 3px solid #337ab7;
+	background-color: #FFF;
+	color: #337ab7;
 	float: left;
 }
 
@@ -221,9 +229,9 @@ aside>a{
 	border-radius: 50%;
 	height: 50px;
 	width: 50px;
-	border: 3px solid #66D9EF;
-	background-color: #272822;
-	color: #F8F8F2;
+	border: 3px solid #272822;
+	background-color: #66D9EF;
+	color: #272822;
 	float: right;
 }
 
