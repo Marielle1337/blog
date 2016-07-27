@@ -281,6 +281,10 @@ ul{
 	padding-left:0px;
 }
 
+fieldset legend {
+	padding-top: 20px;
+}
+
 /* Retour en haut de page */
 .top{	
 	width: 40px;
