@@ -77,7 +77,7 @@ aside ul li {
 	padding: 5px;
 }
 
-input[name='title'], textarea[name='content'], input[name='email']{
+input, textarea{
 	width: 100%;
 	display: block;
 	color: #000;
