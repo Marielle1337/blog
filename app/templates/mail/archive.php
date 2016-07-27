@@ -3,9 +3,8 @@
 <?php $this->start('main_content') ?>
 <?php //print_r($_SESSION) ?>
 <section id="buttons">
-    <a href="#"><div><i class="fa fa-list" aria-hidden="true"></i></div></a>
-    <a href="<?= $this->url('grid') ?>"><div><i class="fa fa-th" aria-hidden="true"></i></div></a>
-    <a href="<?= $this->url('newsletter') ?>"><div id="add-button">Ajouter</div></a>
+    <a href="<?= $this->url('newsletter') ?>"><i class="fa fa-plus" aria-hidden="true"></i>
+    <span id="add-button">Ajouter</span></a>
 </section>
 
 <section id="tasks" class="list">
@@ -13,7 +12,7 @@
         <?php foreach($newsletters as $newsletter) : ?>
         <li class="task">
             <h3 class="newsletter"><?= $newsletter['title'] ?> </h3>
-             <?= date('d/m/Y', strtotime($newsletter['sendDate'])) . ' : ' .     
+             <?= date('d/m/Y', strtotime($newsletter['sendDate']))  .     
               '<p class="newsletter">'.  $newsletter['content']  .'</p>' ?>
             <a href="<?= $this->url('editNewsletter', ['id'=>$newsletter['id']])?>"> Modifier la newsletter </a> 
         </li>

@@ -64,7 +64,7 @@ a{
 ul li {
 	list-style-type: none;
 	list-style-position: outside;
-	text-align:center;
+	text-align:initial;
 }
 
 label {
@@ -254,7 +254,7 @@ aside>a{
 }
 
 /* liste des Catégories */
-#navlaterale, h3{
+#navlaterale, aside ul h3{
 	margin-top: 50px;
 	color: #2E2E2E;		
 	font-size: 1.5rem;
@@ -276,7 +276,6 @@ aside>a{
 ul{
 	list-style: none;
 	display:block;
-	text-align: center;	
 	margin-top:50px;
 	padding-left:0px;
 }
