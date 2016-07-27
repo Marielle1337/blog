@@ -65,7 +65,8 @@ ul li {
 
 aside ul li {
 	text-align:initial;
-	padding-left:150px;
+	width: 40%;
+	margin: auto;
 }
 
 label {
@@ -87,7 +88,9 @@ input[type='file']{
 	display: inline;
 }
 
-
+#news {
+	width: 180px;
+}
 
 section ul li p {
   display: none;
@@ -211,7 +214,7 @@ aside>a{
 
 /* bouton de themes */
 .themes{
-	width: 30%;
+	width: 40%;
 	margin: auto;
 	margin-top: 50px;
 	text-align:center;

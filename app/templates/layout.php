@@ -115,17 +115,17 @@
 					</div>
 				
 					<nav id="navlaterale" class="categories">
-						<h3> Catégories </h3>
 						<ul>
-						<?php foreach ($categories as $category) { ?>
-							<li><a href="<?=$this->url('category', array('id' => $category['id'])) ?>" title="<?= $category['name'] ?>"><?= $category['name'] ?></a></li>
-						<?php } ?>
+							<h3> Catégories </h3>
+							<?php foreach ($categories as $category) { ?>
+								<li><a href="<?=$this->url('category', array('id' => $category['id'])) ?>" title="<?= $category['name'] ?>"><?= $category['name'] ?></a></li>
+							<?php } ?>
 						</ul>
 
 						<?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
 
-							<h3 id="gestion"> Gestion </h3>
 							<ul>
+								<h3 id="gestion"> Gestion </h3>
 			                    <li> <a href="<?= $this->url('add') ?>"> Ajouter un article </a> </li>
 			                    <li> <a href="<?= $this->url('liste') ?>"> Gérer les articles </a> </li>
 			                    <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
