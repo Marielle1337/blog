@@ -2,6 +2,14 @@
 
 <?php $this->start('main_content') ?>
 
+<style> 
+
+    footer, .alert {
+        display: none;
+    }
+
+</style>
+
     <form action="#" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
         <fieldset><legend> S'abonner de la newsletter </legend>
 
