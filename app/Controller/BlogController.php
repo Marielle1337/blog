@@ -67,9 +67,12 @@ class BlogController extends Controller
                     $data =[
                         'author'=>$author,
                         'content'=>$content,
-                        'email'=>$email,
                         'idArticle'=>$idArticle,
                     ];
+
+                    if(isset($email)) {
+                        $data['email'] = $email;
+                    }
 
                     if (strlen($_POST['author']) < 3) {
                         $errors['author'] = 'Le nom renseigné est trop court (minimum 3 caractères)';
@@ -80,10 +83,9 @@ class BlogController extends Controller
                     
                     $managerComments->insert($data);
                     
-                    //vers page 
-                    if (isset($_POST['addComment'])){
+                
                     $this->redirectToRoute('article', ['id'=>$id]);
-                    }
+                    
                
                 } else {
                     // Si j'ai des erreurs
