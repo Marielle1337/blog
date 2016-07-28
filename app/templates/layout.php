@@ -141,7 +141,7 @@
 							<?php } ?>
 						</ul>
 
-						<?php //if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
+						<?php if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') { ?>
 
 							<ul>
 								<h3 id="gestion"> Gestion </h3>
@@ -150,7 +150,7 @@
 			                    <li> <a href="<?= $this->url('archive') ?>"> Gérer les newsletters </a> </li>
 			                    <li> <a href="<?= $this->url('newsletter') ?>">Créer une newsletter </a> </li>
 			                </ul>
-		                <?php //} ?>
+		                <?php } ?>
 					</nav>
 					<div class="top">
 						<a id='topButton' href="#top" >
