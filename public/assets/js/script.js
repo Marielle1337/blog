@@ -137,21 +137,20 @@ var getUrlParameter = function getUrlParameter(sParam) {
   }
 };
 
-$(function(){
 
-  if(getUrlParameter('page') == 1){
-    $('ul.pagination>li:first-child').addClass('disabled');
-  } else {
-   $('ul.pagination>li:first-child').removeClass('disabled'); 
-  }
+// Pagination
+if(getUrlParameter('page') == 1){
+  $('ul.pagination>li:first-child').addClass('disabled');
+} else {
+ $('ul.pagination>li:first-child').removeClass('disabled'); 
+}
 
-  if($('ul.pagination>li:last-child>a').attr('href') == "?page=0") {
-    $('ul.pagination>li:last-child').addClass('disabled');
-  } else {
-    $('ul.pagination>li:last-child').removeClass('disabled');
-  }
+if($('ul.pagination>li:last-child>a').attr('href') == "?page=0") {
+  $('ul.pagination>li:last-child').addClass('disabled');
+} else {
+  $('ul.pagination>li:last-child').removeClass('disabled');
+}
 
-})
 
 // API Instagram
 
